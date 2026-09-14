@@ -82,8 +82,9 @@
         ```
     *   **Añade todos los archivos** a la zona de intercambio.
     *   **Guarda la instantánea actual** de su proyecto con un mensaje descriptivo: `"feat: Configuración inicial de la aplicación y primeras citas"`.
-3.  **Creación del Repositorio Remoto en GitHub (Alumno A - Interfaz Web):**
-    *   El Alumno A accede a GitHub y **crea un nuevo repositorio** con el nombre `quote-generator`. **Importante: No marques la opción "Inicializar este repositorio con un README"**.
+3.  **Creación del Repositorio Remoto en GitHub (Alumno A):**
+    *   **Opción A (gh CLI):** `gh repo create quote-generator --public`
+    *   **Opción B (Web):** El Alumno A accede a GitHub y **crea un nuevo repositorio** con el nombre `quote-generator`. **Importante: No marques la opción "Inicializar este repositorio con un README"**.
     *   Obtiene la URL HTTPS de este nuevo repositorio vacío.
 4.  **Vinculación y Primer Envío al Remoto (Alumno A):**
     *   El Alumno A conecta su repositorio local `quote-generator` con el repositorio remoto de GitHub. Dale el nombre predeterminado para el repositorio remoto (`origin`).
@@ -95,9 +96,9 @@
 **Fase 2: Primera Contribución y Pull Request**
 **(Rol: Alumno B - Colaborador; Alumno A - Mantenedor)**
 
-1.  **Bifurcación (Fork) del Repositorio (Alumno B - Interfaz Web):**
-    *   El Alumno B accede al repositorio `quote-generator` del Alumno A en GitHub.
-    *   **Crea una copia del repositorio en su propia cuenta de GitHub mediante un 'fork'**.
+1.  **Bifurcación (Fork) del Repositorio (Alumno B):**
+    *   **Opción A (gh CLI):** `gh repo fork <usuario-A>/quote-generator --clone`
+    *   **Opción B (Web):** El Alumno B accede al repositorio `quote-generator` del Alumno A en GitHub y crea un fork.
 2.  **Clonación del Fork y Desarrollo de Característica (Alumno B):**
     *   El Alumno B **crea una copia local** de *su propio repositorio bifurcado* (`fork`) en su computadora.
     *   Dentro de este repositorio clonado, **crea una nueva línea de desarrollo** (rama) llamada `feature/add-author-name` y **cambia a ella inmediatamente**.
@@ -117,13 +118,12 @@
     *   **Añade los archivos modificados** a la zona de intercambio.
     *   **Guarda la instantánea** de estos cambios con un mensaje: `"feat: Estructurar citas con texto y autor explícitos"`.
     *   **Envía esta nueva rama `feature/add-author-name` a su repositorio bifurcado** en GitHub.
-3.  **Creación de un Pull Request (Alumno B - Interfaz Web):**
-    *   El Alumno B navega a la interfaz web de GitHub de *su repositorio bifurcado*.
-    *   **Crea una Solicitud de Integración (Pull Request)** desde su rama `feature/add-author-name` hacia la rama `master` del *repositorio original* (del Alumno A). Proporciona un título y una descripción clara.
-4.  **Revisión y Fusión del Pull Request (Alumno A - Interfaz Web y Local):**
-    *   El Alumno A revisa el Pull Request propuesto por el Alumno B en GitHub.
-    *   Asumiendo que los cambios son aceptables, el Alumno A **fusiona el Pull Request** directamente desde la interfaz web de GitHub.
-    *   El Alumno A **elimina la rama `feature/add-author-name`** del repositorio del Alumno B en GitHub (si la opción se presenta).
+3.  **Creación de un Pull Request (Alumno B):**
+    *   **Opción A (gh CLI):** `gh pr create --base master --head feature/add-author-name --title "feat: añadir nombre del autor" --body "Añade el nombre del autor al generador de citas"`
+    *   **Opción B (Web):** El Alumno B navega a la interfaz web de GitHub de *su repositorio bifurcado* y crea una Pull Request desde `feature/add-author-name` hacia `master` del repositorio original.
+4.  **Revisión y Fusión del Pull Request (Alumno A):**
+    *   **Opción A (gh CLI):** `gh pr review <PR> --approve --body "Correcto"` y luego `gh pr merge <PR>`
+    *   **Opción B (Web):** El Alumno A revisa el Pull Request en GitHub y lo fusiona.
     *   El Alumno A **descarga los cambios** de su repositorio remoto y los **integra** en su rama `master` local.
 
 **¡CAMBIO DE ROLES!**
@@ -231,3 +231,14 @@
     *   Discutan la importancia de **resolver los conflictos** a tiempo y de forma colaborativa. ¿Cómo les ayudó la herramienta de resolución de conflictos?.
     *   Reflexionen sobre los **"peligros de reorganizar" commits que ya se han "publicado"** (enviado a un repositorio remoto) y por qué **`git revert` es la opción preferida** en esos casos. Git generalmente solo añade información, lo que hace que sea difícil borrar datos de forma irreversible una vez confirmados.
     *   Comenten cómo la rotación de roles les ayudó a entender las diferentes perspectivas y responsabilidades en un proyecto colaborativo.
+
+---
+
+## Qué entregar
+
+- [ ] URL del repositorio del Alumno A en GitHub
+- [ ] URL del repositorio del Alumno B (fork) en GitHub
+- [ ] Captura de `gh pr list --state all` (o lista de PRs en la web)
+- [ ] Captura de `git log --oneline --graph --all` en ambos repositorios
+- [ ] Captura de un conflicto resuelto
+- [ ] Reflexión escrita en pareja (5-10 líneas): ¿Qué fue lo más difícil de colaborar? ¿Qué flujo de trabajo usaríais en un proyecto real?

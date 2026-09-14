@@ -133,10 +133,9 @@
         export { addTask, getTasks, displayTasks };
         ```
     *   Añade los archivos modificados a la zona de intercambio y **guarda la instantánea** con el mensaje: `"feat: Añadir función displayTasks"`.
-    *   **¡Simula un conflicto intencionado!** Cambia a la línea `master`.
+    *   **¡Simula un conflicto intencionado!** **Cambia a la línea `develop`** (NO a `master`).
     *   Modifica intencionadamente **la misma línea o zona** en `main.js` que se modificó en `feature/merge-path` (por ejemplo, cambia `console.log("Aplicación de Gestión de Tareas v1.0.0 lista.");` por `console.log("Aplicación de Gestión de Tareas v1.0.0 preparada.");` o añade una línea justo donde `displayTasks` debería importarse).
-    *   Añade `main.js` a la zona de intercambio y **guarda la instantánea** con el mensaje: `"chore: Actualización en main.js que causará conflicto"`.
-    *   **Cambia de nuevo a la línea `develop`**.
+    *   Añade `main.js` a la zona de intercambio y **guarda la instantánea** con el mensaje: `"chore: Actualización en develop.js que causará conflicto"`.
     *   Ahora, **intenta integrar los cambios de `feature/merge-path` en `develop`**. **¡Debería producirse un conflicto!**
     *   Verifica el estado del repositorio para ver los archivos en conflicto. Deberían aparecer marcados.
     *   Abre `main.js` en tu editor. Verás los **marcadores de conflicto** (`<<<<<<<`, `=======`, `>>>>>>>`).
@@ -162,7 +161,7 @@
                 console.log(`Tarea con ID ${id} no encontrada.`);
             }
         }
-        export { addTask, getTasks, deleteTask, displayTasks };
+        export { addTask, getTasks, deleteTask };
         ```
     *   Añade `tasks.js` a la zona de intercambio y **guarda la instantánea** con el mensaje: `"feat: Añadir función deleteTask"`.
     *   **¡Simula la integración de cambios en `develop` *antes* de la fusión final de `feature/rebase-path`!**
@@ -241,4 +240,14 @@
 2.  **Visualización del Historial Final:**
     *   **Visualiza el historial completo de tu proyecto**, incluyendo todas las líneas de desarrollo, para observar el resultado final de todas tus operaciones.
     *   Reflexiona sobre cómo la **integración (fusión `merge`)** y la **reorganización (`rebase`)** crearon historiales diferentes, y cómo la **selección de commits (`cherry-pick`)** insertó una instantánea específica sin integrar toda una línea de desarrollo.
+
+---
+
+## Qué entregar
+
+- [ ] Captura de `git log --oneline --graph --all` mostrando ramas merge y rebase
+- [ ] Captura del conflicto resuelto (marcadores antes, resolución después)
+- [ ] Captura de `git log` tras `cherry-pick` (se ve el commit duplicado)
+- [ ] Captura de `git revert` en el historial
+- [ ] Reflexión escrita (3-5 líneas): ¿Cuándo usarías merge vs rebase en un proyecto real?
 

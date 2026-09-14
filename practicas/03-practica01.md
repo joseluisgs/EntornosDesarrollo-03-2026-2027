@@ -49,7 +49,7 @@
 | **Paso** | **Descripción y Comandos**                                                                                                    | **Concepto de Git**                                                                                               |
 | :------- | :---------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------- |
 | **3.1**  | **Modifica** `info.txt` añadiendo una línea con una *fecha* (ej: 2024-05-20 - Revisión).                                      |                                                                                                                   |
-| **3.2**  | **Prepara y confirma** el cambio: `git commit -am "chore: Añadida revisión de fecha"`                                         | Se utiliza `-am` para añadir archivos rastreados modificados y confirmar en un solo paso.                         |
+| **3.2**  | **Prepara y confirma** el cambio: `git commit -am "chore: Añadida revisión de fecha"`                                         | Se utiliza `-am` para añadir archivos rastreados modificados y confirmar en un solo paso. <br>💡 El flag `-a` añade automáticamente archivos modificados (no nuevos) al staging antes de commitear. |
 | **3.3**  | **Visualiza el historial línea a línea** para `index.html`: `git blame index.html`                                            | **Blame/Annotate:** Muestra el commit, el autor y la fecha de la última modificación para cada línea del archivo. |
 | **3.4**  | **Equivocación en el Directorio de Trabajo:** Modifica `index.html` añadiendo una línea de prueba que **no quieres guardar**. |                                                                                                                   |
 | **3.5**  | **Descarta los cambios locales** (solución a la "cagada" sin preparar): `git restore index.html`                              | Deshace los cambios en el Directorio de trabajo, volviendo al estado del último commit.                           |
@@ -90,3 +90,10 @@ El uso de un **Sistema de Control de Versiones (VCS)**, como Git, es una herrami
 *   **Seguridad:** Asegura que los cambios, incluso antes de ser compartidos en un repositorio remoto, están almacenados de forma segura en la base de datos local de Git.
 *   **Aislamiento de Errores:** Las áreas de trabajo (Directorio, Staging, Repositorio) permiten aislar los cambios que no funcionan (como se demostró con `git restore` o `git reset --soft`) antes de confirmarlos permanentemente, previniendo la pérdida de trabajo no deseado.
 *   **Auditoría y Traza:** Comandos como `git blame` permiten identificar con precisión cuándo y por quién se introdujo cada línea de código, facilitando la depuración y la corrección de fallas.
+
+## Qué entregar
+
+- [ ] Captura de `git log --oneline --graph`
+- [ ] Captura de `git tag` y `git show v1.0-estable`
+- [ ] Captura de `git status` tras resolver conflicto
+- [ ] URL del repositorio (si se sube a GitHub)

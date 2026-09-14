@@ -25,10 +25,10 @@
 | **Paso** | **Descripción y Comandos**                                                                                                                                                            | **Concepto de Git**                                                           |
 | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------- |
 | **1.1**  | **Crea y prepara tu proyecto local:** Inicializa un repositorio local (`practica03`). Crea `README.txt` y `index.html`. Confirma ambos con `git commit -m "feat: Estructura inicial"` | Confirma la primera instantánea local.                                        |
-| **1.2**  | **Crea el Repositorio Remoto:** Ve a tu plataforma de alojamiento (ej: GitHub) y crea un nuevo repositorio llamado `practica03-remota`. **No lo inicialices con README**.             | El repositorio remoto será la "Copia de seguridad externa del código fuente". |
+| **1.2**  | **Crea el Repositorio Remoto:** Ve a tu plataforma de alojamiento (ej: GitHub) y crea un nuevo repositorio llamado `practica03-remota`. **No lo inicialices con README**. O desde terminal: `gh repo create practica03-remota --public` | El repositorio remoto será la "Copia de seguridad externa del código fuente". |
 | **1.3**  | **Vincula el repositorio local con el remoto:** `git remote add origin <URL_del_repositorio_remoto>`                                                                                  | Crea un enlace llamado `origin` al repositorio externo.                       |
 | **1.4**  | **Verifica el enlace remoto:** `git remote -v`                                                                                                                                        | Muestra el listado de repositorios remotos definidos.                         |
-| **1.5**  | **Sube la rama principal (`master`/`main`) al remoto:** `git push origin master` (o `main`)                                                                                           | **`git push`** envía los *commits* locales al servidor.                       |
+| **1.5**  | **Sube la rama principal (`master`/`main`) al remoto:** `git push -u origin master` (o `main`)                                                                                           | **`git push`** envía los *commits* locales al servidor. El flag `-u` establece tracking para futuros `push` sin argumentos.                       |
 | **1.6**  | **Verifica en la web** que tus archivos y el historial han sido subidos correctamente.                                                                                                |                                                                               |
 
 ### Fase 2: Sincronización y Descarga de Cambios (Pull vs. Fetch)
@@ -83,3 +83,9 @@ Añadir un repositorio remoto (como GitHub o GitLab) añade un nivel de potencia
 *   **Copia de Seguridad Externa:** Si tu repositorio local sufre un daño, el VCS remoto conserva una copia del código fuente, lo que permite revertir y deshacer los cambios a una versión estable conocida.
 *   **Gestión Distribuida:** Git es un sistema distribuido de control de versiones. El manejo remoto permite que los cambios se importen como ramas adicionales y puedan ser fusionados de la misma manera que en la rama local.
 *   **Sincronización de Equipos:** Permite a múltiples desarrolladores trabajar en el mismo proyecto, descargando los cambios de otros (`git pull` o `git fetch`) y subiendo los propios (`git push`).
+
+## Qué entregar
+
+- [ ] URL del repositorio en GitHub
+- [ ] Captura de `git remote -v`
+- [ ] Captura de `git log --oneline --graph`
