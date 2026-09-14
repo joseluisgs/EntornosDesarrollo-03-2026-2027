@@ -1,0 +1,15 @@
+
+**Cuestionario de Investigación sobre Git, GitHub y Documentación**
+
+**Instrucciones:** Responde a las siguientes preguntas utilizando la información de las fuentes provistas. Se espera una explicación detallada y fundamentada en los conceptos clave.
+
+1.  **Diferencia entre Git y GitHub:** Explica la diferencia fundamental entre Git y GitHub, incluyendo cómo se relacionan y cuándo un desarrollador usaría uno u otro en un flujo de trabajo típico.
+2.  **El proceso de Commit en Git:** Describe los pasos esenciales para iniciar un repositorio Git local, añadir archivos, y luego "confirmar" esos cambios. ¿Qué papel juega el "área de preparación" (staging area) en este flujo de trabajo básico de Git?.
+3.  **Comparación de Flujos de Trabajo (GitHub Flow vs. GitFlow):** Compara los flujos de trabajo GitHub Flow y GitFlow. Menciona al menos dos diferencias clave en su estructura de ramas (por ejemplo, `master`, `develop`) y el propósito principal de cada una de estas ramas en cada metodología.
+4.  **La Importancia de las Pull Requests:** ¿Qué es una "Pull Request" (Solicitud de extracción) y por qué se considera una herramienta de comunicación esencial en el desarrollo de software colaborativo? Describe al menos tres buenas prácticas para crear una Pull Request efectiva, según las fuentes.
+5.  **Documentación con Javadoc:** Investiga y explica la función de las etiquetas `@param`, `@return` y `@deprecated` en Javadoc. ¿Por qué es importante documentar clases y métodos en proyectos Java usando esta herramienta?.
+6.  **Formato y Ventajas de Markdown:** Describe cómo se crean encabezados (títulos), texto en negrita, cursiva y listas no ordenadas utilizando la sintaxis básica de Markdown. ¿Cuáles son las principales ventajas de usar Markdown para escribir documentación?.
+7.  **GitKraken para la Gestión de Proyectos:** ¿Qué es GitKraken y cuáles son sus principales ventajas destacadas, especialmente para un estudiante o para la gestión de proyectos en equipo? Explica cómo su entorno visual ayuda a comprender el historial del proyecto.
+8.  **Git Merge vs. Git Rebase:** Explica la diferencia entre los comandos `git merge` y `git rebase` cuando se integran cambios de una rama a otra. ¿Cuándo se prefiere usar uno sobre el otro, y cuáles son las implicaciones de cada uno en el historial de confirmaciones (commits) del proyecto?.
+9.  **Contribución en Proyectos de Código Abierto sin Código:** Además de escribir código, las fuentes mencionan otras formas valiosas de contribuir a un proyecto de código abierto. Describe al menos tres de estas maneras y proporciona un breve ejemplo para cada una.
+10. **Listas de Tareas en Pull Requests de GitHub:** En el contexto de las Pull Requests en GitHub, ¿cómo se pueden usar las "listas de tareas" (tasklists) de Markdown para mejorar la colaboración y el seguimiento del progreso de una funcionalidad o corrección? ¿Qué ventaja ofrece GitHub al interactuar con estas listas directamente en la interfaz web?.
