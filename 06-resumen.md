@@ -142,7 +142,7 @@ graph TD
 | **GitHub Actions** | CI/CD automatizado |
 | **Issues** | Sistema de seguimiento de errores y tareas |
 
-📌 **Ejemplo real:** Las empresas como Google o Microsoft usan Pull Requests y Code Review para garantizar la calidad de su código antes de production.
+📌 **Ejemplo real:** Las empresas como Google o Microsoft usan Pull Requests y Code Review para garantizar la calidad de su código antes de producción.
 
 
 ## 6.3. Herramientas y Perfiles
@@ -202,7 +202,7 @@ graph TD
 | `push --force` en ramas compartidas | Destruye el trabajo de otros desarrolladores | Usa `--force-with-lease` que verifica que nadie más ha subido |
 | Commits demasiado grandes | 50 archivos a la vez → imposible hacer revert limpio | Un commit = un cambio lógico |
 | No hacer `git add` después de resolver conflictos | Los conflictos quedan sin marcar como resueltos | Siempre `git add` + `git commit` después de resolver |
-| No probar tras resolver conflictos | Puedes introduce bugs sin darte cuenta | Ejecuta el proyecto completo después de cada merge |
+| No probar tras resolver conflictos | Puedes introducir bugs sin darte cuenta | Ejecuta el proyecto completo después de cada merge |
 
 
 ## 6.5. Checklist de Supervivencia
@@ -217,7 +217,7 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 - [ ] ¿Puedo configurar `.gitignore` correctamente?
 - [ ] ¿Sé usar `git stash` para guardar cambios temporalmente?
 - [ ] ¿Conozco `git reflog` para recuperar commits perdidos?
-- [ ] ¿Sedo usar `git commit --amend` para corregir el último commit?
+- [ ] ¿Sé usar `git commit --amend` para corregir el último commit?
 
 ### Git Avanzado
 - [ ] ¿Puedo crear, cambiar y eliminar ramas?
@@ -226,20 +226,20 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 - [ ] ¿Entiendo qué es un conflicto y cómo resolverlo?
 - [ ] ¿Conozco GitHub Flow y GitFlow?
 - [ ] ¿Entiendo la diferencia entre `fast-forward` y `merge commit`?
-- [ ] ¿Sedo usar `git rebase` de forma segura?
+- [ ] ¿Sé usar `git rebase` de forma segura?
 
 ### Git Remoto
 - [ ] ¿Puedo usar `git push` y `git pull`?
 - [ ] ¿Sé la diferencia entre `fetch` y `pull`?
 - [ ] ¿Puedo crear y subir tags?
-- [ ] ¿Sedo configurar SSH keys y clonar por SSH?
+- [ ] ¿Sé configurar SSH keys y clonar por SSH?
 - [ ] ¿Entiendo el flujo de trabajo con `upstream` para forks?
 
 ### Colaboración
 - [ ] ¿Entiendo qué es una Pull Request?
 - [ ] ¿Sé la diferencia entre Fork y Clone?
 - [ ] ¿Conozco el proceso de code review?
-- [ ] ¿Sedo crear y gestionar Issues?
+- [ ] ¿Sé crear y gestionar Issues?
 - [ ] ¿Conozco GitHub Actions y CI/CD básico?
 - [ ] ¿Conozco las convenciones de mensajes de commit?
 
@@ -287,29 +287,31 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 
 ## 6.7. Ejercicios de Repaso
 
-1. **Ejercicio 1:** Crea un repositorio local, añade 3 archivos con commits diferentes y consulta el historial con `git log --oneline`.
+> 📝 **Escenario:** Estás desarrollando la web de una cafetería (`cafeteria-web`). Usa el escenario de la cafetería para practicar cada ejercicio.
 
-2. **Ejercicio 2:** Crea una rama `feature/ejercicio`, añade un archivo, haz commit y fusiónala con `main`. Resuelve cualquier conflicto si aparece.
+1. **Ejercicio 1 — Primer commit:** Crea un repositorio local `cafeteria-web`, añade un archivo `index.html` con el menú básico y un `style.css`, haz commits por separado y consulta el historial con `git log --oneline`.
 
-3. **Ejercicio 3:** Usa `git stash` para guardar cambios temporalmente, cambia de rama y aplica el stash con `git stash pop`.
+2. **Ejercicio 2 — Organizar con ramas:** Crea una rama `feature/bebidas` para añadir una sección de bebidas y otra `feature/postres` para los postres. Fusiona ambas en `main` y resuelve cualquier conflicto si aparece.
 
-4. **Ejercicio 4:** Crea un repositorio en GitHub, conéctalo a tu repositorio local y sube los cambios con `git push`.
+3. **Ejercicio 3 — Guardar a mitad de camino:** Estás editando el menú y necesitas cambiar de rama urgentemente. Usa `git stash` para guardar los cambios, cambia de rama, y vuelve con `git stash pop`.
 
-5. **Ejercicio 5:** Crea una Pull Request en GitHub, pide revisión a un compañero y fúsiónala después de la revisión.
+4. **Ejercicio 4 — Subir a la nube:** Crea un repositorio en GitHub llamado `cafeteria-web`, conéctalo a tu repositorio local y sube los cambios con `git push -u origin main`.
 
-6. **Ejercicio 6:** Usa `git revert` para deshacer un commit compartido y `git reset --soft` para deshacer uno local. Compara los resultados.
+5. **Ejercicio 5 — Colaborar con un compañero:** Pide a un compañero que haga un fork de tu repositorio, corrija un precio en el menú y envíe una Pull Request. Tú revísala y fúsionala.
 
-7. **Ejercicio 7:** Configura un alias personalizado en Git (por ejemplo, `git st` para `git status`) y úsalo en tu flujo de trabajo diario.
+6. **Ejercicio 6 — Deshacer errores:** Añade un archivo con un error a propósito, commítalo, y luego usa `git revert` para deshacerlo. Compara con `git reset --soft` para otro commit local.
 
-8. **Ejercicio 8:** Usa `git rebase -i HEAD~3` para hacer squash de 3 commits en uno solo. Observa cómo cambia el historial.
+7. **Ejercicio 7 — Personalizar Git:** Configura un alias personalizado (`git st` para `git status`, `git lg` para el log con grafo) y úsalos en tu flujo de trabajo con `cafeteria-web`.
 
-9. **Ejercicio 9:** Configura SSH keys, clona un repositorio por SSH y verifica que funciona con `ssh -T git@github.com`.
+8. **Ejercicio 8 — Limpiar historial:** Usa `git rebase -i HEAD~3` para hacer squash de 3 commits de prueba en uno solo. Observa cómo cambia el historial.
 
-10. **Ejercicio 10:** Crea una semantic version tag (`v1.0.0`) y sube el tag a GitHub con `git push --tags`.
+9. **Ejercicio 9 — SSH:** Configura SSH keys, clona tu repositorio `cafeteria-web` por SSH y verifica la conexión con `ssh -T git@github.com`.
 
-11. **Ejercicio 11:** Crea un Issue en GitHub con etiqueta `bug` y prioridad `P0`, luego enlázalo a un PR con `Fixes #1` en la descripción.
+10. **Ejercicio 10 — Versionado:** Crea una semantic version tag (`v1.0.0`) para la primera versión estable de `cafeteria-web` y súbela a GitHub con `git push --tags`.
 
-12. **Ejercicio 12:** Configura un workflow de GitHub Actions que ejecute `dotnet build` y `dotnet test` automáticamente en cada push a `main`.
+11. **Ejercicio 11 — Seguimiento de errores:** Crea un Issue en GitHub con etiqueta `bug` titulado "Precio del café incorrecto", luego enlázalo a un PR con `Fixes #1` en la descripción.
+
+12. **Ejercicio 12 — Automatización:** Configura un workflow de GitHub Actions que ejecute `dotnet build` y `dotnet test` automáticamente en cada push a `main` de `cafeteria-web`.
 
 > 🔧 **Truco:** Para practicar sin miedo, crea un repositorio temporal, haz commits con errores a propósito, y entrena a recuperarlos con `git reflog` y `git reset`.
 

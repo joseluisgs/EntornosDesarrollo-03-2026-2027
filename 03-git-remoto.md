@@ -121,36 +121,13 @@ graph TD
     style H fill:#795548,color:#fff
 ```
 
-```mermaid
-graph LR
-    subgraph "🏠 Local"
-        A[Tu PC] -->|push/pull| C[Origin]
-    end
-
-    subgraph "☁️ Remoto"
-        C --> B[GitHub]
-        B --> D[Otro PC de un compañero]
-    end
-
-    subgraph "📡 Flujo de datos"
-        E[git push<br/>Subir cambios] --> F[git pull<br/>Bajar cambios]
-    end
-
-    style A fill:#2196F3,color:#fff
-    style B fill:#FF9800,color:#fff
-    style C fill:#4CAF50,color:#fff
-    style D fill:#9C27B0,color:#fff
-    style E fill:#009688,color:#fff
-    style F fill:#795548,color:#fff
-```
-
 > 📝 **Nota del Profesor:** `origin` es solo un nombre por defecto. Podrías tener varios remotos: `origin` (tu repo principal), `upstream` (repo original del que hiciste fork), `backup` (copia de seguridad). Es como tener varias bóvedas con diferentes direcciones.
 
 ## 3.3. Trabajar con Remotos
 
 ### 3.3.1. git remote
 
-> 💡 **Metáfora:** `git remote` es como tu libreta de direcciones. Te permite ver qué bodegas (repositorios remotos) tienes configuradas, cuáles son sus direcciones (URLs) y gestionarlas: añadir nuevas, renombrar o eliminar las que ya no usas.
+> 💡 **Metáfora:** `git remote` es como la lista de contactos del móvil. Te permite ver qué repositorios remotos tienes configurados, cuáles son sus direcciones (URLs) y gestionarlos: añadir nuevos, renombrar o eliminar los que ya no usas. `git remote -v` es como abrir la ficha de contacto para ver la dirección exacta.
 
 ```bash
 # Ver remotos configurados
@@ -179,22 +156,7 @@ upstream  https://github.com/proyecto-original/proyecto.git (fetch)
 upstream  https://github.com/proyecto-original/proyecto.git (push)
 ```
 
-**Ventajas:**
-- Permite gestionar múltiples remotos para un mismo proyecto
-- Esencial para trabajar con forks (upstream + origin)
-- Información clara de las URLs configuradas
-
-**Desventajas:**
-- Confuso al principio: ¿por qué tantos "nombres" para un repo?
-- Errores de URL son difíciles de detectar sin `git remote -v`
-
-**Errores comunes y cómo solucionarlos:**
-
-| Error | Causa | Solución |
-|-------|-------|----------|
-| `fatal: remote origin already exists` | Ya existe un remoto llamado `origin` | `git remote remove origin` y volver a añadir |
-| `fatal: 'origin' does not appear to be a git repository` | URL mal configurada | `git remote set-url origin URL-corregida` |
-| `Permission denied (publickey)` | Clave SSH no configurada | Usar HTTPS o configurar SSH (ver sección 3.6) |
+> ⚠️ **Error común:** Si obtienes `fatal: remote origin already exists`, ejecuta `git remote remove origin` y vuelve a añadirlo con la URL correcta.
 
 ### 3.3.2. git push
 
@@ -244,26 +206,9 @@ To https://github.com/miusuario/mi-proyecto.git
 branch 'main' set up to track 'origin/main'.
 ```
 
-**Ventajas:**
-- Sincroniza tu trabajo con el equipo
-- Permite backup en la nube
-- `-u` configura tracking automático para futuros pushes
-
-**Desventajas:**
-- `--force` puede destruir trabajo de otros si se usa mal
-- Sin conexión a internet no funciona
-- Conflictos si alguien más subió cambios a la misma rama
-
-**Errores comunes y cómo solucionarlos:**
-
-| Error | Causa | Solución |
-|-------|-------|----------|
-| `fatal: could not read Username for 'https://github.com'` | Credenciales no configuradas | Configurar GitHub CLI, token o SSH |
-| `! [rejected] main -> main (non-fast-forward)` | Hay commits remotos que no tienes | `git pull origin main` antes de push |
-| `error: failed to push some refs` | Tu rama está detrás del remoto | `git pull --rebase origin main` y luego push |
-| `fatal: 'origin' does not appear to be a git repository` | Remoto no configurado | `git remote add origin URL` |
-
-> ⚠️ **Nunca usar push --force en ramas compartidas.** Destruye el trabajo de otros. Usa `--force-with-lease` que verifica que nadie más ha subido cambios antes de sobrescribir.
+> ⚠️ **Error más común:** `! [rejected] main -> main (non-fast-forward)` — significa que el remoto tiene commits que tú no tienes. Solución: `git pull origin main` antes de push.
+>
+> **Nunca usar push --force en ramas compartidas.** Destruye el trabajo de otros. Usa `--force-with-lease` que verifica que nadie más ha subido cambios antes de sobrescribir.
 
 ### 3.3.3. git fetch
 
@@ -311,23 +256,7 @@ From https://github.com/miusuario/mi-proyecto
  * [new branch]      feature    -> origin/feature
 ```
 
-**Ventajas:**
-- No modifica tu código local (seguro)
-- Puedes revisar cambios antes de integrarlos
-- Actualiza las referencias de las ramas remotas
-
-**Desventajas:**
-- No actualiza tu working directory directamente
-- Requiere un paso adicional (`git merge`) para integrar cambios
-- Puede ser confuso para principiantes
-
-**Errores comunes y cómo solucionarlos:**
-
-| Error | Causa | Solución |
-|-------|-------|----------|
-| `fatal: 'origin' does not appear to be a git repository` | URL del remoto mal configurada | `git remote set-url origin URL-corregida` |
-| `Permission denied (publickey)` | Clave SSH no válida | Usar HTTPS o configurar SSH |
-| No muestra cambios | No hay cambios en el remoto | Es normal, tu repositorio está sincronizado |
+> 💡 **Recuerda:** `fetch` es seguro porque no modifica tu código local. Siempre puedes revisar con `git diff` antes de decidir si fusionas.
 
 ### 3.3.4. git pull
 
@@ -368,24 +297,8 @@ Fast-forward
  1 file changed, 8 insertions(+), 4 deletions(-)
 ```
 
-**Ventajas:**
-- Ahorra tiempo: trae y fusiona en un solo paso
-- `--rebase` mantiene un historial lineal
-- `--ff-only` evita merges innecesarios
-
-**Desventajas:**
-- Puede causar conflictos inesperados si tienes cambios locales
-- Menos control que hacer fetch + merge por separado
-- Si hay muchos cambios, puede ser difícil de revisar
-
-**Errores comunes y cómo solucionarlos:**
-
-| Error | Causa | Solución |
-|-------|-------|----------|
-| `CONFLICT (content): Merge conflict in archivo` | Cambios locales y remotos modifican lo mismo | Abrir archivo, resolver conflictos, `git add .` y `git commit` |
-| `error: Your local changes would be overwritten` | Tienes cambios sin commit | `git stash` antes de pull, luego `git stash pop` |
-| `fatal: refusing to merge unrelated histories` | Repositorios no relacionados | `git pull --allow-unrelated-histories origin main` |
-
+> ⚠️ **Error más común:** `CONFLICT (content): Merge conflict in archivo` — significa que tú y alguien más modificasteis las mismas líneas. Solución: abrir el archivo, resolver el conflicto, `git add .` y `git commit`.
+>
 > 💡 **Consejo:** Si prefieres tener control total, usa `git fetch` + `git merge` por separado en lugar de `git pull`. Así revisas qué va a cambiar antes de que suceda.
 
 ### 3.3.5. Diferencia entre fetch y pull
@@ -533,13 +446,7 @@ git remote add origin https://github.com/usuario/repo.git
 git push -u origin main
 ```
 
-**Errores comunes:**
-
-| Error | Solución |
-|-------|----------|
-| `fatal: remote origin already exists` | `git remote remove origin` antes de añadir |
-| `error: src refspec main does not match any` | Asegúrate de tener commits antes de push |
-| `fatal: refusing to merge unrelated histories` | Usa `git pull --allow-unrelated-histories` |
+> ⚠️ **Error común:** `error: src refspec main does not match any` — significa que no tienes commits en tu repositorio. Solución: asegúrate de hacer al menos un `git commit` antes de hacer push.
 
 ### 3.4.3. Clonar Repositorio Existente
 
@@ -753,13 +660,11 @@ git remote set-url origin git@github.com:usuario/repo.git
 
 ### 3.6.5. Errores Comunes con SSH
 
-| Error | Causa | Solución |
-|-------|-------|----------|
-| `Permission denied (publickey)` | Clave no añadida al agente SSH | Ejecutar `ssh-add ~/.ssh/id_ed25519` |
-| `Permission denied (publickey)` | Clave pública no subida a GitHub | Verificar que la clave está en GitHub → Settings → SSH keys |
-| `Host key verification failed` | GitHub no está en known_hosts | Ejecutar `ssh -T git@github.com` para añadirlo |
-| `Connection refused` | SSH no está instalado o el puerto está bloqueado | Verificar instalación de OpenSSH o usar HTTPS |
-| `Bad owner or permissions on ~/.ssh/config` | Permisos incorrectos en el archivo | En Windows: `icacls ~/.ssh/config` y ajustar permisos |
+| Error | Solución |
+|-------|----------|
+| `Permission denied (publickey)` | Ejecutar `ssh-add ~/.ssh/id_ed25519` o verificar que la clave está en GitHub |
+| `Host key verification failed` | Ejecutar `ssh -T git@github.com` para añadirlo a known_hosts |
+| `Bad owner or permissions` | Ajustar permisos del archivo `~/.ssh/config` en tu sistema |
 
 > 🔧 **Truco:** Para verificar que todo funciona, ejecuta `ssh -T git@github.com`. Si ves "Hi usuario! You've successfully authenticated", todo está correcto.
 
@@ -965,3 +870,54 @@ jobs:
 > 🔗 **Conexión:** GitHub Pages se conecta directamente con los Actions que verás en la UD04 de Colaboración. Cada push a `main` activa el workflow de despliegue.
 
 En el siguiente punto veremos Pull Requests, Forks y colaboración: cómo proponer cambios en proyectos de otros, revisar código y trabajar en equipo de forma profesional.
+
+---
+
+## Ejercicio Rápido: La Cafetería en la Nube
+
+> 📝 **Escenario:** Tienes un proyecto local para gestionar una cafetería (`cafeteria-web`). Quieres subirlo a GitHub y configurar SSH para no escribir la contraseña cada vez.
+
+**Pasos:**
+
+1. **Crear repositorio en GitHub:**
+   - Ve a GitHub → "+" → "New repository"
+   - Nómbralo `cafeteria-web`, selecciónalo como público
+   - Añade README y .gitignore para .NET
+
+2. **Conectar el repositorio local:**
+   ```bash
+   cd cafeteria-web
+   git init
+   git add .
+   git commit -m "feat: estructura inicial de la web de la cafetería"
+   git remote add origin https://github.com/TU-USUARIO/cafeteria-web.git
+   git push -u origin main
+   ```
+
+3. **Configurar SSH:**
+   ```bash
+   # Generar clave
+   ssh-keygen -t ed25519 -C "tu.email@ejemplo.com"
+
+   # Copiar clave pública (Windows PowerShell)
+   Get-Content ~/.ssh/id_ed25519.pub | Set-Clipboard
+
+   # Pegar en GitHub → Settings → SSH and GPG keys → New SSH key
+
+   # Cambiar URL del remoto a SSH
+   git remote set-url origin git@github.com:TU-USUARIO/cafeteria-web.git
+
+   # Verificar
+   ssh -T git@github.com
+   ```
+
+4. **Probar que funciona:**
+   ```bash
+   # Ahora push sin pedir contraseña
+   echo "# Menú de hoy" >> README.md
+   git add README.md
+   git commit -m "docs: añadir sección de menú"
+   git push
+   ```
+
+> 💡 **Consejo:** Si `ssh -T git@github.com` funciona, ya no necesitas escribir tu contraseña nunca más para hacer push.

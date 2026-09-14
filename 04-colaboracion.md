@@ -16,9 +16,7 @@
     - [4.3.4. Ser un Buen Revisor](#434-ser-un-buen-revisor)
     - [4.3.5. Ser un Buen Autor](#435-ser-un-buen-autor)
   - [4.4. GitHub Actions (CI/CD)](#44-github-actions-cicd)
-    - [4.4.1. Conceptos Básicos](#441-conceptos-básicos)
-    - [4.4.2. Ejemplo: Workflow de Tests](#442-ejemplo-workflow-de-tests)
-    - [4.4.3. Comandos para GitHub CLI](#443-comandos-para-github-cli)
+    - [4.4.1. Comandos para GitHub CLI](#441-comandos-para-github-cli)
   - [4.5. Issues y Projects](#45-issues-y-projects)
     - [4.5.1. Issues](#451-issues)
     - [4.5.2. Projects](#452-projects)
@@ -117,33 +115,7 @@ gitGraph
 
 > 📝 **Nota:** En el diagrama anterior puedes ver cómo la rama `feature/login` se crea desde `main`, se trabaja en ella con varios commits, y finalmente se fusiona de vuelta a `main` mediante una PR.
 
-### 4.1.2. Estrategias de Merge en PR
-
-Cuando fusionas una PR en GitHub, tienes **tres opciones**. Elegir la correcta es fundamental para mantener el historial limpio:
-
-| Estrategia | ¿Qué hace? | Historial | Cuándo usarla |
-|------------|-------------|-----------|---------------|
-| **Merge commit** | Crea un commit de merge que une las ramas | Ramas visibles, merge commit incluido | Cuando quieres preservar el contexto completo |
-| **Squash and merge** | Comprime todos los commits de la PR en uno solo | Limpio, un commit por PR | Cuando la PR tiene muchos commits WIP |
-| **Rebase and merge** | Reaplica cada commit individualmente sobre main | Lineal, sin merge commit | Cuando quieres historial lineal sin merges |
-
-```mermaid
-graph TD
-    A[PR con 3 commits] --> B{¿Qué estrategia?}
-    B -->|Merge commit| C[3 commits + 1 merge commit]
-    B -->|Squash| D[1 solo commit limpio]
-    B -->|Rebase| E[3 commits lineales]
-
-    style C fill:#2196F3,color:#fff
-    style D fill:#4CAF50,color:#fff
-    style E fill:#FF9800,color:#fff
-```
-
-📌 **Ejemplo real:** Netflix usa **Squash and merge** para mantener un historial limpio en `main`. Cada feature aparece como un solo commit descriptivo. Google usa **Rebase and merge** para mantener la linealidad.
-
-> 💡 **Consejo:** En equipos pequeños, usa **Squash and merge** por defecto. Es la opción más limpia y fácil de entender.
-
-### 4.1.3. Componentes de una PR
+### 4.1.2. Componentes de una PR
 
 | Elemento | Descripción | Ejemplo |
 |----------|-------------|---------|
@@ -173,8 +145,8 @@ gh pr create --title "feat: login" --body "Implementación..."
 
 ### 4.1.4. Buenas Prácticas para PRs
 
-> 💡 **Metáfora: Las buenas prácticas como "protocolo del hospital"**
-> Imagina que eres cirujano y vas a operar. Antes de entrar al quirófano, te lavas las manos (revisión independiente), preparas solo las herramientas necesarias (PR pequeña), pones el nombre correcto en la operación (título descriptivo), y anotas cada paso que vas a dar (commits claros). Si saltas alguno de estos pasos, la operación puede salir mal. Con las PRs pasa igual: **seguir un protocolo claro evita errores costosos**.
+> 💡 **Metáfora: Las buenas prácticas como "protocolo de un restaurante"**
+> Imagina que trabajas en un restaurante. Antes de servir un plato, revisas que los ingredientes estén frescos (revisión independiente), preparas solo lo necesario para un comensal (PR pequeña), pones el nombre correcto en la carta (título descriptivo), y anotas cada paso de la receta (commits claros). Si saltas alguno de estos pasos, el plato puede salir mal. Con las PRs pasa igual: **seguir un protocolo claro evita errores costosos**.
 
 - **Revisión Independiente**: Antes de crear una PR, revisa tu propio código
   > 💡 *Como un escritor que relee su propio capítulo antes de enviarlo al editor. Si detectas errores tontos antes, el revisor se enfocará en mejorar la lógica, no en corregir faltas de ortografía.*
@@ -212,52 +184,22 @@ gh pr create --title "feat: login" --body "Implementación..."
 
 ### 4.1.5. Branch Protection Rules
 
-> 💡 **Metáfora:** Branch protection es como poner un **semáforo en la entrada de main**. Nadie puede entrar directamente — tiene que pasar por el control de calidad (PR, revisiones, tests). Sin esto, cualquiera puede romper la producción con un solo push.
+> 💡 **Metáfora:** Branch protection es como poner un **semáforo en la entrada de main**. Nadie puede entrar directamente — tiene que pasar por el control de calidad (PR, revisiones, tests).
 
-**¿Qué reglas puedes configurar?**
+**¿Qué es?** Son reglas que obligan a que ciertos requisitos se cumplan antes de poder fusionar código en ramas protegidas (normalmente `main`). Sin branch protection, las Pull Requests son solo una recomendación opcional.
 
-```mermaid
-graph TD
-    A[Branch Protection<br/>en main] --> B[Requerir PR antes de merge]
-    A --> C[Requerir N revisiones]
-    A --> D[Requerir tests pasados]
-    A --> E[Prohibir push directo]
-    A --> F[Prohibir force push]
-    A --> G[Requerir resolución de conversaciones]
+**Reglas más habituales:**
 
-    style A fill:#f44336,color:#fff
-    style B fill:#4CAF50,color:#fff
-    style C fill:#4CAF50,color:#fff
-    style D fill:#4CAF50,color:#fff
-    style E fill:#FF9800,color:#fff
-    style F fill:#FF9800,color:#fff
-    style G fill:#9C27B0,color:#fff
-```
+| Regla | ¿Qué protege? |
+|-------|----------------|
+| **Require PR** | Nadie escribe directamente en main |
+| **Require approvals** | Al menos 1 persona revisa el código |
+| **Require status checks** | El código compila y pasa tests |
+| **Prohibit force push** | No se puede sobrescribir historial |
 
-**Cómo configurarlo en GitHub:**
+**Cómo configurarlo:** Ir a tu repositorio → **Settings** → **Branches** → **"Add branch protection rule"** → Escribir `main` → Activar las reglas deseadas.
 
-1. Ir a tu repositorio → **Settings** → **Branches**
-2. Clic en **"Add branch protection rule"**
-3. En **Branch name pattern**: escribir `main`
-4. Activar las reglas deseadas:
-   - ✅ **Require a pull request before merging** → Nadie hace push directo a main
-   - ✅ **Require approvals** → Mínimo 1 o 2 revisiones aprobatorias
-   - ✅ **Require status checks to pass** → Los tests de CI deben pasar
-   - ✅ **Require conversation resolution** → Todos los comentarios deben estar resueltos
-   - ❌ **Do not allow bypassing the above settings** → Ni el admin puede saltarse las reglas
-
-| Regla | ¿Qué protege? | Recomendada para |
-|-------|----------------|------------------|
-| **Require PR** | Nadie escribe directamente en main | Siempre |
-| **Require approvals** | Al menos 1 persona revisa el código | Siempre |
-| **Require status checks** | El código compila y pasa tests | Siempre |
-| **Prohibit force push** | No se puede sobrescribir historial | Siempre |
-| **Require conversation resolution** | Todos los comentarios están resueltos | Equipos medianos/grandes |
-| **Restrict who can push** | Solo ciertos usuarios pueden merge | Empresas |
-
-📌 **Ejemplo real:** En Telefónica, las reglas de branch protection son obligatorias en todos los proyectos. Sin PR aprobado y tests pasados, el merge es imposible. Esto evita que un error llegue a producción.
-
-> ⚠️ **Sin branch protection**, toda la sección de Pull Requests es solo una recomendación opcional. Con branch protection, se convierte en una **obligación técnica**.
+📌 **Ejemplo real:** En Telefónica, las reglas de branch protection son obligatorias en todos los proyectos. Sin PR aprobado y tests pasados, el merge es imposible.
 
 ## 4.2. Fork (Bifurcación)
 
@@ -689,163 +631,36 @@ El archivo `.github/CODEOWNERS` define qué persona o equipo es responsable de q
 
 ```gitignore
 # Archivo .github/CODEOWNERS
-
-# El equipo backend revisa todo archivo C#
 *.cs @equipo-backend
-
-# El equipo de docs revisa la documentación
 /docs/ @equipo-docs
-
-# José revisa la configuración del proyecto
 *.csproj @joseluis
-
-# El equipo de seguridad revisa archivos sensibles
-*.env @equipo-seguridad
 ```
 
-**Cómo funciona:**
+Cuando un PR modifica un archivo con un owner asignado, GitHub solicita revisión automáticamente. Si tienes branch protection configurado, el PR no se puede mergear sin la aprobación del owner.
 
-1. Cuando un PR modifica un archivo que tiene un owner, GitHub **solicita revisión automáticamente**
-2. Si tienes branch protection configurado, el PR **no se puede mergear** sin la aprobación del owner
-3. Los owners se asignan por orden: si un archivo coincide con múltiples reglas, se usa la **última**
-
-📌 **Ejemplo real:** En Microsoft, cada archivo del código fuente de VS Code tiene un CODEOWNERS asignado. Cuando alguien modifica el core, el equipo de VS Code recibe una notificación automática para revisar.
-
-> 🔗 **Conexión:** CODEOWNERS se conecta directamente con Branch Protection (4.1.5). Puedes configurar "Require review from Code Owners" para que la revisión del owner sea obligatoria.
+📌 **Ejemplo real:** En empresas como Microsoft, cada archivo del código fuente de VS Code tiene un CODEOWNERS asignado. Cuando alguien modifica el core, el equipo correspondiente recibe una notificación automática para revisar.
 
 ## 4.4. GitHub Actions (CI/CD)
 
-GitHub Actions permite automatizar workflows directamente en GitHub.
+> 💡 **Metáfora: CI/CD como "asistente automático que revisa tu trabajo"**
+> Imagina que cada vez que entregas un ejercicio, **un asistente** lo revisa al instante: comprueba que compila, que pasa los tests y que no hay errores de estilo. Si todo está bien, te pone un "Aprobado" automáticamente. Si hay errores, te dice exactamente dónde están. **GitHub Actions es ese asistente**.
 
-> 💡 **Metáfora: CI/CD como "robot que comprueba tu trabajo automáticamente"**
-> Imagina que eres estudiante y cada vez que entregas un examen, **un robot** lo revisa al instante: comprueba que las respuestas sean correctas, que no haya errores de ortografía, y si todo está bien, te pone un "Aprobado" automáticamente. Si hay errores, te dice exactamente dónde están. **GitHub Actions es ese robot**: cada vez que haces un push o creas una PR, ejecuta tests, compila el código, comprueba errores de estilo y te dice si todo está bien o no. Sin que nadie tenga que hacer nada manualmente.
+📌 **Ejemplo real:** Cuando haces un push a GitHub, ves una bolita verde o roja junto al commit. Esa bolita es GitHub Actions ejecutando los tests automáticamente.
 
-📌 **Ejemplo real:** Cuando haces un push a GitHub, ves una bolita verde ✅ o roja 🔜 junto al commit. Esa bolita es GitHub Actions ejecutando los tests automáticamente. Si es verde, todo va bien; si es roja, hay un error que debes corregir.
+**Conceptos clave:**
 
-> 📝 **Conceptos clave:**
-> - **CI (Continuous Integration)**: Integración continua — cada cambio se prueba automáticamente
-> - **CD (Continuous Delivery/Deploy)**: Entrega/despliegue continuo — el código se publica automáticamente si pasa las pruebas
-> - **Workflow**: Un archivo YAML que define qué hacer y cuándo
-> - **Trigger (Evento)**: Qué activa el workflow (push, PR, schedule, etc.)
-> - **Job**: Un conjunto de pasos que se ejecutan en la misma máquina
-> - **Step**: Un paso individual dentro de un job
-> - **Action**: Un componente reutilizable (ej: `actions/checkout`)
+| Término | Significado |
+|---------|-------------|
+| **CI (Continuous Integration)** | Cada cambio se prueba automáticamente |
+| **CD (Continuous Delivery)** | El código se publica si pasa las pruebas |
+| **Workflow** | Archivo YAML que define qué hacer y cuándo |
+| **Trigger** | Evento que activa el workflow (push, PR, etc.) |
 
-**Estructura de un workflow:**
-
-```mermaid
-graph TB
-    A[Evento: push/PR] --> B[Trigger]
-    B --> C[Job 1: Test]
-    B --> D[Job 2: Build]
-    C --> E[Paso: checkout]
-    C --> F[Paso: setup dotnet]
-    C --> G[Paso: dotnet test]
-    D --> H[Paso: dotnet build]
-    D --> I[Paso: publish]
-    E --> F --> G
-    H --> I
-    G --> J{¿Éxito?}
-    I --> J
-    J -->|Sí| K[Deploy automático]
-    J -->|No| L[Notificar error]
-    
-    style A fill:#2196F3,color:#fff
-    style J fill:#FF9800,color:#fff
-    style K fill:#4CAF50,color:#fff
-    style L fill:#f44336,color:#fff
-```
-
-**Archivos de workflow (ubicación y estructura):**
-
-Los workflows se guardan en `.github/workflows/` y son archivos YAML:
+**Ejemplo de workflow para .NET:**
 
 ```yaml
 # .github/workflows/ci.yml
-name: CI Pipeline          # Nombre del workflow
-
-on:                        # Qué eventos lo activan
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-
-jobs:                      # Trabajos a ejecutar
-  build-and-test:          # Nombre del job
-    runs-on: ubuntu-latest # Sistema operativo (ubuntu, windows, macos)
-    
-    steps:                 # Pasos del job
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '10.0.x'
-    
-    - name: Restore
-      run: dotnet restore
-    
-    - name: Build
-      run: dotnet build --no-restore
-    
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-```
-
-> ⚠️ **Errores comunes con GitHub Actions:**
->
-> 1. **Indentación YAML incorrecta**: YAML es sensible a espacios. Si falla, revisa la indentación.
->
-> 2. **Olvidar el `uses: actions/checkout@v4`**: Sin esto, el workflow no tiene acceso a tu código.
->
-> 3. **Versión de SDK incorrecta**: Si usas `net8.0` pero configuras `dotnet-version: '6.0.x'`, el build fallará.
->
-> 4. **Ruta incorrecta del workflow**: Si el archivo no está en `.github/workflows/`, GitHub no lo detecta.
-
-**Ventajas de GitHub Actions:**
-
-| Ventaja | Descripción |
-|---------|-------------|
-| **Automatización total** | Tests, build y deploy se ejecutan sin intervención humana |
-| **Feedback rápido** | Si algo falla, lo sabes en segundos, no en días |
-| **Integración nativa** | Funciona directamente en GitHub, sin herramientas externas |
-| **Gratuito para públicos** | Los repos públicos tienen minutos gratis |
-| **Reutilizable** | Puedes crear tus propias Actions y compartirlas |
-
-**Inconvenientes de GitHub Actions:**
-
-| Inconveniente | Descripción |
-|---------------|-------------|
-| **Curva de aprendizaje** | La sintaxis YAML y los conceptos de workflows pueden confundir al principio |
-| **Tiempo de ejecución** | Workflows lentos pueden retrasar el feedback |
-| **Coste en privados** | Los repos privados tienen límites de minutos gratuitos |
-| **Debugging complicado** | Depurar un workflow fallido requiere revisar logs extensos |
-| **Dependencia de GitHub** | Si GitHub cae, tus CI/CD se detienen |
-
-### 4.4.1. Conceptos Básicos
-
-```mermaid
-graph TB
-    A[Evento] --> B[Trigger Workflow]
-    B --> C[Job 1: Test]
-    B --> D[Job 2: Build]
-    C --> E[Success/Fail]
-    D --> E
-    E --> F[Deploy]
-    
-    style B fill:#2196F3,color:#fff
-    style C fill:#FF9800,color:#fff
-    style D fill:#FF9800,color:#fff
-    style F fill:#4CAF50,color:#fff
-```
-
-### 4.4.2. Ejemplo: Workflow de Tests
-
-```yaml
-# .github/workflows/tests.yml
-name: Tests
-
+name: CI Pipeline
 on:
   push:
     branches: [main]
@@ -853,28 +668,21 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v4
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+    - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '10.0.x'
-    
-    - name: Restore dependencies
-      run: dotnet restore
-    
-    - name: Build
-      run: dotnet build --no-restore
-    
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - run: dotnet restore
+    - run: dotnet build --no-restore
+    - run: dotnet test --no-build --verbosity normal
 ```
 
-### 4.4.3. Comandos para GitHub CLI
+> ⚠️ **Errores comunes:** Indentación YAML incorrecta (YAML es sensible a espacios), olvidar `uses: actions/checkout@v4` (sin esto no tienes acceso al código), o versión de SDK incorrecta.
+
+### 4.4.1. Comandos para GitHub CLI
 
 ```bash
 # Instalar GitHub CLI
@@ -1141,3 +949,47 @@ gh run list               # Ver workflows
 | **Convenciones** | Formato estándar para mensajes de commit |
 
 En el siguiente punto veremos las herramientas y recursos para Git: clientes gráficos, extensiones de VS Code, terminal Git y trucos para potenciar tu productividad.
+
+---
+
+## Ejercicio Rápido: La Cafetería Colaborativa
+
+> 📝 **Escenario:** Tienes el repositorio `cafeteria-web` en GitHub. Tu compañero quiere añadir una nueva sección de "Bebidas del día" y tú quieres corregir un error en el menú. Usaréis el flujo completo de colaboración.
+
+**Pasos:**
+
+1. **Crear una rama y hacer cambios (tú):**
+   ```bash
+   git checkout -b fix/corregir-precio-cafe
+   # Editar el archivo menu.html (corregir precio)
+   git add menu.html
+   git commit -m "fix(menu): corregir precio del café de 1.50 a 1.80"
+   git push -u origin fix/corregir-precio-cafe
+   gh pr create --title "fix(menu): corregir precio del café" --body "Corrijo el precio que estaba desactualizado"
+   ```
+
+2. **Revisar la PR (tu compañero):**
+   ```bash
+   gh pr list                    # Ver PRs pendientes
+   gh pr diff 1                  # Ver los cambios
+   gh pr review 1 --approve      # Aprobar si todo está bien
+   ```
+
+3. **Fusionar y sincronizar:**
+   ```bash
+   gh pr merge 1 --squash        # Fusionar la PR
+   git checkout main
+   git pull origin main          # Traer los cambios
+   ```
+
+4. **Añadir funcionalidad nueva (tu compañero):**
+   ```bash
+   git checkout -b feature/bebidas-del-dia
+   # Crear archivo bebidas.html
+   git add bebidas.html
+   git commit -m "feat: añadir sección de bebidas del día"
+   git push -u origin feature/bebidas-del-dia
+   gh pr create --title "feat: añadir bebidas del día" --body "Nueva sección con las bebidas estacionales"
+   ```
+
+> 💡 **Consejo:** Practica el flujo completo: rama → commit → push → PR → review → merge. Es el día a día de cualquier desarrollador profesional.

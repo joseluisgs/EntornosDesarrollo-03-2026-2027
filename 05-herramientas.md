@@ -19,10 +19,6 @@
     - [5.4.3. Cheat Sheets](#543-cheat-sheets)
     - [5.4.4. Juegos y Gamificación](#544-juegos-y-gamificación)
   - [5.5. Configuración Avanzada](#55-configuración-avanzada)
-    - [5.5.1. Alias Útiles](#551-alias-útiles)
-    - [5.5.2. Usar Alias](#552-usar-alias)
-    - [5.5.3. Colores y Formato](#553-colores-y-formato)
-    - [5.5.4. .gitconfig Completo](#554-gitconfig-completo)
   - [5.6. Errores Comunes y Soluciones](#56-errores-comunes-y-soluciones)
     - [5.6.1. Errores Típicos](#561-errores-típicos)
     - [5.6.2. Recuperación de Errores](#562-recuperación-de-errores)
@@ -45,8 +41,27 @@ En el Punto 04 vimos Pull Requests, Forks, Code Review y GitHub Actions. Ahora v
 - Conocer los clientes gráficos más populares (GitKraken, GitHub Desktop, Sourcetree)
 - Instalar y usar extensiones de VS Code para Git
 - Dominar GitHub CLI para automatizar tareas
-- Configurar alias y personalizar Git
 - Resolver errores comunes de forma rápida
+
+## Qué instalar primero
+
+> 📝 **Recomendación del profesor:** Antes de explorar todas las herramientas, instala estas tres. Con ellas tendrás todo lo necesario para el curso.
+
+| Herramienta | Para qué la necesitas | Cómo instalarla |
+|-------------|----------------------|-----------------|
+| **VS Code** | Editor principal con Git integrado | [code.visualstudio.com](https://code.visualstudio.com) |
+| **Git** | Control de versiones en línea de comandos | [git-scm.com](https://git-scm.com) |
+| **GitHub CLI (`gh`)** | Gestionar repos, PRs e issues desde terminal | `scoop install gh` (Windows) o `brew install gh` (Mac) |
+
+**Extensiones imprescindibles en VS Code:**
+
+| Extensión | Qué hace |
+|-----------|----------|
+| **GitLens** | Ver quién cambió cada línea, historial detallado |
+| **Git Graph** | Visualizar ramas y commits como un grafo |
+| **GitHub Pull Requests** | Gestionar PRs directamente desde VS Code |
+
+> 💡 **Consejo:** Con VS Code + GitLens + GitHub CLI tienes las herramientas profesionales más usadas en la industria. No necesitas más para empezar.
 
 ## 5.1. Clientes Gráficos (GUI)
 
@@ -115,6 +130,8 @@ git stash push -m "WIP: refactorizando"
 ```
 
 > 💡 **Ventaja:** VS Code combina la comodidad de una GUI con el poder de la terminal. Puedes usar el panel visual para commits rápidos y la terminal para operaciones complejas.
+
+📌 **Ejemplo real:** Spotify, Netflix y miles de empresas usan VS Code como editor estándar. Su integración nativa con Git permite hacer commits, ver diffs y resolver conflictos sin salir del editor. Muchos desarrolladores profesionales ni siquiera abren otra herramienta para gestionar Git.
 
 > 🔗 **Conexión:** Las extensiones GitLens y Git Graph (que verás en la sección 5.2) amplían enormemente las capacidades Git de VS Code.
 
@@ -329,93 +346,26 @@ gh pr merge --merge
 
 ## 5.5. Configuración Avanzada
 
-### 5.5.1. Alias Útiles
+> 💡 **Solo lo esencial:** Estos son los ajustes más útiles. No necesitas memorizarlos todos — usa esta sección como referencia rápida.
+
+**Alias útiles (configurar con `git config --global`):**
 
 ```bash
-# Alias de configuración
 git config --global alias.st status
 git config --global alias.co checkout
 git config --global alias.br branch
 git config --global alias.ci commit
 git config --global alias.df diff
 git config --global alias.lg "log --oneline --graph --all"
-
-# Alias avanzados
-git config --global alias.last "log -1 HEAD"
-git config --global alias.unstage "reset HEAD --"
-git config --global alias.visual "!gitk"
 ```
 
-### 5.5.2. Usar Alias
+**El ajuste más importante:** Configurar VS Code como editor por defecto:
 
 ```bash
-# En lugar de:
-git status
-git checkout main
-git log --oneline --graph --all
-
-# Se puede usar:
-git st
-git co main
-git lg
+git config --global core.editor "code --wait"
 ```
 
-### 5.5.3. Colores y Formato
-
-```bash
-# Activar colores
-git config --global color.ui auto
-
-# Colores específicos
-git config --global color.branch.current "green reverse"
-git config --global color.branch.local "green"
-git config --global color.branch.remote "red"
-
-# Formato de log
-git config --global format.pretty "%h %s %cn"
-```
-
-### 5.5.4. .gitconfig Completo
-
-```ini
-[user]
-    name = Tu Nombre
-    email = tu.email@ejemplo.com
-
-[core]
-    editor = code --wait
-    autocrlf = input
-    safecrlf = warn
-
-[alias]
-    st = status
-    co = checkout
-    br = branch
-    ci = commit
-    df = diff
-    lg = log --oneline --graph --all
-    last = log -1 HEAD
-    unstage = reset HEAD --
-
-[color]
-    ui = auto
-    branch = auto
-    diff = auto
-    status = auto
-
-[merge]
-    tool = vscode
-    conflictstyle = diff3
-
-[difftool "vscode"]
-    cmd = code --wait --diff $LOCAL $REMOTE
-
-[pull]
-    rebase = false
-
-[push]
-    default = simple
-```
+> 📝 **Nota:** Los alias son como atajos de teclado: en lugar de escribir `git status`, puedes escribir `git st`. Útiles cuando escribes muchos comandos al día.
 
 ## 5.6. Errores Comunes y Soluciones
 
@@ -488,3 +438,48 @@ git fsck --lost-found
 | **Oh My Zsh** | Framework de terminal con plugins de Git |
 
 En el Resumen consolidaremos todo lo aprendido en la unidad: conceptos, comandos, flujos de trabajo y herramientas.
+
+---
+
+## Ejercicio Rápido: Configurar tu Estación de Desarrollo
+
+> 📝 **Escenario:** Vas a montar tu entorno de desarrollo completo para trabajar en `cafeteria-web`. Instalarás las herramientas y configurarás VS Code.
+
+**Pasos:**
+
+1. **Instalar las herramientas básicas:**
+   - Instala [VS Code](https://code.visualstudio.com) si no lo tienes
+   - Instala [Git for Windows](https://git-scm.com) (durante la instalación, acepta las opciones por defecto)
+   - Instala GitHub CLI: `scoop install gh` (necesitas [scoop](https://scoop.sh) previamente) o descárgalo desde [cli.github.com](https://cli.github.com)
+
+2. **Configurar Git:**
+   ```bash
+   git config --global user.name "Tu Nombre"
+   git config --global user.email "tu.email@ejemplo.com"
+   git config --global core.editor "code --wait"
+   ```
+
+3. **Instalar extensiones en VS Code:**
+   - Abre VS Code → Extensionses (Ctrl+Shift+X)
+   - Busca e instala: **GitLens**, **Git Graph**, **GitHub Pull Requests**
+
+4. **Autenticarse en GitHub CLI:**
+   ```bash
+   gh auth login
+   # Seleccionar: GitHub.com → HTTPS → Login con navegador
+   gh auth status  # Verificar que funciona
+   ```
+
+5. **Probar que todo funciona:**
+   ```bash
+   # Crear un repositorio de prueba
+   mkdir cafeteria-web-test
+   cd cafeteria-web-test
+   git init
+   echo "# Menú de la cafetería" > README.md
+   git add .
+   git commit -m "feat: archivo inicial"
+   gh repo create cafeteria-web-test --public --source=. --push
+   ```
+
+> 💡 **Consejo:** Si `gh auth status` muestra "Logged in", todo está configurado correctamente. Ya puedes usar GitHub desde la terminal sin abrir el navegador.
