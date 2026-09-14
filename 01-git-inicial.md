@@ -134,7 +134,7 @@ Un `commit` es un punto de control. Es una "instantánea" del proyecto en un mom
 > **📝 Anatomía de un commit:**
 > ```
 > commit 7cff591a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e
-> Author: José Luis González <joseluis@email.com>
+> Author: Tu Nombre <tu.email@ejemplo.com>
 > Date:   Thu Jan 8 10:00:00 2025 +0100
 >     Añadida funcionalidad de login
 > ```
@@ -342,8 +342,8 @@ Cuando ejecutas `git config`, Git guarda la configuración en un archivo llamado
 
 ```gitconfig
 [user]
-    email = joseluisgonsan@gmail.com
-    name = José Luis González
+    email = tu.email@ejemplo.com
+    name = Tu Nombre
 [init]
     defaultBranch = "main"
 [core]
