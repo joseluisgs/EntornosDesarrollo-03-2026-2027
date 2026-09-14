@@ -8,7 +8,7 @@
     - [4.2.1. Flujo de Trabajo con Fork](#421-flujo-de-trabajo-con-fork)
     - [4.2.2. Configurar Fork](#422-configurar-fork)
     - [4.2.3. Mantener Fork Actualizado](#423-mantener-fork-actualizado)
-    - [4.2.4. Crear PR desde Fork](#424-crear-pr-desde-fork)
+    - [4.2.4. Flujo Completo: Dos Usuarios Colaborando](#424-flujo-completo-dos-usuarios-colaborando-ejemplo-práctico)
   - [4.3. Code Review (Revisión de Código)](#43-code-review-revisión-de-código)
     - [4.3.1. Beneficios del Code Review](#431-beneficios-del-code-review)
     - [4.3.2. Proceso de Revisión](#432-proceso-de-revisión)
@@ -376,22 +376,225 @@ git push origin main
 
 > 💡 **Truco:** Programa un recordatorio semanal para sincronizar tu fork. Es como regar las plantas: si lo haces regularmente, todo crece mejor.
 
-### 4.2.4. Crear PR desde Fork
+### 4.2.4. Flujo Completo: Dos Usuarios Colaborando (Ejemplo Práctico)
+
+Vamos a ver **todos los comandos** del flujo completo de colaboración entre dos desarrolladores: **Ana** (contribuidora) y **Carlos** (mantenedor del repositorio original).
+
+> 💡 **Escenario:** Carlos tiene un repositorio `proyecto-web`. Ana quiere contribuir corrigiendo un bug. Usa `gh` CLI para todo.
+
+---
+
+#### Paso 1: Ana — Configuración Inicial
 
 ```bash
-# 1. Crear rama para cambios
-git checkout -b mi-contribucion
+# 1. Autenticarse en GitHub CLI
+gh auth login
+# Seleccionar: GitHub.com → HTTPS → Login con navegador
 
-# 2. Trabajar y commit
-git add .
-git commit -m "fix: corregir bug"
+# 2. Verificar autenticación
+gh auth status
 
-# 3. Subir a tu fork
-git push origin mi-contribucion
+# 3. Hacer fork del repositorio de Carlos
+gh repo fork carlos/proyecto-web --clone
+# Esto clona el fork Y configura el remoto upstream automáticamente
 
-# 4. Ir a GitHub y crear PR
-# Seleccionar: head fork = tu-fork, base fork = original
+# 4. Verificar remotos configurados
+git remote -v
+# origin    https://github.com/ana/proyecto-web.git (fetch)
+# origin    https://github.com/ana/proyecto-web.git (push)
+# upstream  https://github.com/carlos/proyecto-web.git (fetch)
+# upstream  https://github.com/carlos/proyecto-web.git (push)
 ```
+
+#### Paso 2: Ana — Crear Rama y Hacer Cambios
+
+```bash
+# 1. Asegurarse de estar en main actualizado
+git checkout main
+git fetch upstream
+git merge upstream/main
+git push origin main
+
+# 2. Crear rama para la corrección
+git checkout -b fix/corregir-login
+
+# 3. Hacer los cambios (editar archivos)
+# ... editar src/ServicioLogin.cs ...
+
+# 4. Ver qué archivos cambiaron
+git status
+git diff
+
+# 5. Añadir y commitear
+git add src/ServicioLogin.cs
+git commit -m "fix(auth): corregir validación de password vacío
+
+- Añadir validación de null antes de calcular hash
+- Fixes #42"
+
+# 6. Subir la rama a su fork
+git push -u origin fix/corregir-login
+```
+
+#### Paso 3: Ana — Crear Pull Request
+
+```bash
+# 1. Crear PR directamente desde consola
+gh pr create \
+  --title "fix(auth): corregir validación de password vacío" \
+  --body "## Descripción
+Corrige el bug #42 donde un password vacío causaba excepción.
+
+## Cambios
+- Añadida validación de null en \`ServicioLogin.cs\`
+- Añadido test para password vacío
+
+## Testing
+- [x] Tests pasan localmente
+- [x] Añadido test nuevo
+
+Fixes #42" \
+  --reviewer carlos
+
+# 2. Ver la PR creada
+gh pr view
+# Salida:
+# fixes #42 by ana in #87
+# Reviewers: @carlos
+```
+
+#### Paso 4: Carlos — Recibir Notificación y Revisar
+
+```bash
+# 1. Carlos ve las PRs pendientes
+gh pr list
+# Salida:
+# #87  fix(auth): corregir validación...  fix/corregir-login  [Review required]
+
+# 2. Carlos ve el detalle de la PR
+gh pr view 87
+
+# 3. Carlos ve los cambios (diff)
+gh pr diff 87
+# Salida:
+# diff --git a/src/ServicioLogin.cs b/src/ServicioLogin.cs
+# --- a/src/ServicioLogin.cs
+# +++ b/src/ServicioLogin.cs
+# @@ -10,6 +10,9 @@
+#  public bool IniciarSesion(string usuario, string password)
+#  {
+# +    if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(password))
+# +        return false;
+# +
+#      var hash = CalcularHash(password);
+#      return BaseDatos.Verificar(usuario, hash);
+#  }
+
+# 4. Carlos ve el estado de CI/CD
+gh pr checks 87
+# Salida:
+# ✓ build    Successful in 45s
+# ✓ tests    Successful in 1m 20s
+
+# 5. Carlos hace comentarios en la PR (abre el navegador)
+gh pr view 87 --web
+```
+
+#### Paso 5: Carlos — Aprobar o Solicitar Cambios
+
+```bash
+# OPCIÓN A: Aprobar la PR
+gh pr review 87 --approve --body "¡Buen fix! La validación está correcta."
+
+# OPCIÓN B: Solicitar cambios
+gh pr review 87 --request-changes --body "Falta añadir el test para password vacío. Por favor, añade el test en LoginTests.cs"
+
+# Si pidió cambios, Ana los hace y vuelve a subir
+git add tests/LoginTests.cs
+git commit -m "test(auth): añadir test para password vacío"
+git push origin fix/corregir-login
+# La PR se actualiza automáticamente con el nuevo commit
+```
+
+#### Paso 6: Carlos — Fusionar la PR
+
+```bash
+# 1. Fusionar la PR (después de aprobar)
+gh pr merge 87 --squash --body "Merge: fix(auth): corregir validación de password vacío"
+
+# 2. Verificar que se fusionó
+gh pr list --state merged
+# Salida:
+# #87  fix(auth): corregir validación...  fix/corregir-login  Merged
+
+# 3. Eliminar la rama remota (se hace automáticamente con squash)
+gh pr close 87  # Solo si no se fusionó aún
+```
+
+#### Paso 7: Ana — Sincronizar su Fork
+
+```bash
+# 1. Volver a main
+git checkout main
+
+# 2. Traer cambios del upstream (que ya incluye su PR fusionada)
+git fetch upstream
+git merge upstream/main
+
+# 3. Subir a su fork
+git push origin main
+
+# 4. Eliminar la rama local ya fusionada
+git branch -d fix/corregir-login
+
+# 5. Verificar que todo está limpio
+git status
+# On branch main
+# nothing to commit, working tree clean
+```
+
+---
+
+#### Resumen Visual del Flujo
+
+```mermaid
+graph TD
+    subgraph "Ana (Contribuidora)"
+        A1[gh repo fork] --> A2[git checkout -b fix/login]
+        A2 --> A3[git commit]
+        A3 --> A4[git push]
+        A4 --> A5[gh pr create]
+    end
+
+    subgraph "GitHub"
+        G1[PR #87 creada] --> G2[CI/CD ejecutándose]
+        G2 --> G3[Tests pasados ✓]
+    end
+
+    subgraph "Carlos (Mantenedor)"
+        C1[gh pr list] --> C2[gh pr diff 87]
+        C2 --> C3[gh pr review --approve]
+        C3 --> C4[gh pr merge --squash]
+    end
+
+    A5 --> G1
+    G3 --> C1
+    C4 --> A6[Ana sincroniza fork]
+
+    style A1 fill:#FF9800,color:#fff
+    style A5 fill:#9C27B0,color:#fff
+    style G1 fill:#2196F3,color:#fff
+    style C3 fill:#4CAF50,color:#fff
+    style C4 fill:#4CAF50,color:#fff
+```
+
+📌 **Ejemplo real:** Este flujo exacto es el que usan miles de desarrolladores en proyectos open source como React, Vue, .NET y Linux. La diferencia es que en empresas privadas, `upstream` suele ser el repositorio de la empresa y no necesitas hacer fork — trabajas directamente en ramas del repositorio original.
+
+> 🔧 **Truco:** Si trabajas en la misma empresa que Carlos (mismo repositorio, no fork), el flujo se simplifica: no necesitas `upstream`, solo `git checkout -b fix/login`, `git push origin fix/login` y `gh pr create`.
+
+> 💡 **Diferencia clave Fork vs Mismo Repositorio:**
+> - **Fork**: `origin` = tu copia, `upstream` = original. Necesitas sincronizar.
+> - **Mismo repo**: Solo `origin`. Creas rama, push y PR directamente.
 
 ## 4.3. Code Review (Revisión de Código)
 
