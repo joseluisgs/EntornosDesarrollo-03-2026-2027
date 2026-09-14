@@ -429,9 +429,6 @@ git cherry-pick -n [commit-hash]
 # Cherry-pick desde otra rama
 git checkout main
 git cherry-pick develop~3
-
-# Cherry-pick manteniendo mensaje original
-git cherry-pick --keep-redundant-commits [hash]
 ```
 
 > 💡 **¿Cuándo usar cherry-pick?**
@@ -963,35 +960,11 @@ git merge hotfix/1.1.1 --no-ff
 
 ### 2.6.4. Trunk-Based Development
 
-> 💡 **Metáfora:** Trunk-Based es como **escribir en un documento compartido en tiempo real**. No hay ramas largas ni fusiones complejas — todos escriben en el mismo tronco (`main`) y las ramas, si existen, son muy cortas (1-2 días).
+Trunk-Based es el flujo más simple: todos escriben en `main` directamente, con ramas muy cortas (1-2 días) o sin ramas. Se usa con **Feature Flags** (variables que activan/desactivan funciones incompletas) para no romper la producción.
 
-```mermaid
-graph LR
-    A[main] --> B[Commit frecuente]
-    B --> C[Commit frecuente]
-    C --> D[Commit frecuente]
-    A --> E[Feature Flag<br/>función desactivada]
-    E --> F[Cuando está lista<br/>se activa]
+📌 **Ejemplo real:** Google y Facebook usan Trunk-Based. Cuando ves una función nueva en Gmail que solo algunos usuarios tienen, es una Feature Flag. Cuando está probada, se activa para todos.
 
-    style A fill:#4CAF50,color:#fff
-    style B fill:#2196F3,color:#fff
-    style C fill:#2196F3,color:#fff
-    style D fill:#2196F3,color:#fff
-    style E fill:#FF9800,color:#fff
-```
-
-| Aspecto | Trunk-Based |
-|---------|-------------|
-| **Complejidad** | Muy simple |
-| **Ramas** | Solo `main` (o ramas de 1-2 días) |
-| **Feature Flags** | Sí, obligatorio |
-| **CI/CD** | Esencial |
-| **Ideal para** | Equipos ágiles, CD continuo |
-| **Ejemplo uso** | Google, Facebook, Netflix |
-
-> 📝 **Feature Flags:** En lugar de crear ramas para funciones incompletas, se crea una variable de configuración (`ENABLE_NEW_LOGIN=false`) que activa o desactiva la función. Cuando está lista, se cambia a `true` y se despliega.
-
-📌 **Ejemplo real:** Google usa Trunk-Based para todo. Cuando ves una función nueva en Gmail que solo algunos usuarios tienen, es una Feature Flag. Cuando está probada, se activa para todos.
+> 💡 **Para tus proyectos de 1DAW:** GitHub Flow es suficiente. Trunk-Based es para equipos grandes con CI/CD maduro.
 
 ### 2.6.5. Comparativa de Flujos
 
@@ -1075,3 +1048,52 @@ git commit                  # Commit de merge
 | **GitFlow** | Ramas main, develop, feature, release, hotfix |
 
 En el siguiente punto veremos GitHub y los repositorios remotos: cómo subir tu código a la nube, clonar proyectos, sincronizar cambios y trabajar con otros desarrolladores en la misma base de código.
+
+---
+
+### Ejercicio Rápido: Ramas y Merge
+
+> 🎯 **Escenario:** Tu cafetería necesita una página de "Carta" y otra de "Reservas". Vamos a crearlas en ramas separadas.
+
+**En papel (2 min):** Dibuja cómo crees que se ven las ramas `main`, `feature/carta` y `feature/reservas` antes y después del merge.
+
+**Ahora en terminal:**
+
+```bash
+# 1. Crear rama para la carta
+git checkout -b feature/carta
+
+# 2. Crear el archivo de carta
+echo "<h2>Carta de Café</h2><ul><li>Latte - 2.50€</li><li>Cappuccino - 2.80€</li></ul>" > carta.html
+
+# 3. Commitear
+git add carta.html
+git commit -m "feat: añadir carta de café"
+
+# 4. Volver a main y crear rama de reservas
+git checkout main
+git checkout -b feature/reservas
+
+# 5. Crear archivo de reservas
+echo "<h2>Reservas</h2><form><input type='text' placeholder='Nombre'></form>" > reservas.html
+
+# 6. Commitear
+git add reservas.html
+git commit -m "feat: formulario de reservas"
+
+# 7. Fusionar carta en main
+git checkout main
+git merge feature/carta
+
+# 8. Fusionar reservas en main
+git merge feature/reservas
+
+# 9. Ver el historial (verás los dos merges)
+git log --oneline --graph
+
+# 10. Limpiar ramas ya fusionadas
+git branch -d feature/carta
+git branch -d feature/reservas
+```
+
+> 💡 **¿Qué pasó?** Creaste dos funcionalidades en paralelo sin que se pisaran entre sí. Cada rama era una "versión alternativa" de tu proyecto, y al fusionarlas, Git las unió sin perder nada de cada una.
