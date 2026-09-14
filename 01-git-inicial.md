@@ -299,8 +299,8 @@ Una vez instalado Git, lo primero es configurar tu identidad. Esta información 
 
 ```bash
 # Configurar nombre y email (obligatorio)
-git config --global user.name "José Luis González"
-git config --global user.email "joseluisgonsan@gmail.com"
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu.email@ejemplo.com"
 
 # Configurar rama por defecto al crear repos
 git config --global init.defaultBranch "main"
