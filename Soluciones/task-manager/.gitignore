@@ -1,0 +1,14 @@
+# Compilación
+bin/
+obj/
+
+# IDEs
+.idea/
+.vs/
+.vscode/
+
+# Archivos temporales
+*.user
+*.suo
+*.userprefs
+*.log
