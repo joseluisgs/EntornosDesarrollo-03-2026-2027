@@ -25,18 +25,13 @@ UD03. Sistema de Control de Versiones. 1DAW. Curso 2026-2027.
 
 ## Resultados de Aprendizaje y Criterios de Evaluación
 
-- RA2: Evalúa entornos integrados de desarrollo analizando sus características para editar código fuente y generar ejecutables.
+- RA4: Optimiza código empleando las herramientas disponibles en el entorno de desarrollo..
 
   - CCEE:
 
-    - a) Se han instalado entornos de desarrollo, propietarios y libres.
-    - b) Se han añadido y eliminado módulos en el entorno de desarrollo.
-    - c) Se ha personalizado y automatizado el entorno de desarrollo.
-    - d) Se ha configurado el sistema de actualización del entorno de desarrollo.
-    - e) Se han generado ejecutables a partir de código fuente de diferentes lenguajes en un mismo entorno de desarrollo.
-    - f) Se han generado ejecutables a partir de un mismo código fuente con varios entornos de desarrollo.
-    - g) Se han identificado las características comunes y específicas de diversos entornos de desarrollo.
-
+    - f) Se ha realizado el control de versiones integrado en el entorno de desarrollo.
+    - h) Se han utilizado repositorios remotos para el desarrollo de código colaborativo.
+    -i) Se han utilizado herramientas para la integración continua del código.
 
 
 ## Autor
