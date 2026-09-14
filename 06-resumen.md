@@ -1,50 +1,26 @@
 - [6. Resumen y Conclusiones](#6-resumen-y-conclusiones)
   - [6.1. Mapa Conceptual de la Unidad](#61-mapa-conceptual-de-la-unidad)
-  - [6.2. Resumen por Temas](#62-resumen-por-temas)
+  - [6.2. Conceptos Clave](#62-conceptos-clave)
     - [Git Inicial](#git-inicial)
     - [Git Avanzado](#git-avanzado)
     - [Git Remoto](#git-remoto)
     - [Colaboración](#colaboración)
-  - [6.3. Flujo de Trabajo Completo](#63-flujo-de-trabajo-completo)
-  - [6.4. Comparativa de Flujos](#64-comparativa-de-flujos)
-  - [6.5. Comandos Esenciales por Categoría](#65-comandos-esenciales-por-categoría)
-    - [Configuración](#configuración)
-    - [Inicio](#inicio)
-    - [Básico](#básico)
-    - [Deshacer](#deshacer)
-    - [Ramas](#ramas)
-    - [Merge y Rebase](#merge-y-rebase)
-    - [Cherry-Pick (¡Mi comando favorito!)](#cherry-pick-mi-comando-favorito)
-    - [Deshacer: La Guía Definitiva](#deshacer-la-guía-definitiva)
-    - [Modos de Reset: Diferencias](#modos-de-reset-diferencias)
-    - [Reset vs Revert vs Rebase](#reset-vs-revert-vs-rebase)
-    - [Trucos: Eliminar el Último Commit](#trucos-eliminar-el-último-commit)
-    - [Recuperar un Commit "Eliminado"](#recuperar-un-commit-eliminado)
-    - [Modificar el Último Commit](#modificar-el-último-commit)
-    - [Remotos](#remotos)
-    - [Colaboración](#colaboración-1)
-  - [6.6. Checklist de Supervivencia](#66-checklist-de-supervivencia)
-    - [Git Inicial](#git-inicial-1)
-    - [Git Avanzado](#git-avanzado-1)
-    - [Git Remoto](#git-remoto-1)
-    - [Colaboración](#colaboración-2)
-    - [Herramientas](#herramientas)
-  - [6.7. Atajos de Git más Usados](#67-atajos-de-git-más-usados)
-  - [6.8. Errores Comunes y Soluciones](#68-errores-comunes-y-soluciones)
-  - [6.9. Recursos Adicionales](#69-recursos-adicionales)
-    - [Documentación](#documentación)
-    - [Tutoriales Interactivos](#tutoriales-interactivos)
-    - [Cheat Sheets](#cheat-sheets)
-  - [6.10. Checklist de Supervivencia](#610-checklist-de-supervivencia)
-    - [Git Inicial](#git-inicial-2)
-    - [Git Avanzado](#git-avanzado-2)
-    - [Git Remoto](#git-remoto-2)
-    - [Colaboración](#colaboración-3)
-    - [Herramientas](#herramientas-1)
+  - [6.3. Herramientas y Perfiles](#63-herramientas-y-perfiles)
+    - [Clientes Gráficos (GUI)](#clientes-gráficos-gui)
+    - [Extensiones VS Code](#extensiones-vs-code)
+    - [GitHub CLI y Terminal](#github-cli-y-terminal)
+    - [Recursos de Aprendizaje](#recursos-de-aprendizaje)
+  - [6.4. Checklist de Supervivencia](#64-checklist-de-supervivencia)
+  - [6.5. Errores Comunes a Evitar](#65-errores-comunes-a-evitar)
+  - [6.6. Glosario de Términos](#66-glosario-de-términos)
+  - [6.7. Ejercicios de Repaso](#67-ejercicios-de-repaso)
+  - [6.8. ¿Qué viene después?](#68-qué-viene-después)
+  - [6.9. Mapa de Conexiones entre Temas](#69-mapa-de-conexiones-entre-temas)
 
 
 # 6. Resumen y Conclusiones
 
+> 💡 **Punto de partida:** Has aprendido los comandos, las ramas, los remotos y la colaboración. Ahora es momento de consolidar todo: como un músico que repasa la partitura antes del concierto.
 
 El control de versiones con Git es una habilidad fundamental para cualquier desarrollador. Dominar los conceptos básicos de commits, ramas y remotos te permitirá:
 
@@ -52,6 +28,12 @@ El control de versiones con Git es una habilidad fundamental para cualquier desa
 - **Mantener un historial** de tu código
 - **Experimentar** con nuevas funcionalidades de forma segura
 - **Recuperar** versiones anteriores si algo sale mal
+
+**Objetivos de aprendizaje:**
+
+- Repasar los conceptos fundamentales de la unidad
+- Consolidar el vocabulario técnico de Git
+- Tener una referencia rápida para el examen
 
 > 💡 **Consejo final:** La práctica es clave. Crea un repositorio personal y experimenta con todos los comandos. Los errores son la mejor forma de aprender.
 
@@ -99,25 +81,29 @@ graph TD
     HERR --> HERR4[Recursos]
     HERR --> HERR5[Errores comunes]
 
-    style UD03 fill:#e1f5ff
-    style GINI fill:#e1ffe1
-    style GAV fill:#fff4e1
-    style GRE fill:#ffe1f5
-    style COL fill:#ffffe1
-    style HERR fill:#ffe1e1
+    style UD03 fill:#2196F3,color:#fff
+    style GINI fill:#4CAF50,color:#fff
+    style GAV fill:#FF9800,color:#fff
+    style GRE fill:#9C27B0,color:#fff
+    style COL fill:#f44336,color:#fff
+    style HERR fill:#607D8B,color:#fff
 ```
 
-## 6.2. Resumen por Temas
+
+## 6.2. Conceptos Clave
 
 ### Git Inicial
 
 | Concepto | Descripción |
 |----------|-------------|
-| **Repositorio** | Base de datos con todo el historial |
-| **Commit** | Instantánea con hash SHA-1 |
+| **Repositorio** | Base de datos con todo el historial de cambios |
+| **Commit** | Instantánea guardada con hash SHA-1, autor, fecha y mensaje |
 | **Staging Area** | Zona intermedia antes del commit |
 | **Working Directory** | Copia local donde trabajas |
 | **HEAD** | Puntero al commit actual |
+| **.gitignore** | Archivo que dice a Git qué ignorar |
+
+📌 **Ejemplo real:** GitHub usa repositorios para almacenar millones de proyectos. Cada commit es una línea de tiempo que puedes navegar.
 
 ### Git Avanzado
 
@@ -126,9 +112,12 @@ graph TD
 | **Rama** | Línea de desarrollo independiente |
 | **Merge** | Fusionar cambios de ramas |
 | **Rebase** | Reaplicar commits sobre otra base |
-| **Conflicto** | Dos修改aron las mismas líneas |
+| **Conflicto** | Cuando dos desarrolladores modificaron las mismas líneas |
+| **Cherry-Pick** | Copiar un commit específico a otra rama |
 | **GitHub Flow** | Flujo simple con main + features |
 | **GitFlow** | Flujo estructurado con develop/release/hotfix |
+
+📌 **Ejemplo real:** Netflix usa ramas feature para desarrollar nuevas funcionalidades sin afectar la versión estable de su aplicación.
 
 ### Git Remoto
 
@@ -139,6 +128,9 @@ graph TD
 | **Pull** | Traer y fusionar del remoto |
 | **Fetch** | Traer sin fusionar |
 | **Tag** | Marca de versión (v1.0.0) |
+| **SSH** | Protocolo de autenticación segura |
+
+📌 **Ejemplo real:** Cada release de Android se gestiona con tags en repositorios Git para rastrear versiones exactas.
 
 ### Colaboración
 
@@ -148,250 +140,52 @@ graph TD
 | **Fork** | Copia de un repositorio ajeno |
 | **Code Review** | Revisión de código por pares |
 | **GitHub Actions** | CI/CD automatizado |
+| **Issues** | Sistema de seguimiento de errores y tareas |
 
-## 6.3. Flujo de Trabajo Completo
+📌 **Ejemplo real:** Las empresas como Google o Microsoft usan Pull Requests y Code Review para garantizar la calidad de su código antes de production.
 
-```mermaid
-graph LR
-    subgraph "Local"
-        A[Working Dir] -->|git add| B[Staging]
-        B -->|git commit| C[HEAD]
-        C -->|git checkout -b| D[Rama feature]
-    end
-    D -->|git push| E[Remote]
-    E -->|Pull Request| F[Code Review]
-    F -->|Merge| G[Main]
-    G -->|git pull| C
-    
-    style A fill:#ffe1e1
-    style B fill:#fff4e1
-    style C fill:#e1ffe1
-    style E fill:#e1f5ff
-    style F fill:#ffe1f5
-    style G fill:#e1ffff
-```
 
-## 6.4. Comparativa de Flujos
+## 6.3. Herramientas y Perfiles
 
-| Aspecto | GitHub Flow | GitFlow |
-|---------|-------------|---------|
-| **Ramas principales** | Solo `main` | `main` + `develop` |
-| **Release branches** | No | Sí |
-| **Hotfixes** | Desde main | Desde main/master |
-| **Complejidad** | Baja | Alta |
-| **Ideal para** | Web apps CD | Software con versiones |
+### Clientes Gráficos (GUI)
 
-## 6.5. Comandos Esenciales por Categoría
+| Herramienta | Plataforma | Ideal para |
+|-------------|------------|------------|
+| **GitKraken** | Multiplataforma | Visual intuitivo, gratuito |
+| **GitHub Desktop** | Windows/Mac | Usuarios de GitHub, simple |
+| **Sourcetree** | Windows/Mac | Atlassian, potente |
+| **VS Code + Git** | Multiplataforma | Desarrolladores VS Code |
 
-### Configuración
+### Extensiones VS Code
 
-```bash
-git config --global user.name "Tu Nombre"
-git config --global user.email "tu@email.com"
-git config --global core.editor "code --wait"
-```
+| Extensión | Función |
+|-----------|---------|
+| **GitLens** | Blame, historial, annotations |
+| **Git Graph** | Visualizar ramas como gráfico |
+| **Git History** | Ver historial de archivos |
+| **Git Indicators** | Indicadores de estado en el editor |
 
-### Inicio
+### GitHub CLI y Terminal
 
-```bash
-git init                          # Nuevo repositorio
-git clone url                     # Clonar existente
-```
+| Comando CLI | Descripción |
+|-------------|-------------|
+| `gh pr create` | Crear Pull Request |
+| `gh pr list` | Listar Pull Requests |
+| `gh issue create` | Crear Issue |
+| `gh run list` | Ver workflows de CI/CD |
 
-### Básico
+### Recursos de Aprendizaje
 
-```bash
-git status                        # Ver estado
-git add .                         # Preparar cambios
-git commit -m "msg"               # Guardar cambios
-git log --oneline                 # Ver historial
-```
+| Recurso | URL | Tipo |
+|---------|-----|------|
+| **Git Documentation** | git-scm.com/doc | Documentación oficial |
+| **GitHub Docs** | docs.github.com | Documentación oficial |
+| **Learn Git Branching** | learngitbranching.js.org | Tutorial interactivo |
+| **Git Immersion** | gitimmersion.com | Tutorial guiado |
+| **Git Cheat Sheet** | education.github.com | Referencia rápida |
 
-### Deshacer
 
-```bash
-git restore archivo               # Deshacer cambios locales
-git restore --staged archivo      # Quitar del staging
-git revert HEAD                   # Revertir último commit (seguro)
-git reset --soft HEAD~1           # Eliminar commit, conservar cambios
-git reset --mixed HEAD~1          # Eliminar commit y staging
-git reset --hard HEAD~1           # ¡TODO BORRADO! (peligroso)
-git cherry-pick [hash]            # Aplicar commit específico
-```
-
-### Ramas
-
-```bash
-git branch                        # Listar ramas
-git checkout -b rama              # Crear y cambiar
-git switch rama                   # Cambiar rama
-git branch -d rama                # Eliminar rama
-```
-
-### Merge y Rebase
-
-```bash
-git merge rama                    # Fusionar rama
-git rebase main                   # Rebase sobre main
-git merge --abort                 # Cancelar merge
-git rebase --abort                # Cancelar rebase
-```
-
-### Cherry-Pick (¡Mi comando favorito!)
-
-```bash
-# Aplicar un commit específico a la rama actual
-git cherry-pick [commit-hash]
-
-# Aplicar varios commits
-git cherry-pick hash1 hash2 hash3
-
-# Cherry-pick con rango de commits
-git cherry-pick hash1..hash5
-
-# Cherry-pick sin hacer commit (solo preparar)
-git cherry-pick -n [commit-hash]
-
-# Cherry-pick desde otra rama
-git checkout main
-git cherry-pick develop~3
-```
-
-> 💡 **¿Cuándo usar cherry-pick?** Cuando quieres aplicar un commit específico de otra rama sin fusionar toda la rama. Ejemplo: aplicar un hotfix a main sin mergear toda la feature branch.
-
-### Deshacer: La Guía Definitiva
-
-| Comando | ¿Qué hace? | ¿Historial? | ¿Seguro compartido? |
-|---------|------------|-------------|---------------------|
-| `git restore archivo` | Descarta cambios locales | ❌ No | ✅ Sí |
-| `git restore --staged archivo` | Quita del staging | ❌ No | ✅ Sí |
-| `git revert HEAD` | Crea commit que deshace | ✅ SÍ | ✅ Sí |
-| `git reset --soft HEAD~1` | Deshace commit, mantiene cambios | ❌ No | ❌ No |
-| `git reset --mixed HEAD~1` | Deshace commit y staging | ❌ No | ❌ No |
-| `git reset --hard HEAD~1` | **¡TODO fuera!** | ❌ No | ❌ No |
-
-### Modos de Reset: Diferencias
-
-```mermaid
-graph TD
-    A[HEAD~1] --> B{Modo de reset}
-    B -->|SOFT| C[Staging intacto<br/>Cambios intactos<br/>Listo para re-commit]
-    B -->|MIXED| D[Staging borrado<br/>Cambios intactos<br/>Listo para add+commit]
-    B -->|HARD| E[Staging borrado<br/>Cambios borrados<br/>¡PERDIDO!]
-    
-    style C fill:#e1ffe1
-    style D fill:#fff4e1
-    style E fill:#ffe1e1
-```
-
-```bash
-# SOFT: Solo mueve HEAD, mantiene todo
-git reset --soft HEAD~1
-# Resultado: Commit deshecho, cambios en staging
-
-# MIXED (por defecto): Deshace commit y staging
-git reset HEAD~1
-# Resultado: Commit deshecho, cambios sin staged
-
-# HARD: ¡TODO BORRADO!
-git reset --hard HEAD~1
-# Resultado: Commit deshecho, cambios borrados
-# ⚠️ ¡PELIGRO! Los cambios se pierden para siempre
-```
-
-> ⚠️ **ADVERTENCIA:** `git reset --hard` es irreversible. Los cambios se borran del disco. Solo usar si estás completamente seguro.
-
-### Reset vs Revert vs Rebase
-
-| Comando | Propósito | Historial | Uso típico |
-|---------|-----------|-----------|------------|
-| **reset** | Volver atrás | Modifica | Trabajo local |
-| **revert** | Invertir commit | Conserva | Trabajo compartido |
-| **rebase** | Mover/reescribir | Modifica | Limpiar historial |
-
-```mermaid
-graph LR
-    A[¿Trabajo compartido?] -->|Sí| B[revert]
-    A -->|No| C[¿Limpiar historial?]
-    C -->|Sí| D[rebase -i]
-    C -->|No| E[reset]
-    
-    style B fill:#e1ffe1
-    style D fill:#fff4e1
-    style E fill:#ffe1f5
-```
-
-### Trucos: Eliminar el Último Commit
-
-```bash
-# OPCIÓN 1: Conservar los cambios (recomendado)
-git reset --soft HEAD~1
-# El commit se elimina pero los cambios vuelven al staging
-
-# OPCIÓN 2: Conservar cambios sin staging
-git reset HEAD~1
-# El commit se elimina, cambios quedan sin stagiar
-
-# OPCIÓN 3: ¡BORRAR TODO! (peligroso)
-git reset --hard HEAD~1
-# Todo desaparece. No hay vuelta atrás.
-
-# OPCIÓN 4: Usar revert (seguro para compartidos)
-git revert HEAD
-# Crea un nuevo commit que deshace el anterior
-```
-
-### Recuperar un Commit "Eliminado"
-
-```bash
-# Ver todo el historial de HEAD (incluye resets)
-git reflog
-
-# Buscar el commit perdido
-git reflog | grep commit
-
-# Restaurar el commit encontrado
-git checkout [commit-hash]
-# O
-git reset --hard [commit-hash]
-```
-
-> 💡 **Truco profesional:** `git reflog` es tu salvavidas. Guarda todos los movimientos de HEAD, incluso después de un `reset --hard`. Úsalo para recuperar commits "perdidos".
-
-### Modificar el Último Commit
-
-```bash
-# Cambiar el mensaje del último commit
-git commit --amend -m "Nuevo mensaje"
-
-# Añadir archivos olvidados al último commit
-git add archivo-olvidado.txt
-git commit --amend --no-edit
-
-# Cambiar autor del último commit
-git commit --amend --author="Nuevo Autor <email@ej.com>"
-```
-
-### Remotos
-
-```bash
-git remote -v                     # Ver remotos
-git push origin main              # Subir cambios
-git pull origin main              # Bajar y fusionar
-git fetch origin                  # Traer sin fusionar
-git push --tags                   # Subir etiquetas
-```
-
-### Colaboración
-
-```bash
-git checkout -b feature/nova      # Crear rama feature
-git push -u origin feature/nova   # Subir y crear tracking
-git remote add upstream url       # Añadir fork original
-git fetch upstream                # Actualizar fork
-```
-
-## 6.6. Checklist de Supervivencia
+## 6.4. Checklist de Supervivencia
 
 Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 
@@ -423,76 +217,94 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 - [ ] ¿Puedo usar un cliente GUI básico?
 - [ ] ¿Sé usar recursos online para consultar comandos?
 
-## 6.7. Atajos de Git más Usados
-
-| Atajo | Descripción |
-|-------|-------------|
-| `git status` | Ver estado actual |
-| `git add .` | Preparar todos los cambios |
-| `git commit -m "msg"` | Commit con mensaje |
-| `git push origin main` | Subir cambios |
-| `git pull` | Bajar y fusionar |
-| `git checkout -b rama` | Crear y cambiar a rama |
-| `git log --oneline` | Ver historial resumido |
-| `git diff` | Ver cambios no preparados |
-| `git branch` | Listar ramas |
-| `git merge rama` | Fusionar rama |
-
-## 6.8. Errores Comunes y Soluciones
-
-| Error | Causa | Solución |
-|-------|-------|----------|
-| "not a git repository" | No estás en un repo | `git init` o `git clone` |
-| "nothing to commit" | No hay cambios | Modifica archivos |
-| "changes not staged" | Cambios sin preparar | `git add` |
-| "failed to push" | El remoto tiene cambios nuevos | `git pull` primero |
-| "merge conflict" | Dos修改aron lo mismo | Resolver conflictos |
-| "detached HEAD" | Checkout a commit | `git checkout rama` |
-
-## 6.9. Recursos Adicionales
-
-### Documentación
-- [Git Documentation](https://git-scm.com/doc)
-- [GitHub Docs](https://docs.github.com)
-
-### Tutoriales Interactivos
-- [Learn Git Branching](https://learngitbranching.js.org)
-- [Git Immersion](https://gitimmersion.com)
-
-### Cheat Sheets
-- [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
-- [Git Command Explorer](https://git-cheatsheet.com)
+> 🔧 **Truco:** Imprime este checklist y marca cada punto cuando lo domines. Es tu mapa de progreso.
 
 
+## 6.5. Errores Comunes a Evitar
 
-## 6.10. Checklist de Supervivencia
+| Error | Por qué está mal | Cómo evitarlo |
+|-------|------------------|---------------|
+| `git push` sin `git pull` primero | El remoto tiene cambios nuevos que chocan con los tuyos | Siempre haz `git pull` antes de `git push` |
+| `git reset --hard` sin pensar | Borra cambios de forma irreversible | Usa `--soft` o `--mixed` primero; solo `--hard` si estás seguro |
+| Commit sin mensaje claro | "fix" o "update" no explican nada | Usa mensajes descriptivos: `fix(auth): resolve token refresh bug` |
+| Ignorar `.gitignore` | Archivos sensibles o de sistema se suben al repo | Configura `.gitignore` desde el inicio del proyecto |
+| No hacer commits frecuentes | Si pierdes días de trabajo, no hay puntos intermedios | Haz commits pequeños y frecuentes (cada funcionalidad o fix) |
+| Mezclar features en una rama | Una rama debería tener un propósito claro | Crea ramas separadas para cada feature o fix |
+| No usar ramas en equipo | Si todos trabajan en main, los conflictos son inevitables | Usa ramas feature y Pull Requests para todo cambio |
+| Cherry-pick sin entender | Puedes romper el historial si lo usas mal | Usa cherry-pick solo para hotfixes puntuales |
 
-Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ** a estas preguntas:
 
-### Git Inicial
-- [ ] ¿Entiendo la diferencia entre Git (local) y GitHub (remoto)?
-- [ ] ¿Puedo configurar Git con mi nombre y email?
-- [ ] ¿Sé usar `git add`, `git commit` y `git status` correctamente?
-- [ ] ¿Entiendo el concepto de área de staging?
-- [ ] ¿Puedo configurar `.gitignore` correctamente?
+## 6.6. Glosario de Términos
 
-### Git Avanzado
-- [ ] ¿Puedo crear, cambiar y eliminar ramas?
-- [ ] ¿Sé resolver un merge básico?
-- [ ] ¿Conozco la diferencia entre `git reset` y `git revert`?
-- [ ] ¿Entiendo qué es un conflicto y cómo resolverlo?
-- [ ] ¿Conozco al menos un flujo de trabajo (GitHub Flow o GitFlow)?
+| Término | Definición |
+|---------|------------|
+| **Repository (Repositorio)** | Carpeta que Git vigila para controlar cambios |
+| **Commit** | Instantánea guardada con autor, fecha y mensaje |
+| **Branch (Rama)** | Línea de desarrollo independiente |
+| **Merge** | Fusión de una rama en otra |
+| **Rebase** | Reescribir commits sobre otra base |
+| **HEAD** | Puntero al último commit de la rama actual |
+| **Staging Area** | Zona de preparación antes del commit |
+| **Working Directory** | Directorio de trabajo local |
+| **Remote (Remoto)** | Repositorio en un servidor (GitHub, GitLab) |
+| **Origin** | Nombre por defecto del repositorio remoto |
+| **Push** | Subir commits del local al remoto |
+| **Pull** | Descargar y fusionar cambios del remoto |
+| **Fetch** | Descargar cambios sin fusionarlos |
+| **Fork** | Copia personal de un repositorio de otro usuario |
+| **Pull Request** | Propuesta de cambios para revisar antes de fusionar |
+| **Tag** | Marcador para versiones (v1.0.0, v2.1.3) |
+| **Cherry-pick** | Copiar un commit específico a otra rama |
+| **Conflict** | Cuando dos ramas modifican las mismas líneas |
+| **Clone** | Copia completa de un repositorio remoto |
+| **CI/CD** | Integración y despliegue continuo |
 
-### Git Remoto
-- [ ] ¿Puedo usar `git push` y `git pull` con un remoto?
-- [ ] ¿Sé la diferencia entre `git fetch` y `git pull`?
-- [ ] ¿Puedo crear y subir tags?
 
-### Colaboración
-- [ ] ¿Entiendo qué es una Pull Request y cómo crearla?
-- [ ] ¿Sé la diferencia entre Fork y Clone?
-- [ ] ¿Conozco el proceso de code review?
+## 6.7. Ejercicios de Repaso
 
-### Herramientas
-- [ ] ¿Puedo usar un cliente GUI básico?
-- [ ] ¿Sé usar un recurso online para consultar comandos?
+1. **Ejercicio 1:** Crea un repositorio local, añade 3 archivos con commits diferentes y consulta el historial con `git log --oneline`.
+
+2. **Ejercicio 2:** Crea una rama `feature/ejercicio`, añade un archivo, haz commit y fusiónala con `main`. Resuelve cualquier conflicto si aparece.
+
+3. **Ejercicio 3:** Usa `git stash` para guardar cambios temporalmente, cambia de rama y aplica el stash con `git stash pop`.
+
+4. **Ejercicio 4:** Crea un repositorio en GitHub, conéctalo a tu repositorio local y sube los cambios con `git push`.
+
+5. **Ejercicio 5:** Crea una Pull Request en GitHub, pide revisión a un compañero y融合ala después de la revisión.
+
+6. **Ejercicio 6:** Usa `git revert` para deshacer un commit compartido y `git reset --soft` para deshacer uno local. Compara los resultados.
+
+7. **Ejercicio 7:** Configura un alias personalizado en Git (por ejemplo, `git st` para `git status`) y úsalo en tu flujo de trabajo diario.
+
+
+## 6.8. ¿Qué viene después?
+
+En la **UD 04: Desarrollo Web Frontend** aprenderás a crear interfaces de usuario con HTML, CSS y JavaScript. Git será tu aliado para versionar cada componente y funcionalidad.
+
+| Tema de la UD actual | Se usa en la siguiente UD para |
+|----------------------|-------------------------------|
+| Repositorios y commits | Versionar cada ejercicio y proyecto práctico |
+| Ramas y merges | Desarrollar componentes frontend en paralelo |
+| GitHub y PRs | Compartir tu portfolio de proyectos web |
+| Colaboración | Trabajar en equipo en proyectos frontend |
+
+
+## 6.9. Mapa de Conexiones entre Temas
+
+```mermaid
+graph LR
+    UD01[UD01: Fundamentos Programación] --> UD02[UD02: Entornos Desarrollo]
+    UD02 --> UD03[UD03: Control de Versiones]
+    UD03 --> UD04[UD04: Desarrollo Web Frontend]
+    UD04 --> UD05[UD05: Desarrollo Web Backend]
+    UD05 --> UD06[UD06: Bases de Datos]
+    UD06 --> UD07[UD07: Despliegue y DevOps]
+
+    style UD01 fill:#4CAF50,color:#fff
+    style UD02 fill:#2196F3,color:#fff
+    style UD03 fill:#FF9800,color:#fff
+    style UD04 fill:#9C27B0,color:#fff
+    style UD05 fill:#f44336,color:#fff
+    style UD06 fill:#607D8B,color:#fff
+    style UD07 fill:#4CAF50,color:#fff
+```

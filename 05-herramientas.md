@@ -1,41 +1,56 @@
 - [5. Herramientas y Recursos](#5-herramientas-y-recursos)
   - [5.1. Clientes Gráficos (GUI)](#51-clientes-gráficos-gui)
-    - [GitKraken](#gitkraken)
-    - [GitHub Desktop](#github-desktop)
-    - [Sourcetree](#sourcetree)
-    - [VS Code + Git](#vs-code--git)
-    - [Comparativa de GUIs](#comparativa-de-guis)
+    - [5.1.1. GitKraken](#511-gitkraken)
+    - [5.1.2. GitHub Desktop](#512-github-desktop)
+    - [5.1.3. Sourcetree](#513-sourcetree)
+    - [5.1.4. VS Code + Git](#514-vs-code--git)
+    - [5.1.5. Comparativa de GUIs](#515-comparativa-de-guis)
   - [5.2. Extensiones VS Code para Git](#52-extensiones-vs-code-para-git)
-    - [GitLens](#gitlens)
-    - [Git Graph](#git-graph)
-    - [Otras Extensiones Útiles](#otras-extensiones-útiles)
+    - [5.2.1. GitLens](#521-gitlens)
+    - [5.2.2. Git Graph](#522-git-graph)
+    - [5.2.3. Otras Extensiones Útiles](#523-otras-extensiones-útiles)
   - [5.3. GitHub CLI](#53-github-cli)
-    - [Instalación](#instalación)
-    - [Comandos Principales](#comandos-principales)
-    - [Ejemplo Flujo Completo](#ejemplo-flujo-completo)
+    - [5.3.1. Instalación](#531-instalación)
+    - [5.3.2. Comandos Principales](#532-comandos-principales)
+    - [5.3.3. Ejemplo Flujo Completo](#533-ejemplo-flujo-completo)
   - [5.4. Recursos de Aprendizaje](#54-recursos-de-aprendizaje)
-    - [Tutoriales Interactivos](#tutoriales-interactivos)
-    - [Documentación Oficial](#documentación-oficial)
-    - [Cheat Sheets](#cheat-sheets)
-    - [Juegos y Gamificación](#juegos-y-gamificación)
+    - [5.4.1. Tutoriales Interactivos](#541-tutoriales-interactivos)
+    - [5.4.2. Documentación Oficial](#542-documentación-oficial)
+    - [5.4.3. Cheat Sheets](#543-cheat-sheets)
+    - [5.4.4. Juegos y Gamificación](#544-juegos-y-gamificación)
   - [5.5. Configuración Avanzada](#55-configuración-avanzada)
-    - [Alias Útiles](#alias-útiles)
-    - [Usar Alias](#usar-alias)
-    - [Colores y Formato](#colores-y-formato)
-    - [.gitconfig Completo](#gitconfig-completo)
+    - [5.5.1. Alias Útiles](#551-alias-útiles)
+    - [5.5.2. Usar Alias](#552-usar-alias)
+    - [5.5.3. Colores y Formato](#553-colores-y-formato)
+    - [5.5.4. .gitconfig Completo](#554-gitconfig-completo)
   - [5.6. Errores Comunes y Soluciones](#56-errores-comunes-y-soluciones)
-    - [❌ Errores Típicos](#-errores-típicos)
-    - [⚠️ Recuperación de Errores](#️-recuperación-de-errores)
-    - [🆘 Comandos de Emergencia](#-comandos-de-emergencia)
+    - [5.6.1. ❌ Errores Típicos](#561--errores-típicos)
+    - [5.6.2. ⚠️ Recuperación de Errores](#562--recuperación-de-errores)
+    - [5.6.3. 🆘 Comandos de Emergencia](#563--comandos-de-emergencia)
 
 
 # 5. Herramientas y Recursos
 
-## 5.1. Clientes Gráficos (GUI)
+> 💡 **Punto de partida:** ¿Te imaginas construir un edificio sin herramientas? Podrías, pero tardarías una eternidad. Las herramientas de Git son como tener una grúa, un soldador y un robot: cada una hace un trabajo específico mucho más rápido.
+
+> 💡 **¿Por qué me importa?**
+> Dominar las herramientas correctas multiplica tu productividad. Un cliente gráfico te ayuda a visualizar el historial, una extensión de VS Code te ahorra comandos, y GitHub CLI te permite automatizar tareas repetitivas.
+> 
+> 🔗 **Conexión con otros puntos:** El Punto 04 viste Pull Requests, Forks y colaboración. Este punto verás las herramientas que facilitan todo ese trabajo: clientes gráficos, extensiones, CLI y recursos de aprendizaje.
+
+En el Punto 04 vimos Pull Requests, Forks, Code Review y GitHub Actions. Ahora veremos las herramientas y recursos para Git: clientes gráficos, extensiones de VS Code, terminal Git y trucos para potenciar tu productividad.
+
+**Objetivos de aprendizaje:**
+
+- Conocer los clientes gráficos más populares (GitKraken, GitHub Desktop, Sourcetree)
+- Instalar y usar extensiones de VS Code para Git
+- Dominar GitHub CLI para automatizar tareas
+- Configurar alias y personalizar Git
+- Resolver errores comunes de forma rápida
 
 Los clientes gráficos facilitan el uso de Git para quienes prefieren interfaces visuales.
 
-### GitKraken
+### 5.1.1. GitKraken
 
 | Característica | Descripción |
 |----------------|-------------|
@@ -46,7 +61,7 @@ Los clientes gráficos facilitan el uso de Git para quienes prefieren interfaces
 
 > 💡 **Ideal para:** Principiantes que quieren entender visualmente cómo funciona Git.
 
-### GitHub Desktop
+### 5.1.2. GitHub Desktop
 
 | Característica | Descripción |
 |----------------|-------------|
@@ -55,7 +70,7 @@ Los clientes gráficos facilitan el uso de Git para quienes prefieren interfaces
 | **Puntos fuertes** | Integración nativa GitHub, simple |
 | **Limitaciones** | Solo GitHub, menos features |
 
-### Sourcetree
+### 5.1.3. Sourcetree
 
 | Característica | Descripción |
 |----------------|-------------|
@@ -64,7 +79,7 @@ Los clientes gráficos facilitan el uso de Git para quienes prefieren interfaces
 | **Puntos fuertes** | Completo, gratuito |
 | **Puntos débiles** | Interfaz anticuada |
 
-### VS Code + Git
+### 5.1.4. VS Code + Git
 
 | Característica | Descripción |
 |----------------|-------------|
@@ -78,7 +93,7 @@ Los clientes gráficos facilitan el uso de Git para quienes prefieren interfaces
 # Clic en icono Git en barra lateral
 ```
 
-### Comparativa de GUIs
+### 5.1.5. Comparativa de GUIs
 
 | Herramienta | Facilidad | Features | Integración | Precio |
 |-------------|-----------|----------|-------------|--------|
@@ -89,7 +104,7 @@ Los clientes gráficos facilitan el uso de Git para quienes prefieren interfaces
 
 ## 5.2. Extensiones VS Code para Git
 
-### GitLens
+### 5.2.1. GitLens
 
 | Característica | Descripción |
 |----------------|-------------|
@@ -103,7 +118,7 @@ Los clientes gráficos facilitan el uso de Git para quienes prefieren interfaces
 - Buscar en historial
 - Visualizar ramas
 
-### Git Graph
+### 5.2.2. Git Graph
 
 | Característica | Descripción |
 |----------------|-------------|
@@ -116,10 +131,10 @@ graph TB
     A --> D[Ver archivos modificados]
     A --> E[Filtrar por fecha/autor]
     
-    style A fill:#e1f5ff
+    style A fill:#2196F3,color:#fff
 ```
 
-### Otras Extensiones Útiles
+### 5.2.3. Otras Extensiones Útiles
 
 | Extensión | Función |
 |-----------|---------|
@@ -133,7 +148,7 @@ graph TB
 
 **GitHub CLI** (`gh`) permite gestionar GitHub desde la terminal.
 
-### Instalación
+### 5.3.1. Instalación
 
 ```bash
 # Windows (scoop)
@@ -149,7 +164,7 @@ brew install gh
 # https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 ```
 
-### Comandos Principales
+### 5.3.2. Comandos Principales
 
 ```bash
 # Autenticarse
@@ -186,7 +201,7 @@ gh repo clone [repo]          # Clonar repo
 gh repo fork [repo]           # Fork repo
 ```
 
-### Ejemplo Flujo Completo
+### 5.3.3. Ejemplo Flujo Completo
 
 ```bash
 # Clonar repo
@@ -215,7 +230,7 @@ gh pr merge --merge
 
 ## 5.4. Recursos de Aprendizaje
 
-### Tutoriales Interactivos
+### 5.4.1. Tutoriales Interactivos
 
 | Recurso | Descripción | Nivel |
 |---------|-------------|-------|
@@ -224,7 +239,7 @@ gh pr merge --merge
 | [GitKatas](https://github.com/praqma-training/git-katas) | Ejercicios prácticos | Todos |
 | [GitHub Learning Lab](https://lab.github.com) | Cursos de GitHub | Principiante |
 
-### Documentación Oficial
+### 5.4.2. Documentación Oficial
 
 | Recurso | Descripción |
 |---------|-------------|
@@ -233,7 +248,7 @@ gh pr merge --merge
 | [GitHub Docs](https://docs.github.com) | Documentación GitHub |
 | [GitLab Docs](https://docs.gitlab.com) | Documentación GitLab |
 
-### Cheat Sheets
+### 5.4.3. Cheat Sheets
 
 | Recurso | Descripción |
 |---------|-------------|
@@ -241,7 +256,7 @@ gh pr merge --merge
 | [Git Cheatsheet](https://ndpsoftware.com/git-cheatsheet.html) | Visual interactivo |
 | [Git Command Explorer](https://git-cheatsheet.com) | Búsqueda por comando |
 
-### Juegos y Gamificación
+### 5.4.4. Juegos y Gamificación
 
 | Recurso | Descripción |
 |---------|-------------|
@@ -251,7 +266,7 @@ gh pr merge --merge
 
 ## 5.5. Configuración Avanzada
 
-### Alias Útiles
+### 5.5.1. Alias Útiles
 
 ```bash
 # Alias de configuración
@@ -268,7 +283,7 @@ git config --global alias.unstage "reset HEAD --"
 git config --global alias.visual "!gitk"
 ```
 
-### Usar Alias
+### 5.5.2. Usar Alias
 
 ```bash
 # En lugar de:
@@ -282,7 +297,7 @@ git co main
 git lg
 ```
 
-### Colores y Formato
+### 5.5.3. Colores y Formato
 
 ```bash
 # Activar colores
@@ -297,7 +312,7 @@ git config --global color.branch.remote "red"
 git config --global format.pretty "%h %s %cn"
 ```
 
-### .gitconfig Completo
+### 5.5.4. .gitconfig Completo
 
 ```ini
 [user]
@@ -341,7 +356,7 @@ git config --global format.pretty "%h %s %cn"
 
 ## 5.6. Errores Comunes y Soluciones
 
-### ❌ Errores Típicos
+### 5.6.1. ❌ Errores Típicos
 
 | Error | Causa | Solución |
 |-------|-------|----------|
@@ -353,7 +368,7 @@ git config --global format.pretty "%h %s %cn"
 | "merge conflict" | Dos personas modificaron lo mismo | Resolver conflictos |
 | "detached HEAD" | Checkout a commit, no rama | `git checkout rama` |
 
-### ⚠️ Recuperación de Errores
+### 5.6.2. ⚠️ Recuperación de Errores
 
 ```bash
 # Recuperar cambios después de reset --hard
@@ -374,7 +389,7 @@ git reset --soft HEAD~1
 git log --all --full-history -- archivo.txt
 ```
 
-### 🆘 Comandos de Emergencia
+### 5.6.3. 🆘 Comandos de Emergencia
 
 ```bash
 # Ver todo el historial (incluido resets)
@@ -383,8 +398,8 @@ git reflog
 # Buscar commit por mensaje
 git log --all --grep="mensaje"
 
-# Buscar commit que改性ó una línea
-git log -S "texto buscadp"
+# Buscar commit que modificó una línea
+git log -S "texto buscado"
 
 # Recuperar archivo de cualquier commit
 git checkout [commit-hash] -- archivo.txt
@@ -395,3 +410,18 @@ git log --all --oneline --graph
 # Encontrar "perdido" commit
 git fsck --lost-found
 ```
+
+**Resumen del punto:**
+
+| Herramienta | Descripción |
+|-------------|-------------|
+| **GitKraken** | Cliente gráfico multiplataforma, visual intuitivo |
+| **GitHub Desktop** | Cliente oficial de GitHub, simple y limpio |
+| **Sourcetree** | Cliente gratuito de Atlassian, potente |
+| **GitLens** | Extensión VS Code con blame, historial y annotations |
+| **Git Graph** | Extensión VS Code para visualizar ramas como gráfico |
+| **GitHub CLI** | Terminal para gestionar GitHub directamente |
+| **gitref.com** | Referencia rápida de comandos |
+| **Oh My Zsh** | Framework de terminal con plugins de Git |
+
+En el Resumen consolidaremos todo lo aprendido en la unidad: conceptos, comandos, flujos de trabajo y herramientas.

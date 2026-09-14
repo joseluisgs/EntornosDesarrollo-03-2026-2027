@@ -1,35 +1,52 @@
 - [2. Git Avanzado](#2-git-avanzado)
   - [2.1. Ramas (Branches)](#21-ramas-branches)
-    - [Concepto de Rama](#concepto-de-rama)
-    - [Comandos de Ramas](#comandos-de-ramas)
+    - [2.1.1. Concepto de Rama](#211-concepto-de-rama)
+    - [2.1.2. Comandos de Ramas](#212-comandos-de-ramas)
   - [2.2. Fusiones (Merge)](#22-fusiones-merge)
-    - [Tipos de Merge](#tipos-de-merge)
-    - [Comandos de Merge](#comandos-de-merge)
-    - [Cherry-Pick (Mi Comando Favorito!)](#cherry-pick-mi-comando-favorito)
+    - [2.2.1. Tipos de Merge](#221-tipos-de-merge)
+    - [2.2.2. Comandos de Merge](#222-comandos-de-merge)
+    - [2.2.3. Cherry-Pick (Mi Comando Favorito!)](#223-cherry-pick-mi-comando-favorito)
   - [2.3. Rebase](#23-rebase)
-    - [Comandos de Rebase](#comandos-de-rebase)
-    - [Rebase Interactivo](#rebase-interactivo)
-    - [Merge vs Rebase: ¿Cuándo usar cada uno?](#merge-vs-rebase-cuándo-usar-cada-uno)
-    - [Ejemplo Rebase Práctico](#ejemplo-rebase-práctico)
+    - [2.3.1. Comandos de Rebase](#231-comandos-de-rebase)
+    - [2.3.2. Rebase Interactivo](#232-rebase-interactivo)
+    - [2.3.3. Merge vs Rebase: ¿Cuándo usar cada uno?](#233-merge-vs-rebase-cuándo-usar-cada-uno)
+    - [2.3.4. Ejemplo Rebase Práctico](#234-ejemplo-rebase-práctico)
   - [2.4. Resolución de Conflictos](#24-resolución-de-conflictos)
-    - [Pasos para Resolver Conflictos](#pasos-para-resolver-conflictos)
-    - [Herramientas de Resolución](#herramientas-de-resolución)
+    - [2.4.1. Pasos para Resolver Conflictos](#241-pasos-para-resolver-conflictos)
+    - [2.4.2. Herramientas de Resolución](#242-herramientas-de-resolución)
   - [2.5. Estrategias de Branching](#25-estrategias-de-branching)
-    - [Rama por Funcionalidad (Feature Branch)](#rama-por-funcionalidad-feature-branch)
-    - [Rama por Bugfix](#rama-por-bugfix)
+    - [2.5.1. Rama por Funcionalidad (Feature Branch)](#251-rama-por-funcionalidad-feature-branch)
+    - [2.5.2. Rama por Bugfix](#252-rama-por-bugfix)
   - [2.6. Flujos de Trabajo con Ramas](#26-flujos-de-trabajo-con-ramas)
-    - [GitHub Flow](#github-flow)
-    - [GitFlow](#gitflow)
-    - [Comandos GitFlow](#comandos-gitflow)
-    - [Comparativa de Flujos](#comparativa-de-flujos)
+    - [2.6.1. GitHub Flow](#261-github-flow)
+    - [2.6.2. GitFlow](#262-gitflow)
+    - [2.6.3. Comandos GitFlow](#263-comandos-gitflow)
+    - [2.6.4. Comparativa de Flujos](#264-comparativa-de-flujos)
   - [2.7. Rama Main vs Master](#27-rama-main-vs-master)
   - [2.8. Buenas Prácticas con Ramas](#28-buenas-prácticas-con-ramas)
-    - [✅ Recomendaciones](#-recomendaciones)
-    - [❌ Errores a Evitar](#-errores-a-evitar)
+    - [2.8.1. ✅ Recomendaciones](#281--recomendaciones)
+    - [2.8.2. ❌ Errores a Evitar](#282--errores-a-evitar)
   - [2.9. Resumen de Comandos Avanzados](#29-resumen-de-comandos-avanzados)
 
 
 # 2. Git Avanzado
+
+> 💡 **Punto de partida:** ¿Te imaginas construir un rascacielos sin poder probar ideas en un planito primero? Sin ramas, cada cambio experimental arriesga todo el proyecto. Las ramas son tu laboratorio seguro.
+
+> 💡 **¿Por qué me importa?**
+> En cualquier proyecto real, necesitarás desarrollar funcionalidades nuevas, corregir errores y experimentar sin afectar el código estable. Las ramas te permiten trabajar en paralelo, fusionar cuando esté listo y mantener siempre una versión funcional.
+> 
+> 🔗 **Conexión con otros puntos:** El Punto 01 viste los comandos básicos de Git. Este punto profundiza en ramas, fusiones y conflictos. El Punto 03 verás GitHub y los repositorios remotos para compartir tu trabajo.
+
+En el Punto 01 vimos los conceptos básicos de Git: repositorios, commits y comandos esenciales. Ahora veremos ramas, fusiones, rebase y resolución de conflictos: las herramientas que hacen posible el trabajo en equipo.
+
+**Objetivos de aprendizaje:**
+
+- Crear, cambiar y eliminar ramas
+- Entender las diferencias entre merge, rebase y cherry-pick
+- Resolver conflictos de fusión
+- Conocer estrategias de branching (GitHub Flow, GitFlow)
+- Aplicar buenas prácticas con ramas
 
 Las ramas permiten trabajar en nuevas funcionalidades, corregir errores o experimentar sin afectar la base de código principal. Es una de las características más potentes de Git.
 
@@ -51,12 +68,12 @@ graph LR
     E -->|merge| I[main]
     H -->|merge| I
     
-    style A fill:#e1ffe1
-    style F fill:#fff4e1
-    style H fill:#ffe1f5
+    style A fill:#4CAF50,color:#fff
+    style F fill:#FF9800,color:#fff
+    style H fill:#9C27B0,color:#fff
 ```
 
-### Concepto de Rama
+### 2.1.1. Concepto de Rama
 
 Una **rama** es una línea de desarrollo independiente. La rama principal suele llamarse `main` o `master`.
 
@@ -67,7 +84,33 @@ Una **rama** es una línea de desarrollo independiente. La rama principal suele 
 > feature/login:  ●──●──  (trabajando en login)
 > ```
 
-### Comandos de Ramas
+> 💡 **Metáfora: Las ramas son universos paralelos**
+> Imagina que cada rama es un universo paralelo. En el universo `main`, tu aplicación funciona perfectamente en producción. Pero en el universo `feature/login`, estás experimentando con una nueva pantalla de login. Si el experimento sale mal, simplemente cierras ese universo (eliminas la rama) y el universo principal sigue intacto. Si sale bien, fusionas ambos universos en uno solo.
+
+```mermaid
+gitGraph
+    commit id: "init"
+    commit id: "estructura base"
+    branch feature
+    checkout feature
+    commit id: "login UI"
+    commit id: "autenticación"
+    checkout main
+    merge feature id: "merge login"
+    commit id: "deploy v1.0"
+```
+
+### Ventajas e Inconvenientes de Usar Muchas Ramas
+
+| ✅ Ventajas | ❌ Inconvenientes |
+|-------------|-------------------|
+| Aislamiento del código principal | Más ramas que gestionar |
+| Experimentación sin riesgo | Posible confusión entre ramas |
+| Trabajo en paralelo sin interferencias | Conflictos al fusionar muchas ramas |
+| Historial claro de cada funcionalidad | Ramas huérfanas que nadie recuerda |
+| Facilita las revisiones de código (PR) | Más comandos para mantener sincronización |
+
+### 2.1.2. Comandos de Ramas
 
 ```bash
 # Listar todas las ramas locales
@@ -109,33 +152,142 @@ git checkout --track origin/nombre-rama
 
 > 💡 **checkout vs switch:** `git switch` es más reciente y su sintaxis es más intuitiva. `git checkout` todavía funciona pero está en desuso para cambios de rama.
 
+### Metáforas y Errores Comunes por Comando
+
+#### `git branch` — El mapa de universos
+
+> 💡 **Metáfora:** `git branch` es como abrir un mapa y ver todos los universos paralelos disponibles. No viajas a ninguno, solo los enumeras.
+
+```bash
+git branch                # Lista ramas locales (tus universos locales)
+git branch -a             # Lista todas, incluyendo las del servidor (universos compartidos)
+git branch -v             # Muestra el último commit de cada una
+```
+
+| ✅ Ventajas | ❌ Errores Comunes |
+|-------------|---------------------|
+| Veo todas mis ramas de un vistazo | No usar `git branch` antes de crear una nueva → nombre duplicado |
+| `-a` muestra ramas remotas también | Olvidar que el `*` indica la rama actual |
+| `-v` indica el último commit de cada rama | Confundir ramas locales con remotas |
+
+#### `git checkout` — El viaje entre universos
+
+> 💡 **Metáfora:** `git checkout` es como activar un portal de teletransportación. Te transporta de un universo (rama) a otro instantáneamente.
+
+```bash
+git checkout feature/login    # Te transportas al universo feature/login
+git checkout -b hotfix/bug    # Abre un NUEVO universo y te transportas ahí
+git checkout -                # Vuelves al último universo en el que estabas
+```
+
+| ✅ Ventajas | ❌ Errores Comunes |
+|-------------|---------------------|
+| Cambio rápido entre ramas | `git checkout` también modifica archivos (confuso para novatos) |
+| `-b` crea y cambia en un solo paso | Olvidar el `-b` → intenta cambiar a rama que no existe |
+| `git checkout -` → último lugar visitado | Modificar archivos sin hacer commit antes → cambios mezclados |
+
+> ⚠️ **Problema clásico:** Si tienes cambios sin commit y haces `checkout` a otra rama, Git intenta mezclar tus cambios. Siempre haz commit o stash antes de cambiar de rama.
+
+#### `git switch` — La versión moderna del portal
+
+> 💡 **Metáfora:** `git switch` es como el `checkout` pero con un panel de control más intuitivo. Solo cambia de rama, no toca tus archivos.
+
+```bash
+git switch feature/login     # Cambia a la rama feature/login
+git switch -c hotfix/bug     # Crea y cambia (equivalente a checkout -b)
+git switch -                 # Vuelve a la rama anterior
+```
+
+| ✅ Ventajas | ❌ Errores Comunes |
+|-------------|---------------------|
+| Más intuitivo y claro | Olvidar que `switch` no crea ramas sin `-c` |
+| No confunde con modificación de archivos | Si hay cambios sin commit, se niega a cambiar (seguro) |
+| Recomendado oficialmente | `-` solo funciona para volver a la rama anterior |
+
+#### `git branch -d` / `-D` — El borrador de universos
+
+> 💡 **Metáfora:** Eliminar una rama es como cerrar un universo paralelo. `-d` es el modo seguro (solo cierra si ya está todo integrado). `-D` es el modo fuerza bruta (cierra sin preguntar).
+
+```bash
+git branch -d feature/old    # Seguro: solo la cierra si ya está fusionada
+git branch -D feature/wip    # Forzado: la cierra aunque tenga commits sin fusionar
+```
+
+| ✅ Ventajas | ❌ Errores Comunes |
+|-------------|---------------------|
+| `-d` protege contra borrado accidental | `-D` elimina commits que pueden perderse |
+| Limpia ramas antiguas que ya no necesitas | No verificar con `git branch -d` antes de borrar |
+| Mantiene el repositorio organizado | Borrar una rama que tiene commits que nadie tiene localmente |
+
+> ⚠️ **Consejo de supervivencia:** Antes de borrar una rama, haz `git log` para ver si tiene commits que no están en main. Si los tienes, haz cherry-pick o merge antes de borrar.
+
 ## 2.2. Fusiones (Merge)
 
 La **fusión** combina los cambios de una rama con otra.
 
+> 💡 **Metáfora: Fusionar es como combinar dos ríos**
+> Imagina que `main` es un río caudaloso que fluye constantemente. Tu rama `feature` es un afluente que ha ido recogiendo agua (cambios) por su cuenta. Cuando haces `merge`, ambos ríos se unen en uno solo. Si no hay obstáculos (conflictos), la fusión es automática y fluida. Si ambos ríos modificaron la misma roca (mismas líneas), necesitas decidir cómo unir el cauce.
+
 ```mermaid
-graph LR
-    A[main] -->|commit| B[main]
-    B -->|commit| C[main]
-    C -->|branch feature| D[feature]
-    D -->|commit| E[feature]
-    E -->|commit| F[feature]
-    F -->|checkout main| G[main]
-    G -->|merge feature| H[main]
-    
-    style C fill:#e1ffe1
-    D fill:#fff4e1
-    F fill:#ffe1f5
-    H fill:#e1ffff
+gitGraph
+    commit id: "init"
+    commit id: "estructura"
+    branch feature
+    checkout feature
+    commit id: "nueva UI"
+    commit id: "tests"
+    checkout main
+    commit id: "fix urgente"
+    merge feature id: "merge feature" type: REVERSE
+    commit id: "post merge"
 ```
 
-### Tipos de Merge
+### Fast-Forward vs Merge Commit: Diferencias Visuales
+
+> 💡 **Metáfora:** El fast-forward es como si el río principal no hubiera tenido cambios mientras el afluente crecía — simplemente el puntero se mueve. El merge commit es como construir una presa que une ambos cauces.
+
+**Fast-Forward** — No hay cambios en main desde que creaste la rama:
+
+```mermaid
+gitGraph
+    commit id: "init"
+    branch feature
+    checkout feature
+    commit id: "cambio A"
+    commit id: "cambio B"
+    checkout main
+    merge feature id: "fast-forward"
+```
+
+En fast-forward, Git **no crea un commit de merge**. Simplemente mueve el puntero de `main` al último commit de `feature`. Es limpio pero oculta que hubo una rama.
+
+**Merge Commit** — Hay cambios en main desde que creaste la rama:
+
+```mermaid
+gitGraph
+    commit id: "init"
+    branch feature
+    checkout feature
+    commit id: "cambio A"
+    checkout main
+    commit id: "fix en main"
+    checkout feature
+    commit id: "cambio B"
+    checkout main
+    merge feature id: "merge commit" type: REVERSE
+```
+
+Aquí Git **sí crea un commit de merge** (commit type: REVERSE) porque ambos ríos tuvieron cambios. El commit de merge tiene dos padres: el último de `main` y el último de `feature`.
+
+> 📝 **Regla práctica:** Usa `--no-ff` si quieres que siempre se cree un commit de merge (recomendado para ramas de funcionalidad). Así conservas el historial de ramas.
+
+### 2.2.1. Tipos de Merge
 
 1. **Fast-Forward**: No hay cambios en main desde que creaste la rama
 2. **Merge Commit**: Hay cambios en main, Git crea un commit de merge
 3. **Merge con conflicto**: Ambos modificaron las mismas líneas
 
-### Comandos de Merge
+### 2.2.2. Comandos de Merge
 
 ```bash
 # Fusionar una rama en la actual
@@ -153,24 +305,35 @@ git merge --no-ff nombre-rama
 
 > 📝 **Merge fast-forward:** Es "limpio" pero puede ocultar la estructura real del desarrollo. Usar `--no-ff` cuando quieras mantener el historial de ramas.
 
-### Cherry-Pick (Mi Comando Favorito!)
+| ✅ Ventajas del Merge | ❌ Inconvenientes del Merge |
+|------------------------|------------------------------|
+| Conserva el historial completo de ramas | El commit de merge puede ensuciar el historial lineal |
+| Fácil de entender para el equipo | Conflictos a resolver si hay cambios simultáneos |
+| Seguro para ramas compartidas | No reescribe historial (no se puede limpiar después) |
+| Auditable: se ve exactamente qué se fusionó cuándo | Historial de ramas puede hacer `git log` más complejo |
+
+### 2.2.3. Cherry-Pick (Mi Comando Favorito!)
 
 El **cherry-pick** permite aplicar un commit específico de otra rama sin fusionar toda la rama.
 
+> 💡 **Metáfora: La cerezita del otro plato**
+> Imagina que estás en un buffet (tu rama) y en el plato de tu compañero (otra rama) hay una cereza deliciosa (un commit con un fix importante). No quieres todo el plato de tu compañero, solo esa cerezita. Con `cherry-pick` agarras exactamente ese commit y lo copias a tu plato. ¡Sin más!
+
 ```mermaid
-graph LR
-    A[main] --> B[commit A]
-    B --> C[commit B]
-    
-    D[develop] --> E[commit C]
-    E --> F[commit D]
-    F --> G[commit E]
-    
-    C -->|cherry-pick| H[commit D<br/>aplicado a main]
-    
-    style G fill:#e1ffe1
-    style H fill:#fff4e1
+gitGraph
+    commit id: "init"
+    commit id: "base"
+    branch develop
+    checkout develop
+    commit id: "feat A"
+    commit id: "feat B"
+    commit id: "hotfix X"
+    commit id: "feat C"
+    checkout main
+    cherry-pick id: "hotfix X"
 ```
+
+En este ejemplo, solo el commit "hotfix X" se copia a `main`, sin traer "feat A", "feat B" ni "feat C". ¡La cerezita exacta!
 
 ```bash
 # Aplicar un commit específico a la rama actual
@@ -200,34 +363,79 @@ git cherry-pick --keep-redundant-commits [hash]
 
 > ⚠️ **Cuidado:** Cherry-pick crea commits nuevos duplicados. Si aplicas el mismo cherry-pick dos veces, tendrás cambios duplicados.
 
+| ✅ Ventajas del Cherry-Pick | ❌ Inconvenientes del Cherry-Pick |
+|------------------------------|------------------------------------|
+| Trae solo el commit que necesitas | Crea un commit nuevo con hash diferente |
+| Ideal para hotfixes puntuales | Si lo aplicas dos veces, duplicas cambios |
+| No contamina la rama con commits innecesarios | No trae el contexto completo de la rama origen |
+| Útil para recuperar código de ramas eliminadas | Puede generar conflictos si el commit depende de otros |
+
 ## 2.3. Rebase
 
 El **rebase** reaplica los commits de tu rama sobre otra base, creando un historial lineal.
 
+> 💡 **Metáfora: Viaje en el tiempo**
+> El rebase es como viajar al pasado. Imagina que estás construyendo una casa (tu rama `feature`) y quieres que las paredes estén perfectamente alineadas con el plano más reciente de la ciudad (`main`). En lugar de construir un puente (merge), retrocedes en el tiempo, te mueves al último punto del plano de la ciudad y vuelves a construir tu casa desde ahí. El resultado es una casa perfectamente alineada, pero el plano antiguo de tu casa ya no existe — se reescribió la historia.
+
 ```mermaid
-graph LR
-    A[main] -->|commit| B[main]
-    B -->|commit| C[main]
-    C -->|branch feature| D[feature]
-    D -->|commit| E[feature]
-    E -->|commit| F[feature]
-    
-    C -->|rebase| G[main]
-    G -->|commit| H[main]
-    H -->|commit| I[main]
-    I -->|commit| J[main]
-    
-    F -->|rebase| K[feature<br/>rebaseado]
-    K -->|commit| L[feature]
-    
-    style B fill:#e1ffe1
-    D fill:#fff4e1
-    F fill:#ffe1f5
-    J fill:#e1ffff
-    L fill:#e1f5ff
+gitGraph
+    commit id: "init"
+    commit id: "base"
+    branch feature
+    checkout feature
+    commit id: "feat 1"
+    commit id: "feat 2"
+    checkout main
+    commit id: "main fix"
+    commit id: "main feat"
+    checkout feature
+    rebase main
+    commit id: "feat 1 (rebaseado)"
+    commit id: "feat 2 (rebaseado)"
 ```
 
-### Comandos de Rebase
+### Merge vs Rebase: Comparación Visual
+
+**CON MERGE** — Historial con ramas y commits de merge:
+
+```mermaid
+gitGraph
+    commit id: "init"
+    branch feature
+    checkout feature
+    commit id: "A"
+    commit id: "B"
+    checkout main
+    commit id: "C"
+    checkout feature
+    commit id: "D"
+    checkout main
+    merge feature id: "merge" type: REVERSE
+```
+
+**CON REBASE** — Historial lineal limpio:
+
+```mermaid
+gitGraph
+    commit id: "init"
+    branch feature
+    checkout feature
+    commit id: "A"
+    commit id: "B"
+    checkout main
+    commit id: "C"
+    checkout feature
+    rebase main
+    commit id: "A'"
+    commit id: "B'"
+    commit id: "D"
+    checkout main
+    merge feature id: "merge" type: REVERSE
+```
+
+> ⚠️ **PELIGRO:** El rebase **reescribe la historia**. Los commits que rebaseas obtienen nuevos hashes. Si alguien más tiene esos commits, todos tendrán problemas de sincronización. **NUNCA rebeases commits que ya han sido compartidos (pushed).
+
+### 2.3.1. Comandos de Rebase
 
 ```bash
 # Rebase de la rama actual sobre main
@@ -252,7 +460,7 @@ git rebase --skip
 git rebase --onto nueva-base commit-inicial
 ```
 
-### Rebase Interactivo
+### 2.3.2. Rebase Interactivo
 
 El rebase interactivo permite reorderar, combinar, editar y eliminar commits:
 
@@ -275,7 +483,7 @@ git rebase -i HEAD~3
 > 2. `squash "fix2"` → combinar con anterior
 > 3. `drop "WIP"` → eliminar commit temporal
 
-### Merge vs Rebase: ¿Cuándo usar cada uno?
+### 2.3.3. Merge vs Rebase: ¿Cuándo usar cada uno?
 
 ```mermaid
 graph TD
@@ -285,9 +493,9 @@ graph TD
     D -->|Limpio/Lineal| E[Rebase]
     D -->|Historial exacto| F[Merge]
     
-    style C fill:#e1ffe1
-    style E fill:#fff4e1
-    style F fill:#ffe1f5
+    style C fill:#4CAF50,color:#fff
+    style E fill:#FF9800,color:#fff
+    style F fill:#9C27B0,color:#fff
 ```
 
 | Aspecto | Merge | Rebase |
@@ -303,7 +511,7 @@ graph TD
 > - **Nunca** rebasees commits ya pushados
 > - **Merge** para ramas compartidas
 
-### Ejemplo Rebase Práctico
+### 2.3.4. Ejemplo Rebase Práctico
 
 ```bash
 # 1. Estás en feature, main tiene nuevos commits
@@ -327,53 +535,75 @@ git push origin feature
 > - Antes de hacer merge a main
 > - Nunca en ramas compartidas
 
+| ✅ Ventajas del Rebase | ❌ Inconvenientes del Rebase |
+|--------------------------|-------------------------------|
+| Historial lineal y fácil de leer | Reescribe la historia (cambia hashes) |
+| Sin commits de merge innecesarios | Peligroso en ramas compartidas |
+| Más fácil de hacer bisect para bugs | Puede causar problemas al equipo |
+| Conflictos resueltos por commit individual | Requiere `--force` si ya se hizo push |
+| Ideal antes de un PR limpio | Pierde el contexto de ramas |
+
 ## 2.4. Resolución de Conflictos
 
 Cuando dos personas modifican las mismas líneas, Git no puede fusionar automáticamente.
 
+> 💡 **Metáfora: Dos personas quieren pintar la misma pared**
+> Imagina que tú y tu compañero pintáis una pared. Tú pintas la pared de azul en la rama `feature`, y tu compañero la pinta de verde en la rama `main`. Cuando intentáis juntar el trabajo (merge), Git no sabe qué color elegir: ¿azul o verde? Necesitáis sentaros, hablarlo y decidir si pintarla de azul, de verde, o de un color nuevo que combine ambos. Eso es un conflicto: dos cambios incompatibles en el mismo sitio.
+
 ```mermaid
-graph TD
-    A[Conflict detected] --> B{Resolución}
-    B -->|Manual| C[Editar archivos]
-    B -->|Automático| D[Usar herramienta]
-    C --> E[git add archivo]
-    D --> E
-    E --> F[git commit -m "resolve"]
-    
-    style A fill:#ffe1e1
-    E fill:#fff4e1
-    F fill:#e1ffe1
+gitGraph
+    commit id: "init"
+    commit id: "pared pintada"
+    branch feature
+    checkout feature
+    commit id: "pintar azul"
+    checkout main
+    commit id: "pintar verde"
+    checkout feature
+    merge main id: "CONFLICTO"
 ```
 
-### Pasos para Resolver Conflictos
+### 2.4.1. Pasos para Resolver Conflictos
+
+> 💡 **Metáfora paso a paso:** Es como un mediador en una discusión. Primero identificáis dónde estáis en desacuerdo (marcadores), luego escucháis ambos lados (contenido), decidís una solución (edición) y firmáis el acuerdo (commit).
 
 ```bash
-# 1. Actualizar tu rama
+# 1. Actualizar tu rama (traer cambios del río principal)
 git fetch origin
 git merge origin/main
 
-# 2. Ver qué archivos tienen conflicto
+# 2. Ver qué archivos tienen conflicto (qué paredes están en disputa)
 git status
+# Salida: "Unmerged paths: both modified: archivo.txt"
 
-# 3. Los conflictos se marcan así:
+# 3. Los conflictos se marcan así en el archivo:
 # <<<<<<< HEAD
-# contenido actual
+# contenido de tu rama (azul)
 # =======
-# contenido entrante
+# contenido de la otra rama (verde)
 # >>>>>>> nombre-rama
 
-# 4. Editar el archivo y resolver
+# 4. Editar el archivo y resolver:
+#    - ELIMINAR los marcadores <<<, ===, >>>
+#    - DECIDIR qué contenido quedarte (puede ser una mezcla)
+#    - GUARDAR el archivo
 
-# 5. Después de resolver
+# 5. Después de resolver, añadir el archivo al staging
 git add archivo-resuelto.txt
 
-# 6. Commit del merge
+# 6. Commit del merge (firmar el acuerdo)
 git commit -m "Resueltos conflictos de merge"
 ```
 
-> 💡 **Truco:** Usa un IDE como VS Code que tiene herramientas visuales para resolver conflictos.
+> ⚠️ **Errores comunes al resolver conflictos:**
+> - **Olvidar los marcadores** `<<<`, `===`, `>>>`: Si los dejas en el código, el programa fallará al compilar
+> - **No hacer `git add` después de resolver**: Git sigue pensando que hay conflicto pendiente
+> - **Resolver solo un archivo cuando hay varios**: Comprobar siempre con `git status` cuántos archivos tienen conflicto
+> - **No probar que el código compila después de resolver**: Siempre ejecutar `dotnet build` o las pruebas tras resolver
 
-### Herramientas de Resolución
+> 💡 **Truco:** Usa un IDE como Rider o VS Code que tiene herramientas visuales para resolver conflictos. Muestra ambos lados y puedes elegir "aceptar actual", "aceptar entrante" o "aceptar ambos".
+
+### 2.4.2. Herramientas de Resolución
 
 ```bash
 # Usar mergetool
@@ -385,7 +615,7 @@ git merge --abort
 
 ## 2.5. Estrategias de Branching
 
-### Rama por Funcionalidad (Feature Branch)
+### 2.5.1. Rama por Funcionalidad (Feature Branch)
 
 ```mermaid
 graph TB
@@ -404,10 +634,10 @@ graph TB
     F3 --> M3
     P2 --> M3
     
-    style M1 fill:#e1ffe1
-    M4 fill:#e1ffff
-    F1 fill:#fff4e1
-    P1 fill:#fff4e1
+    style M1 fill:#4CAF50,color:#fff
+    style M4 fill:#2196F3,color:#fff
+    style F1 fill:#FF9800,color:#fff
+    style P1 fill:#FF9800,color:#fff
 ```
 
 Cada funcionalidad en su propia rama:
@@ -420,7 +650,7 @@ git checkout main
 git merge feature/nueva-funcionalidad
 ```
 
-### Rama por Bugfix
+### 2.5.2. Rama por Bugfix
 
 ```mermaid
 graph TB
@@ -430,8 +660,8 @@ graph TB
     B2 --> M3[main]
     M3 --> M4[main]
     
-    style B1 fill:#ffe1e1
-    B2 fill:#ffe1e1
+    style B1 fill:#f44336,color:#fff
+    style B2 fill:#f44336,color:#fff
 ```
 
 ```bash
@@ -444,7 +674,7 @@ git merge hotfix/descripcion
 
 ## 2.6. Flujos de Trabajo con Ramas
 
-### GitHub Flow
+### 2.6.1. GitHub Flow
 
 Flujo simple centrado en ramas de vida corta y despliegues continuos.
 
@@ -455,10 +685,31 @@ graph LR
     C -->|PR & Merge| A
     A -->|Deploy| D[Producción]
     
-    style A fill:#e1ffe1
-    style B fill:#fff4e1
-    style C fill:#ffe1f5
-    style D fill:#e1ffff
+    style A fill:#4CAF50,color:#fff
+    style B fill:#FF9800,color:#fff
+    style C fill:#9C27B0,color:#fff
+    style D fill:#f44336,color:#fff
+```
+
+**GitHub Flow con gitGraph:**
+
+```mermaid
+gitGraph
+    commit id: "init"
+    commit id: "v1 base"
+    branch feature/login
+    checkout feature/login
+    commit id: "login UI"
+    commit id: "validación"
+    checkout main
+    merge feature/login id: "PR #1 merge"
+    branch feature/pagos
+    checkout feature/pagos
+    commit id: "carrito"
+    commit id: "pasarela"
+    checkout main
+    merge feature/pagos id: "PR #2 merge"
+    commit id: "deploy v1.1" tag: "v1.1"
 ```
 
 **Principios:**
@@ -471,7 +722,7 @@ graph LR
 
 > 📝 **Cuándo usar:** Proyectos con despliegue continuo (CD), web apps, startups, equipos pequeños.
 
-### GitFlow
+### 2.6.2. GitFlow
 
 Metodología estructurada para proyectos con ciclos de release definidos.
 
@@ -485,10 +736,44 @@ graph LR
     F --> A
     F --> C
     
-    style A fill:#e1ffe1
-    style C fill:#e1f5ff
-    style E fill:#fff4e1
-    style F fill:#ffe1e1
+    style A fill:#4CAF50,color:#fff
+    style C fill:#2196F3,color:#fff
+    style E fill:#FF9800,color:#fff
+    style F fill:#f44336,color:#fff
+```
+
+**GitFlow con gitGraph:**
+
+```mermaid
+gitGraph
+    commit id: "init"
+    branch develop
+    checkout develop
+    commit id: "base develop"
+    branch feature/login
+    checkout feature/login
+    commit id: "login"
+    checkout develop
+    merge feature/login id: "merge login"
+    branch feature/pagos
+    checkout feature/pagos
+    commit id: "pagos"
+    checkout develop
+    merge feature/pagos id: "merge pagos"
+    branch release/1.0
+    checkout release/1.0
+    commit id: "ajustes finales"
+    checkout main
+    merge release/1.0 id: "release 1.0" tag: "v1.0"
+    checkout develop
+    merge release/1.0 id: "sync develop"
+    branch hotfix/1.0.1
+    checkout hotfix/1.0.1
+    commit id: "fix urgente"
+    checkout main
+    merge hotfix/1.0.1 id: "hotfix" tag: "v1.0.1"
+    checkout develop
+    merge hotfix/1.0.1 id: "sync hotfix"
 ```
 
 **Ramas principales:**
@@ -501,7 +786,7 @@ graph LR
 | **`release-*`** | Preparación de release |
 | **`hotfix-*`** | Correcciones urgentes en producción |
 
-### Comandos GitFlow
+### 2.6.3. Comandos GitFlow
 
 ```bash
 # Iniciar develop
@@ -533,7 +818,7 @@ git merge hotfix/1.1.1 --no-ff
 
 > 💡 **Cuándo usar GitFlow:** Software con versiones formales, apps móviles, proyectos enterprise, equipos grandes.
 
-### Comparativa de Flujos
+### 2.6.4. Comparativa de Flujos
 
 | Aspecto | GitHub Flow | GitFlow |
 |---------|-------------|---------|
@@ -558,7 +843,7 @@ git push -u origin main
 
 ## 2.8. Buenas Prácticas con Ramas
 
-### ✅ Recomendaciones
+### 2.8.1. ✅ Recomendaciones
 
 1. **Ramas cortas**: Crear, trabajar y fusionar rápidamente
 2. **Nombres descriptivos**: `feature/login`, `bugfix/header`, `hotfix/security`
@@ -566,7 +851,7 @@ git push -u origin main
 4. **Mensajes claros**: Explicar el "por qué", no solo el "qué"
 5. **Integrar temprano**: Hacer merge a main frecuentemente
 
-### ❌ Errores a Evitar
+### 2.8.2. ❌ Errores a Evitar
 
 | Error | Consecuencia | Solución |
 |-------|--------------|----------|
@@ -601,3 +886,17 @@ git mergetool               # Herramienta visual
 git add archivo             # Marcar resuelto
 git commit                  # Commit de merge
 ```
+
+**Resumen del punto:**
+
+| Concepto | Descripción |
+|----------|-------------|
+| **Rama** | Línea de desarrollo paralela (instantánea, barata en Git) |
+| **Merge** | Fusión que crea un commit de merge (conserva historial) |
+| **Rebase** | Reescribe commits sobre otra base (historial lineal) |
+| **Cherry-pick** | Copia un commit específico a otra rama |
+| **Conflicto** | Cuando dos ramas modifican las mismas líneas |
+| **GitHub Flow** | Rama principal + ramas de feature + PR |
+| **GitFlow** | Ramas main, develop, feature, release, hotfix |
+
+En el siguiente punto veremos GitHub y los repositorios remotos: cómo subir tu código a la nube, clonar proyectos, sincronizar cambios y trabajar con otros desarrolladores en la misma base de código.
