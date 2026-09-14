@@ -1,6 +1,7 @@
 - [3. Git Remoto](#3-git-remoto)
   - [3.1. Git vs GitHub](#31-git-vs-github)
     - [3.1.1. Alternativas a GitHub](#311-alternativas-a-github)
+    - [3.1.2. Comparativa de Plataformas](#312-comparativa-de-plataformas)
   - [3.2. Arquitectura Remota](#32-arquitectura-remota)
   - [3.3. Trabajar con Remotos](#33-trabajar-con-remotos)
     - [3.3.1. git remote](#331-git-remote)
@@ -20,8 +21,11 @@
     - [3.6.1. Generar Clave SSH](#361-generar-clave-ssh)
     - [3.6.2. Añadir Clave a GitHub](#362-añadir-clave-a-github)
     - [3.6.3. Usar SSH en lugar de HTTPS](#363-usar-ssh-en-lugar-de-https)
+    - [3.6.4. Ventajas y Desventajas: SSH vs HTTPS](#364-ventajas-y-desventajas-ssh-vs-https)
+    - [3.6.5. Errores Comunes con SSH](#365-errores-comunes-con-ssh)
   - [3.7. Resumen de Comandos Remotos](#37-resumen-de-comandos-remotos)
   - [3.8. Workflow Remoto Completo](#38-workflow-remoto-completo)
+  - [3.9. GitHub Pages](#39-github-pages)
 
 
 # 3. Git Remoto
@@ -76,7 +80,7 @@ En el Punto 02 vimos ramas, fusiones, rebase y resolución de conflictos. Ahora 
 
 | Plataforma | Ventajas | Desventajas | Ideal para |
 |------------|----------|-------------|------------|
-| **GitHub** | Mayor comunidad, excellent documentación, Copilot AI integrado, Actions para CI/CD gratuito | Privado limitado sin plan de pago, puede ser lento | Proyectos open source, portafolios profesionales |
+| **GitHub** | Mayor comunidad, excelente documentación, Copilot AI integrado, Actions para CI/CD gratuito | Privado limitado sin plan de pago, puede ser lento | Proyectos open source, portafolios profesionales |
 | **GitLab** | CI/CD integrado sin plugins, auto-hosting gratuito, más control de privacidad | Curva de aprendizaje mayor, interfaz menos intuitiva | Equipos que necesitan CI/CD sin configurar |
 | **Bitbucket** | Gratis para equipos pequeños (≤5), integración perfecta con Jira/Trello | Menos comunidad, menos funcionalidades sociales | Equipos que ya usan Atlassian |
 | **Gitea** | Gratuito, auto-hosted, ligero, sin dependencias externas | Tú lo mantienes, sin CI/CD integrado | Proyectos internos, aprendizaje |
@@ -211,6 +215,9 @@ git push origin --tags
 # Subir fuerza (sobrescribir historial - usar con cuidado)
 git push --force origin main
 
+# Subir fuerza de forma SEGURA (solo si nadie más ha subido cambios)
+git push --force-with-lease origin main
+
 # Subir todas las ramas
 git push --all origin
 
@@ -256,7 +263,7 @@ branch 'main' set up to track 'origin/main'.
 | `error: failed to push some refs` | Tu rama está detrás del remoto | `git pull --rebase origin main` y luego push |
 | `fatal: 'origin' does not appear to be a git repository` | Remoto no configurado | `git remote add origin URL` |
 
-> ⚠️ **Nunca usar push --force en ramas compartidas.** Destruye el trabajo de otros.
+> ⚠️ **Nunca usar push --force en ramas compartidas.** Destruye el trabajo de otros. Usa `--force-with-lease` que verifica que nadie más ha subido cambios antes de sobrescribir.
 
 ### 3.3.3. git fetch
 
@@ -279,6 +286,15 @@ git remote show origin
 
 # Ver qué ramas remotas existen
 git branch -r
+
+# Ver TODAS las ramas (locales + remotas)
+git branch -a
+
+# Limpiar ramas remotas obsoletas del tracking local
+git remote prune origin
+
+# Fetch + prune en un solo paso
+git fetch --prune
 ```
 
 **Ejemplo de salida:**
@@ -368,7 +384,7 @@ Fast-forward
 |-------|-------|----------|
 | `CONFLICT (content): Merge conflict in archivo` | Cambios locales y remotos modifican lo mismo | Abrir archivo, resolver conflictos, `git add .` y `git commit` |
 | `error: Your local changes would be overwritten` | Tienes cambios sin commit | `git stash` antes de pull, luego `git stash pop` |
-| `fatal: refusing to merge unrelated histories` | Repositorios no relacionados | `git pull --allow-unrelated-holders origin main` |
+| `fatal: refusing to merge unrelated histories` | Repositorios no relacionados | `git pull --allow-unrelated-histories origin main` |
 
 > 💡 **Consejo:** Si prefieres tener control total, usa `git fetch` + `git merge` por separado en lugar de `git pull`. Así revisas qué va a cambiar antes de que suceda.
 
@@ -458,6 +474,44 @@ graph TD
 3. Rellenar nombre, descripción, visibilidad
 4. Opcional: agregar README, .gitignore, license
 5. Clic en "Create repository"
+
+> 💡 **Consejo para .NET:** Selecciona la plantilla **.gitignore** con "VisualStudio" o "Dotnet" al crear el repo. Esto excluye automáticamente `bin/`, `obj/`, `.vs/`, `*.user` y otros archivos de compilación.
+
+**Plantilla .gitignore para proyectos .NET/C#:**
+
+```gitignore
+# Compilación
+bin/
+obj/
+out/
+
+# IDEs
+.idea/
+.vs/
+.vscode/
+*.sln.iml
+*.DotSettings.user
+
+# Archivos temporales
+*.user
+*.suo
+*.userprefs
+*.log
+*.cache
+*.pdb
+*.tmp
+*.bak
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+artifacts/
+
+# Publicaciones
+publish/
+TestResults/
+```
 
 📌 **Ejemplo real:** Cuando Netflix creó su primer repositorio en GitHub para Herramientas Open Source, empezaron exactamente así: un repo público con README y .gitignore listos para que la comunidad pudiera contribuir desde el primer día.
 
@@ -629,7 +683,14 @@ ssh-keygen -t rsa -b 4096 -C "tu.email@ejemplo.com"
 # Guardar en ubicación por defecto
 # ~/.ssh/id_ed25519
 
-# Añadir clave al agente SSH
+# Añadir clave al agente SSH (primero iniciar el agente)
+# Linux/Mac
+eval "$(ssh-agent -s)"
+
+# Windows (Git Bash)
+eval "$(ssh-agent -s)"
+
+# Añadir clave
 ssh-add ~/.ssh/id_ed25519
 ```
 
@@ -653,11 +714,14 @@ SHA256:abc123def456ghi789jkl012mno345pqr678stu901 miemail@ejemplo.com
 
 1. Copiar clave pública:
    ```bash
-   # Windows
+   # Windows (Git Bash)
    cat ~/.ssh/id_ed25519.pub | clip
-   
+
+   # Windows (PowerShell)
+   Get-Content ~/.ssh/id_ed25519.pub | Set-Clipboard
+
    # Linux/Mac
-   cat ~/.ssh/id_ed25519.pub
+   cat ~/.ssh/id_ed25519.pub | xclip -selection clipboard
    ```
 
 2. Ir a GitHub → Settings → SSH and GPG keys
@@ -699,6 +763,47 @@ git remote set-url origin git@github.com:usuario/repo.git
 
 > 🔧 **Truco:** Para verificar que todo funciona, ejecuta `ssh -T git@github.com`. Si ves "Hi usuario! You've successfully authenticated", todo está correcto.
 
+### 3.6.6. .editorconfig: Consistencia en Equipo
+
+> 💡 **Metáfora:** `.editorconfig` es como un **reglamento de estilo** que todos los miembros del equipo firman. Dice: "usamos 4 espacios, UTF-8, y sin espacios al final". Así no importa qué editor uses — el código queda igual.
+
+El archivo `.editorconfig` se coloca en la raíz del repositorio y obliga a todos los editores (Rider, VS Code, IntelliJ) a usar las mismas reglas:
+
+```ini
+# Archivo .editorconfig
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.cs]
+indent_size = 4
+
+[*.{js,ts,html,css}]
+indent_size = 2
+
+[*.{json,yml,yaml}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.sln]
+indent_style = tab
+
+[*.csproj]
+indent_size = 2
+```
+
+📌 **Ejemplo real:** En equipos de 10+ desarrolladores, sin `.editorconfig` cada uno formatea el código de forma diferente. El resultado: diffs enormes que solo cambian espacios. Con `.editorconfig`, los diffs solo muestran cambios reales.
+
+> 🔗 **Conexión:** `.editorconfig` complementa `.gitignore`. Mientras `.gitignore` dice qué archivos NO subir, `.editorconfig` dice CÓMO formatear los archivos que SÍ subes.
+
 ## 3.7. Resumen de Comandos Remotos
 
 ```bash
@@ -728,6 +833,15 @@ git clone url
 
 # Cambiar URL del remoto
 git remote set-url origin nueva-url
+
+# Ver ramas remotas
+git branch -r
+
+# Ver todas las ramas (locales + remotas)
+git branch -a
+
+# Limpiar ramas remotas obsoletas
+git remote prune origin
 ```
 
 ## 3.8. Workflow Remoto Completo
@@ -768,5 +882,86 @@ git diff main origin/main
 | **pull** | Descarga y fusiona cambios del remoto (fetch + merge) |
 | **SSH** | Protocolo de autenticación segura sin contraseñas |
 | **Tags** | Marcadores para versiones (v1.0.0, v2.1.3) |
+
+## 3.9. GitHub Pages
+
+> 💡 **Metáfora:** GitHub Pages es como tener tu propia tienda online gratis. Subes tus archivos web (HTML, CSS, JavaScript) a un repositorio y GitHub los publica automáticamente en una URL como `https://tuusuario.github.io/mi-proyecto`.
+
+📌 **Ejemplo real:** Netflix, Google y miles de empresas usan GitHub Pages para documentación de proyectos open source. Es la forma más rápida de desplegar un portfolio de desarrollo web.
+
+### 3.9.1. Configurar GitHub Pages
+
+1. Ir al repositorio en GitHub → **Settings** → **Pages**
+2. En **Source**, seleccionar la rama (`main` o `gh-pages`) y la carpeta (`/` o `/docs`)
+3. Guardar — GitHub genera una URL pública en unos segundos
+
+```mermaid
+graph LR
+    A[Repositorio<br/>GitHub] -->|Settings → Pages| B[GitHub Pages<br/>Activado]
+    B --> C[URL pública<br/>https://usuario.github.io/repo]
+    C --> D[Cualquiera<br/>puede ver tu web]
+
+    style A fill:#2196F3,color:#fff
+    style B fill:#4CAF50,color:#fff
+    style C fill:#FF9800,color:#fff
+    style D fill:#9C27B0,color:#fff
+```
+
+### 3.9.2. Estructura de un Proyecto para GitHub Pages
+
+```
+mi-proyecto/
+├── index.html          # Página principal (obligatoria)
+├── style.css           # Estilos
+├── script.js           # JavaScript
+├── images/             # Imágenes
+└── README.md           # Descripción del proyecto
+```
+
+> ⚠️ **Importante:** GitHub Pages solo sirve archivos **estáticos** (HTML, CSS, JS). No ejecuta C#, Python ni bases de datos. Para proyectos .NET, usa Azure o Docker.
+
+### 3.9.3. Desplegar desde una Rama
+
+```bash
+# Crear rama gh-pages
+git checkout -b gh-pages
+
+# Añadir archivos web
+git add index.html style.css script.js
+git commit -m "feat: añadir página web"
+
+# Subir a GitHub
+git push -u origin gh-pages
+
+# Volver a main
+git checkout main
+```
+
+### 3.9.4. Desplegar con GitHub Actions (Automático)
+
+Crea el archivo `.github/workflows/deploy.yml`:
+
+```yaml
+name: Desplegar a GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - uses: actions/deploy-pages@v4
+```
+
+> 💡 **Consejo:** Con Actions, cada vez que haces push a `main`, tu web se despliega automáticamente. No tienes que hacer nada manual.
+
+> 🔗 **Conexión:** GitHub Pages se conecta directamente con los Actions que verás en la UD04 de Colaboración. Cada push a `main` activa el workflow de despliegue.
 
 En el siguiente punto veremos Pull Requests, Forks y colaboración: cómo proponer cambios en proyectos de otros, revisar código y trabajar en equipo de forma profesional.

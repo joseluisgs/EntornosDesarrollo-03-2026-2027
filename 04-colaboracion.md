@@ -117,7 +117,33 @@ gitGraph
 
 > 📝 **Nota:** En el diagrama anterior puedes ver cómo la rama `feature/login` se crea desde `main`, se trabaja en ella con varios commits, y finalmente se fusiona de vuelta a `main` mediante una PR.
 
-### 4.1.2. Componentes de una PR
+### 4.1.2. Estrategias de Merge en PR
+
+Cuando fusionas una PR en GitHub, tienes **tres opciones**. Elegir la correcta es fundamental para mantener el historial limpio:
+
+| Estrategia | ¿Qué hace? | Historial | Cuándo usarla |
+|------------|-------------|-----------|---------------|
+| **Merge commit** | Crea un commit de merge que une las ramas | Ramas visibles, merge commit incluido | Cuando quieres preservar el contexto completo |
+| **Squash and merge** | Comprime todos los commits de la PR en uno solo | Limpio, un commit por PR | Cuando la PR tiene muchos commits WIP |
+| **Rebase and merge** | Reaplica cada commit individualmente sobre main | Lineal, sin merge commit | Cuando quieres historial lineal sin merges |
+
+```mermaid
+graph TD
+    A[PR con 3 commits] --> B{¿Qué estrategia?}
+    B -->|Merge commit| C[3 commits + 1 merge commit]
+    B -->|Squash| D[1 solo commit limpio]
+    B -->|Rebase| E[3 commits lineales]
+
+    style C fill:#2196F3,color:#fff
+    style D fill:#4CAF50,color:#fff
+    style E fill:#FF9800,color:#fff
+```
+
+📌 **Ejemplo real:** Netflix usa **Squash and merge** para mantener un historial limpio en `main`. Cada feature aparece como un solo commit descriptivo. Google usa **Rebase and merge** para mantener la linealidad.
+
+> 💡 **Consejo:** En equipos pequeños, usa **Squash and merge** por defecto. Es la opción más limpia y fácil de entender.
+
+### 4.1.3. Componentes de una PR
 
 | Elemento | Descripción | Ejemplo |
 |----------|-------------|---------|
@@ -183,6 +209,55 @@ gh pr create --title "feat: login" --body "Implementación..."
 > - [ ] He revisado mi propio código
 > - [ ] He documentado mi código
 > ```
+
+### 4.1.5. Branch Protection Rules
+
+> 💡 **Metáfora:** Branch protection es como poner un **semáforo en la entrada de main**. Nadie puede entrar directamente — tiene que pasar por el control de calidad (PR, revisiones, tests). Sin esto, cualquiera puede romper la producción con un solo push.
+
+**¿Qué reglas puedes configurar?**
+
+```mermaid
+graph TD
+    A[Branch Protection<br/>en main] --> B[Requerir PR antes de merge]
+    A --> C[Requerir N revisiones]
+    A --> D[Requerir tests pasados]
+    A --> E[Prohibir push directo]
+    A --> F[Prohibir force push]
+    A --> G[Requerir resolución de conversaciones]
+
+    style A fill:#f44336,color:#fff
+    style B fill:#4CAF50,color:#fff
+    style C fill:#4CAF50,color:#fff
+    style D fill:#4CAF50,color:#fff
+    style E fill:#FF9800,color:#fff
+    style F fill:#FF9800,color:#fff
+    style G fill:#9C27B0,color:#fff
+```
+
+**Cómo configurarlo en GitHub:**
+
+1. Ir a tu repositorio → **Settings** → **Branches**
+2. Clic en **"Add branch protection rule"**
+3. En **Branch name pattern**: escribir `main`
+4. Activar las reglas deseadas:
+   - ✅ **Require a pull request before merging** → Nadie hace push directo a main
+   - ✅ **Require approvals** → Mínimo 1 o 2 revisiones aprobatorias
+   - ✅ **Require status checks to pass** → Los tests de CI deben pasar
+   - ✅ **Require conversation resolution** → Todos los comentarios deben estar resueltos
+   - ❌ **Do not allow bypassing the above settings** → Ni el admin puede saltarse las reglas
+
+| Regla | ¿Qué protege? | Recomendada para |
+|-------|----------------|------------------|
+| **Require PR** | Nadie escribe directamente en main | Siempre |
+| **Require approvals** | Al menos 1 persona revisa el código | Siempre |
+| **Require status checks** | El código compila y pasa tests | Siempre |
+| **Prohibit force push** | No se puede sobrescribir historial | Siempre |
+| **Require conversation resolution** | Todos los comentarios están resueltos | Equipos medianos/grandes |
+| **Restrict who can push** | Solo ciertos usuarios pueden merge | Empresas |
+
+📌 **Ejemplo real:** En Telefónica, las reglas de branch protection son obligatorias en todos los proyectos. Sin PR aprobado y tests pasados, el merge es imposible. Esto evita que un error llegue a producción.
+
+> ⚠️ **Sin branch protection**, toda la sección de Pull Requests es solo una recomendación opcional. Con branch protection, se convierte en una **obligación técnica**.
 
 ## 4.2. Fork (Bifurcación)
 
@@ -403,6 +478,38 @@ graph LR
 - **Responder**: No tomar críticas como personales
 - **Auto-revisar**: Revisa antes de enviar
 
+### 4.3.6. CODEOWNERS: Revisores Automáticos
+
+> 💡 **Metáfora:** CODEOWNERS es como un **sistema de asignación automática**. Cuando alguien toca un archivo, Git sabe automáticamente quién es el "dueño" y le pide revisión.
+
+El archivo `.github/CODEOWNERS` define qué persona o equipo es responsable de qué archivos:
+
+```gitignore
+# Archivo .github/CODEOWNERS
+
+# El equipo backend revisa todo archivo C#
+*.cs @equipo-backend
+
+# El equipo de docs revisa la documentación
+/docs/ @equipo-docs
+
+# José revisa la configuración del proyecto
+*.csproj @joseluis
+
+# El equipo de seguridad revisa archivos sensibles
+*.env @equipo-seguridad
+```
+
+**Cómo funciona:**
+
+1. Cuando un PR modifica un archivo que tiene un owner, GitHub **solicita revisión automáticamente**
+2. Si tienes branch protection configurado, el PR **no se puede mergear** sin la aprobación del owner
+3. Los owners se asignan por orden: si un archivo coincide con múltiples reglas, se usa la **última**
+
+📌 **Ejemplo real:** En Microsoft, cada archivo del código fuente de VS Code tiene un CODEOWNERS asignado. Cuando alguien modifica el core, el equipo de VS Code recibe una notificación automática para revisar.
+
+> 🔗 **Conexión:** CODEOWNERS se conecta directamente con Branch Protection (4.1.5). Puedes configurar "Require review from Code Owners" para que la revisión del owner sea obligatoria.
+
 ## 4.4. GitHub Actions (CI/CD)
 
 GitHub Actions permite automatizar workflows directamente en GitHub.
@@ -471,7 +578,7 @@ jobs:                      # Trabajos a ejecutar
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: '10.0.x'
     
     - name: Restore
       run: dotnet restore
@@ -547,12 +654,12 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: '10.0.x'
     
     - name: Restore dependencies
       run: dotnet restore
@@ -581,6 +688,17 @@ gh run view [run-id] --log
 
 # Re-ejecutar workflow
 gh run re-run [run-id]
+
+# Crear y gestionar PRs desde CLI
+gh pr create --title "feat: login" --body "Implementación..."
+gh pr list
+gh pr view [PR-number]
+gh pr checkout [PR-number]
+gh pr merge [PR-number]              # Merge commit (por defecto)
+gh pr merge [PR-number] --squash     # Squash and merge
+gh pr merge [PR-number] --rebase     # Rebase and merge
+gh pr review [PR-number] --approve   # Aprobar PR
+gh pr diff [PR-number]               # Ver cambios de la PR
 ```
 
 ## 4.5. Issues y Projects
@@ -635,17 +753,78 @@ gh issue view [issue-number]
 | **Difícil de priorizar** | Sin un proceso claro, todas parecen urgentes |
 | **No sustituyen la comunicación** | Algunos problemas se resuelven mejor hablando directamente |
 
-### 4.5.2. Projects
+### 4.5.2. Vincular Issues con PRs
+
+Una de las funciones más útiles de GitHub es **cerrar automáticamente una Issue** cuando se mergea una PR que la resuelve. Para ello, usa palabras clave en la descripción de la PR o en el mensaje de commit:
+
+| Palabra clave | Ejemplo | Resultado |
+|---------------|---------|-----------|
+| `Fixes #123` | `Fixes #42` | Cierra la Issue #42 al mergear |
+| `Closes #123` | `Closes #15` | Cierra la Issue #15 al mergear |
+| `Resolves #123` | `Resolves #8` | Cierra la Issue #8 al mergear |
+
+```bash
+# En el mensaje de commit
+git commit -m "fix(auth): resolve token refresh bug. Fixes #42"
+
+# En la descripción de la PR
+## Descripción
+Implementa refresh token automático.
+Fixes #42
+```
+
+```mermaid
+graph LR
+    A[Issue #42<br/>Bug en login] -->|Fixes #42 en PR| B[PR #87<br/>Corrección]
+    B -->|Merge| C[Issue #42<br/>Cerrada automáticamente]
+
+    style A fill:#f44336,color:#fff
+    style B fill:#FF9800,color:#fff
+    style C fill:#4CAF50,color:#fff
+```
+
+📌 **Ejemplo real:** En el repositorio de C# de Netflix, cada PR que corrige un bug tiene `Fixes #X` en la descripción. Cuando se mergea, la Issue se cierra automáticamente y el equipo sabe exactamente qué PR resolvió qué problema.
+
+> 💡 **Consejo:** Usa `Fixes` en commits y PRs. Es la forma más limpia de mantener Issues y código sincronizados.
+
+### 4.5.3. Projects
 
 **GitHub Projects** es un tablero kanban para gestionar trabajo.
 
-- Crear proyectos con tableros
-- Añadir issues y PRs como cards
-- Organizar en columnas (To Do, In Progress, Done)
-- Asignar a miembros del equipo
-
 > 💡 **Metáfora ampliada: Projects como "tablero de recetas de la cocina"**
 > Imagina que tienes una cocina profesional. En la pared hay un tablero con tarjetas: "Preparar masa" → "Hornear pastel" → "Decorar". Cada tarjeta es una tarea, y se mueve de izquierda a derecha a medida que avanza. **GitHub Projects es ese tablero de cocina**: cada Issue o PR es una tarjeta que se mueve por las columnas hasta completarse.
+
+**Cómo crear un Project:**
+
+1. En tu repositorio → **Projects** → **New project**
+2. Elegir tipo: **Board** (kanban) o **Table** (vista tabla)
+3. Añadir columnas: `To Do`, `In Progress`, `Review`, `Done`
+4. Añadir Issues y PRs como tarjetas
+
+**Características principales:**
+
+| Característica | Descripción |
+|----------------|-------------|
+| **Board view** | Vista kanban con columnas arrastrables |
+| **Table view** | Vista de tabla con campos personalizados |
+| **Roadmap** | Vista de timeline para planificación |
+| **Custom fields** | Prioridad, Sprint, Estimación, Iteración |
+| **Automation** | Mover tarjetas automáticamente al cerrar Issue o mergear PR |
+
+**Comandos CLI para Projects:**
+
+```bash
+# Listar proyectos del repositorio
+gh project list
+
+# Crear un proyecto
+gh project create --title "Sprint 1" --owner @me
+
+# Añadir una Issue a un proyecto
+gh project item-add [project-number] --url [issue-url]
+```
+
+📌 **Ejemplo real:** En equipos de desarrollo de Telefónica, cada sprint se gestiona con GitHub Projects. Las Issues se mueven automáticamente a "Done" cuando el PR asociado se mergea.
 
 ## 4.6. Convenciones de Mensajes
 

@@ -785,12 +785,13 @@ git revert HEAD
 # Ver todo el historial de HEAD (incluye resets)
 git reflog
 
-# Buscar commit perdido
-git reflog | grep "commit:"
+# Buscar commit perdido (visually en la salida)
+git reflog
 
-# Restaurar el commit encontrado
-git checkout [commit-hash]
-# O
+# Restaurar el commit encontrado (recomendado: crear rama desde ahí)
+git switch -c recuperar-[commit-hash] [commit-hash]
+
+# O con reset (si estás seguro)
 git reset --hard [commit-hash]
 ```
 
@@ -888,7 +889,7 @@ git rm *.log
 
 > 💡 **Metáfora de `git rm`:** `git rm` es como **sacar un libro de la estantería y tirarlo a la papelera**. El libro desaparece de la estantería (repositorio) Y de la papelera (disco). `git rm --cached` es como sacarlo de la estantería pero dejarlo en la mesa: ya no está archivado, pero lo tienes a mano.
 
-> ⚠️ **Error común:** `git rm archivo.txt` sin querer. Si el archivo no estaba en el historial, no hay forma de recuperarlo. Usa `git rm --cached` si solo quieres dejar de rastrearlo.
+> ⚠️ **Error común:** `git rm archivo.txt` sin querer. Si el archivo estaba staged (git add) pero no commiteado, puedes recuperarlo con `git fsck --lost-found`. Si fue commiteado alguna vez, existe en el objeto de Git. Usa `git rm --cached` si solo quieres dejar de rastrearlo sin borrar del disco.
 
 **Pros:**
 - Limpia archivos que no deberían estar en el historial
@@ -932,7 +933,7 @@ dist/
 
 > 💡 **Metáfora de `.gitignore`:** `.gitignore` es como una **lista de personas que no pueden entrar a la biblioteca**. Le dices a Git: "estos archivos son privados, temporales o basura, ni los mires". Sin esta lista, Git rastrea todo, incluyendo contraseñas, archivos de compilación y basura del sistema.
 
-> ⚠️ **Error común:** Crear `.gitignore` después de haber commiteado archivos sensibles. Si un archivo ya está en el historial, `.gitignore` no lo borra. Tienes que eliminarlo del historial con `git filter-branch` o BFG Repo Cleaner.
+> ⚠️ **Error común:** Crear `.gitignore` después de haber commiteado archivos sensibles. Si un archivo ya está en el historial, `.gitignore` no lo borra. Tienes que eliminarlo del historial con `git filter-repo` o BFG Repo Cleaner. `git filter-branch` está deprecated desde Git 2.24.
 
 **Pros de `.gitignore`:**
 - Evita subir basura, compilados y secretos
@@ -1015,23 +1016,35 @@ gitGraph
 # Guardar cambios actuales (sin hacer commit)
 git stash
 
-# Guardar con mensaje
-git stash save "Trabajo parcial en feature"
+# Guardar con mensaje (recomendado — save está deprecated)
+git stash push -m "Trabajo parcial en feature"
 
 # Ver lista de stashes
 git stash list
 
-# Recuperar último stash
+# Ver qué hay dentro de un stash (sin aplicar)
+git stash show
+git stash show -p  # Ver el diff completo
+
+# Recuperar último stash (y eliminarlo de la lista)
 git stash pop
 
 # Aplicar stash sin eliminarlo
 git stash apply
 
-# Eliminar stash
-git stash drop
+# Eliminar un stash específico
+git stash drop stash@{0}
+
+# Eliminar todos los stashes
+git stash clear
+
+# Crear rama desde un stash (útil si el stash tiene conflictos)
+git stash branch nueva-rama stash@{0}
 ```
 
 > 💡 **Caso de uso:** Tienes cambios sin commit y necesitas cambiar de rama urgentemente. `git stash` los guarda, cambias de rama, y luego `git stash pop` para recuperar.
+
+> ⚠️ **Advertencia:** `git stash save` está deprecated desde Git 2.16. Usa siempre `git stash push -m "mensaje"`. La sintaxis antigua dejará de funcionar en futuras versiones.
 
 ## 1.6. Resumen de Comandos Básicos
 
@@ -1048,12 +1061,17 @@ git restore --staged archivo.txt  # Quitar del staging
 git revert HEAD                   # Revertir último commit
 
 # Repositorios remotos
-git remote -v              # Ver remotos
-git remote add origin url  # Añadir remoto
-git push -u origin main    # Subir por primera vez
+git remote -v              # Ver remotos configurados
+git remote add origin url  # Añadir un remoto
+git push -u origin main    # Subir por primera vez (-u = tracking)
 git push                   # Subir cambios
-git pull                   # Bajar y fusionar
+git pull                   # Bajar y fusionar (fetch + merge)
+git pull --rebase          # Bajar y rebasear (historial limpio)
 ```
+
+> 💡 **¿Qué hace `git pull`?** Es la combinación de `git fetch` (descargar cambios del remoto) + `git merge` (fusionarlos con tu código). Si prefieres control, usa `git fetch` + `git diff` + `git merge` por separado.
+
+> ⚠️ **Error común:** `git pull` puede crear conflictos si alguien más modificó los mismos archivos que tú. Siempre haz commit o stash antes de pull.
 
 > 📝 **Nota:** Workflow básico:
 > 1. Modificas archivos

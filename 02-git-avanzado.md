@@ -36,7 +36,7 @@
 > 💡 **¿Por qué me importa?**
 > En cualquier proyecto real, necesitarás desarrollar funcionalidades nuevas, corregir errores y experimentar sin afectar el código estable. Las ramas te permiten trabajar en paralelo, fusionar cuando esté listo y mantener siempre una versión funcional.
 > 
-> 🔗 **Conexión con otros puntos:** El Punto 01 viste los comandos básicos de Git. Este punto profundiza en ramas, fusiones y conflictos. El Punto 03 verás GitHub y los repositorios remotos para compartir tu trabajo.
+> 🔗 **Conexión con otros puntos:** El Punto 01 vimos los comandos básicos de Git. Este punto profundiza en ramas, fusiones y conflictos. El Punto 03 verás GitHub y los repositorios remotos para compartir tu trabajo.
 
 En el Punto 01 vimos los conceptos básicos de Git: repositorios, commits y comandos esenciales. Ahora veremos ramas, fusiones, rebase y resolución de conflictos: las herramientas que hacen posible el trabajo en equipo.
 
@@ -188,6 +188,54 @@ git checkout -                # Vuelves al último universo en el que estabas
 
 > ⚠️ **Problema clásico:** Si tienes cambios sin commit y haces `checkout` a otra rama, Git intenta mezclar tus cambios. Siempre haz commit o stash antes de cambiar de rama.
 
+#### `git stash` — Guardar cambios temporalmente
+
+> 💡 **Metáfora:** `git stash` es como **poner tus papeles en un cajón temporal** mientras ordenas la mesa para otro trabajo. No los tiras, no los guardas en el archivador — los pones en un cajón aparte y cuando vuelvas, los sacas exactamente como estaban.
+
+```bash
+# Guardar cambios actuales
+git stash push -m "WIP: refactorizando login"
+
+# Ver lista de stashes guardados
+git stash list
+
+# Ver qué hay dentro de un stash
+git stash show
+git stash show -p  # Ver el diff completo
+
+# Recuperar último stash (y eliminarlo de la lista)
+git stash pop
+
+# Aplicar stash sin eliminarlo (útil si quieres usarlo en varias ramas)
+git stash apply
+
+# Crear rama desde un stash (útil si hay conflictos)
+git stash branch feature/recuperar stash@{0}
+
+# Eliminar un stash específico
+git stash drop stash@{0}
+
+# Eliminar todos los stashes
+git stash clear
+```
+
+```mermaid
+graph TD
+    A[Tengo cambios sin commit] -->|Necesito cambiar de rama| B[git stash push -m]
+    B --> C[Cambias de rama]
+    C --> D[Trabajas en la otra rama]
+    D -->|Vuelves a la rama original| E[git stash pop]
+    E --> F[Tus cambios restaurados]
+
+    style A fill:#FF9800,color:#fff
+    style B fill:#9C27B0,color:#fff
+    style E fill:#4CAF50,color:#fff
+```
+
+📌 **Ejemplo real:** Estás desarrollando una funcionalidad nueva y tu jefe te pide un hotfix urgente. Sin `stash`, tendrías que hacer commit de medio código, crear la rama del fix, y luego intentar deshacer el commit. Con `stash`: `git stash`, cambias de rama, haces el fix, vuelves y `git stash pop`. Limpio y rápido.
+
+> ⚠️ **Advertencia:** `git stash save` está deprecated. Usa siempre `git stash push -m "mensaje"`.
+
 #### `git switch` — La versión moderna del portal
 
 > 💡 **Metáfora:** `git switch` es como el `checkout` pero con un panel de control más intuitivo. Solo cambia de rama, no toca tus archivos.
@@ -296,14 +344,44 @@ git merge nombre-rama
 # Fusionar con mensaje personalizado
 git merge nombre-rama -m "Mensaje del merge"
 
-# Fusionar abortando si hay conflictos
-git merge --abort nombre-rama
+# Fusionar abortando si hay conflictos (NO lleva nombre de rama)
+git merge --abort
 
 # Fusionar sin fast-forward (siempre crea commit de merge)
 git merge --no-ff nombre-rama
 ```
 
 > 📝 **Merge fast-forward:** Es "limpio" pero puede ocultar la estructura real del desarrollo. Usar `--no-ff` cuando quieras mantener el historial de ramas.
+
+### Estrategias de Merge
+
+Git permite elegir diferentes algoritmos para resolver fusiones:
+
+```bash
+# Estrategia "ours": mantener siempre la versión de la rama actual
+git merge -s ours feature-branch
+
+# Estrategia "recursive" (por defecto): resolver automáticamente si es posible
+git merge -s recursive feature-branch
+
+# Resolver conflictos automáticamente tomando la versión entrante
+git merge -X theirs feature-branch
+
+# Resolver conflictos automáticamente manteniendo la versión actual
+git merge -X ours feature-branch
+
+# Fusionar sin hacer commit (dejar todo staged)
+git merge --no-commit feature-branch
+```
+
+| Estrategia | Cuándo usarla |
+|------------|---------------|
+| **recursive** (por defecto) | Caso general, resuelve automáticamente |
+| **ours** | Cuando quieres descartar los cambios de la otra rama |
+| **theirs** | Cuando quieres aceptar los cambios de la otra rama |
+| **octopus** | Fusionar más de 2 ramas a la vez |
+
+> ⚠️ **Advertencia:** Las estrategias `-s ours` y `-X theirs` son peligrosas si no entiendes qué hacen. Pueden descartar cambios sin avisar. Úsalas solo cuando estés seguro.
 
 | ✅ Ventajas del Merge | ❌ Inconvenientes del Merge |
 |------------------------|------------------------------|
@@ -599,6 +677,71 @@ git commit -m "Resueltos conflictos de merge"
 > - **Olvidar los marcadores** `<<<`, `===`, `>>>`: Si los dejas en el código, el programa fallará al compilar
 > - **No hacer `git add` después de resolver**: Git sigue pensando que hay conflicto pendiente
 > - **Resolver solo un archivo cuando hay varios**: Comprobar siempre con `git status` cuántos archivos tienen conflicto
+
+### Ejemplo Real: Conflicto en un Proyecto C#
+
+Supongamos que dos desarrolladores modifican `ServicioLogin.cs`:
+
+**Tu rama (feature):**
+```csharp
+public class ServicioLogin
+{
+    public bool IniciarSesion(string usuario, string password)
+    {
+        // Validación simplificada
+        return !string.IsNullOrEmpty(usuario) && !string.IsNullOrEmpty(password);
+    }
+}
+```
+
+**Rama principal (main):**
+```csharp
+public class ServicioLogin
+{
+    public bool IniciarSesion(string usuario, string password)
+    {
+        // Validación con hash
+        var hash = CalcularHash(password);
+        return BaseDatos.Verificar(usuario, hash);
+    }
+}
+```
+
+**El archivo con marcadores de conflicto:**
+```csharp
+public class ServicioLogin
+{
+    public bool IniciarSesion(string usuario, string password)
+    {
+<<<<<<< HEAD
+        // Validación con hash
+        var hash = CalcularHash(password);
+        return BaseDatos.Verificar(usuario, hash);
+=======
+        // Validación simplificada
+        return !string.IsNullOrEmpty(usuario) && !string.IsNullOrEmpty(password);
+>>>>>>> feature
+    }
+}
+```
+
+**Resolución:** Decidís que la versión de `main` es la correcta (con hash), y añadís la validación de nulos de la feature:
+
+```csharp
+public class ServicioLogin
+{
+    public bool IniciarSesion(string usuario, string password)
+    {
+        if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(password))
+            return false;
+
+        var hash = CalcularHash(password);
+        return BaseDatos.Verificar(usuario, hash);
+    }
+}
+```
+
+> 📌 **Ejemplo real:** En Netflix, cuando dos equipos modifican el mismo servicio de streaming, resuelven los conflictos con una reunión de 15 minutos. El merge conflict es el punto de partida de la conversación, no el final.
 > - **No probar que el código compila después de resolver**: Siempre ejecutar `dotnet build` o las pruebas tras resolver
 
 > 💡 **Truco:** Usa un IDE como Rider o VS Code que tiene herramientas visuales para resolver conflictos. Muestra ambos lados y puedes elegir "aceptar actual", "aceptar entrante" o "aceptar ambos".
@@ -780,7 +923,7 @@ gitGraph
 
 | Rama | Propósito |
 |------|-----------|
-| **`master`** | Producción, versiones estables |
+| **`main`** | Producción, versiones estables |
 | **`develop`** | Integración de nuevas funcionalidades |
 | **`feature-*`** | Nuevas funcionalidades |
 | **`release-*`** | Preparación de release |
@@ -800,16 +943,16 @@ git merge feature/login --no-ff
 # Preparar release
 git checkout -b release/1.1 develop
 # ...ajustes finales...
-git checkout master
+git checkout main
 git merge release/1.1 --no-ff
 git tag -a v1.1 -m "Version 1.1"
 git checkout develop
 git merge release/1.1 --no-ff
 
 # Hotfix
-git checkout -b hotfix/1.1.1 master
+git checkout -b hotfix/1.1.1 main
 # ...arreglo urgente...
-git checkout master
+git checkout main
 git merge hotfix/1.1.1 --no-ff
 git tag -a v1.1.1 -m "Hotfix 1.1.1"
 git checkout develop
@@ -818,7 +961,39 @@ git merge hotfix/1.1.1 --no-ff
 
 > 💡 **Cuándo usar GitFlow:** Software con versiones formales, apps móviles, proyectos enterprise, equipos grandes.
 
-### 2.6.4. Comparativa de Flujos
+### 2.6.4. Trunk-Based Development
+
+> 💡 **Metáfora:** Trunk-Based es como **escribir en un documento compartido en tiempo real**. No hay ramas largas ni fusiones complejas — todos escriben en el mismo tronco (`main`) y las ramas, si existen, son muy cortas (1-2 días).
+
+```mermaid
+graph LR
+    A[main] --> B[Commit frecuente]
+    B --> C[Commit frecuente]
+    C --> D[Commit frecuente]
+    A --> E[Feature Flag<br/>función desactivada]
+    E --> F[Cuando está lista<br/>se activa]
+
+    style A fill:#4CAF50,color:#fff
+    style B fill:#2196F3,color:#fff
+    style C fill:#2196F3,color:#fff
+    style D fill:#2196F3,color:#fff
+    style E fill:#FF9800,color:#fff
+```
+
+| Aspecto | Trunk-Based |
+|---------|-------------|
+| **Complejidad** | Muy simple |
+| **Ramas** | Solo `main` (o ramas de 1-2 días) |
+| **Feature Flags** | Sí, obligatorio |
+| **CI/CD** | Esencial |
+| **Ideal para** | Equipos ágiles, CD continuo |
+| **Ejemplo uso** | Google, Facebook, Netflix |
+
+> 📝 **Feature Flags:** En lugar de crear ramas para funciones incompletas, se crea una variable de configuración (`ENABLE_NEW_LOGIN=false`) que activa o desactiva la función. Cuando está lista, se cambia a `true` y se despliega.
+
+📌 **Ejemplo real:** Google usa Trunk-Based para todo. Cuando ves una función nueva en Gmail que solo algunos usuarios tienen, es una Feature Flag. Cuando está probada, se activa para todos.
+
+### 2.6.5. Comparativa de Flujos
 
 | Aspecto | GitHub Flow | GitFlow |
 |---------|-------------|---------|

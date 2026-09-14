@@ -10,8 +10,8 @@
     - [Extensiones VS Code](#extensiones-vs-code)
     - [GitHub CLI y Terminal](#github-cli-y-terminal)
     - [Recursos de Aprendizaje](#recursos-de-aprendizaje)
-  - [6.4. Checklist de Supervivencia](#64-checklist-de-supervivencia)
-  - [6.5. Errores Comunes a Evitar](#65-errores-comunes-a-evitar)
+  - [6.4. Errores Comunes a Evitar](#64-errores-comunes-a-evitar)
+  - [6.5. Checklist de Supervivencia](#65-checklist-de-supervivencia)
   - [6.6. Glosario de Términos](#66-glosario-de-términos)
   - [6.7. Ejercicios de Repaso](#67-ejercicios-de-repaso)
   - [6.8. ¿Qué viene después?](#68-qué-viene-después)
@@ -185,42 +185,7 @@ graph TD
 | **Git Cheat Sheet** | education.github.com | Referencia rápida |
 
 
-## 6.4. Checklist de Supervivencia
-
-Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
-
-### Git Inicial
-- [ ] ¿Entiendo la diferencia entre Git y GitHub?
-- [ ] ¿Puedo configurar Git con mi nombre y email?
-- [ ] ¿Sé usar `git add`, `git commit` y `git status`?
-- [ ] ¿Entiendo el concepto de área de staging?
-- [ ] ¿Puedo configurar `.gitignore` correctamente?
-
-### Git Avanzado
-- [ ] ¿Puedo crear, cambiar y eliminar ramas?
-- [ ] ¿Sé resolver un merge básico?
-- [ ] ¿Conozco la diferencia entre `reset` y `revert`?
-- [ ] ¿Entiendo qué es un conflicto y cómo resolverlo?
-- [ ] ¿Conozco GitHub Flow y GitFlow?
-
-### Git Remoto
-- [ ] ¿Puedo usar `git push` y `git pull`?
-- [ ] ¿Sé la diferencia entre `fetch` y `pull`?
-- [ ] ¿Puedo crear y subir tags?
-
-### Colaboración
-- [ ] ¿Entiendo qué es una Pull Request?
-- [ ] ¿Sé la diferencia entre Fork y Clone?
-- [ ] ¿Conozco el proceso de code review?
-
-### Herramientas
-- [ ] ¿Puedo usar un cliente GUI básico?
-- [ ] ¿Sé usar recursos online para consultar comandos?
-
-> 🔧 **Truco:** Imprime este checklist y marca cada punto cuando lo domines. Es tu mapa de progreso.
-
-
-## 6.5. Errores Comunes a Evitar
+## 6.4. Errores Comunes a Evitar
 
 | Error | Por qué está mal | Cómo evitarlo |
 |-------|------------------|---------------|
@@ -232,6 +197,56 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 | Mezclar features en una rama | Una rama debería tener un propósito claro | Crea ramas separadas para cada feature o fix |
 | No usar ramas en equipo | Si todos trabajan en main, los conflictos son inevitables | Usa ramas feature y Pull Requests para todo cambio |
 | Cherry-pick sin entender | Puedes romper el historial si lo usas mal | Usa cherry-pick solo para hotfixes puntuales |
+| `git add .` sin revisar | Puede meter `.env`, `bin/`, credenciales | Revisa `git status` antes de cada `git add` |
+| Commitear archivos sensibles | Contraseñas y `.env` quedan en el historial para siempre | Usa `git filter-repo` o BFG para limpiar; nunca commitees secrets |
+| `push --force` en ramas compartidas | Destruye el trabajo de otros desarrolladores | Usa `--force-with-lease` que verifica que nadie más ha subido |
+| Commits demasiado grandes | 50 archivos a la vez → imposible hacer revert limpio | Un commit = un cambio lógico |
+| No hacer `git add` después de resolver conflictos | Los conflictos quedan sin marcar como resueltos | Siempre `git add` + `git commit` después de resolver |
+| No probar tras resolver conflictos | Puedes introduce bugs sin darte cuenta | Ejecuta el proyecto completo después de cada merge |
+
+
+## 6.5. Checklist de Supervivencia
+
+Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
+
+### Git Inicial
+- [ ] ¿Entiendo la diferencia entre Git y GitHub?
+- [ ] ¿Puedo configurar Git con mi nombre y email?
+- [ ] ¿Sé usar `git add`, `git commit` y `git status`?
+- [ ] ¿Entiendo el concepto de área de staging?
+- [ ] ¿Puedo configurar `.gitignore` correctamente?
+- [ ] ¿Sé usar `git stash` para guardar cambios temporalmente?
+- [ ] ¿Conozco `git reflog` para recuperar commits perdidos?
+- [ ] ¿Sedo usar `git commit --amend` para corregir el último commit?
+
+### Git Avanzado
+- [ ] ¿Puedo crear, cambiar y eliminar ramas?
+- [ ] ¿Sé resolver un merge básico?
+- [ ] ¿Conozco la diferencia entre `reset` y `revert`?
+- [ ] ¿Entiendo qué es un conflicto y cómo resolverlo?
+- [ ] ¿Conozco GitHub Flow y GitFlow?
+- [ ] ¿Entiendo la diferencia entre `fast-forward` y `merge commit`?
+- [ ] ¿Sedo usar `git rebase` de forma segura?
+
+### Git Remoto
+- [ ] ¿Puedo usar `git push` y `git pull`?
+- [ ] ¿Sé la diferencia entre `fetch` y `pull`?
+- [ ] ¿Puedo crear y subir tags?
+- [ ] ¿Sedo configurar SSH keys y clonar por SSH?
+- [ ] ¿Entiendo el flujo de trabajo con `upstream` para forks?
+
+### Colaboración
+- [ ] ¿Entiendo qué es una Pull Request?
+- [ ] ¿Sé la diferencia entre Fork y Clone?
+- [ ] ¿Conozco el proceso de code review?
+- [ ] ¿Sedo crear y gestionar Issues?
+- [ ] ¿Conozco GitHub Actions y CI/CD básico?
+- [ ] ¿Conozco las convenciones de mensajes de commit?
+
+### Herramientas
+- [ ] ¿Puedo usar un cliente GUI básico?
+- [ ] ¿Sé usar recursos online para consultar comandos?
+- [ ] ¿Puedo configurar alias y personalizar Git?
 
 
 ## 6.6. Glosario de Términos
@@ -258,6 +273,16 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 | **Conflict** | Cuando dos ramas modifican las mismas líneas |
 | **Clone** | Copia completa de un repositorio remoto |
 | **CI/CD** | Integración y despliegue continuo |
+| **Stash** | Guardar cambios temporalmente sin commit |
+| **Amend** | Modificar el último commit (mensaje o contenido) |
+| **Reflog** | Registro de movimientos de HEAD (90 días de historial) |
+| **Fast-Forward** | Fusión lineal sin commit de merge |
+| **Merge Commit** | Fusión con commit que une dos historiales |
+| **Upstream** | Repositorio original del que se hizo fork |
+| **Workflow** | Flujo de trabajo con Git y GitHub |
+| **Conventional Commits** | Formato de mensajes: `tipo(ámbito): descripción` |
+| **Alias** | Atajo personalizado para comandos Git |
+| **Detached HEAD** | Estado donde HEAD apunta a un commit, no a una rama |
 
 
 ## 6.7. Ejercicios de Repaso
@@ -276,6 +301,20 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 
 7. **Ejercicio 7:** Configura un alias personalizado en Git (por ejemplo, `git st` para `git status`) y úsalo en tu flujo de trabajo diario.
 
+8. **Ejercicio 8:** Usa `git rebase -i HEAD~3` para hacer squash de 3 commits en uno solo. Observa cómo cambia el historial.
+
+9. **Ejercicio 9:** Configura SSH keys, clona un repositorio por SSH y verifica que funciona con `ssh -T git@github.com`.
+
+10. **Ejercicio 10:** Crea una semantic version tag (`v1.0.0`) y sube el tag a GitHub con `git push --tags`.
+
+11. **Ejercicio 11:** Crea un Issue en GitHub con etiqueta `bug` y prioridad `P0`, luego enlázalo a un PR con `Fixes #1` en la descripción.
+
+12. **Ejercicio 12:** Configura un workflow de GitHub Actions que ejecute `dotnet build` y `dotnet test` automáticamente en cada push a `main`.
+
+> 🔧 **Truco:** Para practicar sin miedo, crea un repositorio temporal, haz commits con errores a propósito, y entrena a recuperarlos con `git reflog` y `git reset`.
+
+> 📌 **Ejemplo real:** En entrevistas técnicas de empresas como Telefónica o Accenture, es habitual preguntar "¿qué diferencia hay entre `git merge` y `git rebase`?" y "¿cómo deshaces un commit compartido?". Estos ejercicios te preparan para esas preguntas.
+
 
 ## 6.8. ¿Qué viene después?
 
@@ -293,10 +332,10 @@ En la **UD04: Diseño Orientado a Objetos: Diagrama de Clases** aprenderás a mo
 
 ```mermaid
 graph LR
-    UD01[UD01: Desarrollo de Software] --> UD02[UD02: Entornos de Desarrollo]
-    UD02 --> UD03[UD03: Control de Versiones]
-    UD03 --> UD04[UD04: Diagrama de Clases]
-    UD04 --> UD05[UD05: Diagramas Comportamiento]
+    UD01[UD01: Desarrollo de Software] --> UD02[UD02: Entornos de Desarrollo de Software]
+    UD02 --> UD03[UD03: Sistema de Control de Versiones]
+    UD03 --> UD04[UD04: Diseño OO: Diagrama de Clases]
+    UD04 --> UD05[UD05: Diseño OO: Diagramas de Comportamiento]
     UD05 --> UD06[UD06: Optimización y Refactorización]
     UD06 --> UD07[UD07: Diseño y Realización de Pruebas]
 

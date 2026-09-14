@@ -48,6 +48,8 @@ En el Punto 04 vimos Pull Requests, Forks, Code Review y GitHub Actions. Ahora v
 - Configurar alias y personalizar Git
 - Resolver errores comunes de forma rápida
 
+## 5.1. Clientes Gráficos (GUI)
+
 Los clientes gráficos facilitan el uso de Git para quienes prefieren interfaces visuales.
 
 ### 5.1.1. GitKraken
@@ -87,11 +89,34 @@ Los clientes gráficos facilitan el uso de Git para quienes prefieren interfaces
 | **Licencia** | Gratis |
 | **Puntos fuertes** | Ligero, integración nativa, extensible |
 
+**Características Git integradas en VS Code:**
+
+| Característica | Cómo acceder |
+|----------------|--------------|
+| **Source Control panel** | Ctrl+Shift+G → Vista lateral con cambios |
+| **Commit visual** | Escribes el mensaje y clic en ✓ (checkmark) |
+| **Diff inline** | Modificaciones resaltadas línea por línea |
+| **Merge conflicts UI** | Botones "Accept Current", "Accept Incoming", "Accept Both" |
+| **Branch management** | Selector en la barra inferior izquierda |
+| **Stash operations** | Click derecho en los cambios → Stash |
+| **Timeline view** | Historial de cambios por archivo |
+| **Blame annotations** | Click derecho → "Open Timeline" o extensión GitLens |
+
+**Comandos desde la terminal integrada (Ctrl+`):**
+
 ```bash
-# Comandos Git desde terminal integrado en VS Code
-# Ctrl+` para abrir terminal
-# Clic en icono Git en barra lateral
+# Todo se puede hacer desde la terminal de VS Code
+git status
+git add .
+git commit -m "feat: añadir login"
+git push origin main
+git pull --rebase
+git stash push -m "WIP: refactorizando"
 ```
+
+> 💡 **Ventaja:** VS Code combina la comodidad de una GUI con el poder de la terminal. Puedes usar el panel visual para commits rápidos y la terminal para operaciones complejas.
+
+> 🔗 **Conexión:** Las extensiones GitLens y Git Graph (que verás en la sección 5.2) amplían enormemente las capacidades Git de VS Code.
 
 ### 5.1.5. Comparativa de GUIs
 
@@ -109,7 +134,7 @@ Los clientes gráficos facilitan el uso de Git para quienes prefieren interfaces
 | Característica | Descripción |
 |----------------|-------------|
 | **Función** | Ver blame, historial, comparar commits |
-| **Atajo** | `Alt+` para blame rápido |
+| **Atajo** | `Alt+Shift+A` para blame rápido |
 
 **Features principales:**
 - Blame en línea
@@ -160,40 +185,78 @@ choco install gh
 # macOS
 brew install gh
 
-# Linux
-# https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+# Linux (Debian/Ubuntu)
+sudo apt install gh
+
+# Linux (Fedora)
+sudo dnf install gh
+
+# Linux (Arch)
+pacman -S github-cli
 ```
 
 ### 5.3.2. Comandos Principales
 
 ```bash
 # Autenticarse
-gh auth login
+gh auth login                    # Login interactivo (HTTPS o SSH)
+gh auth status                   # Ver estado de autenticación
+gh auth logout                   # Cerrar sesión
+gh auth setup-git                # Configurar git para usar gh como credential helper
 
-# Ver estado de autenticación
-gh auth status
+# Repositorios
+gh repo create [nombre] --public     # Crear repo público
+gh repo create [nombre] --private    # Crear repo privado
+gh repo list                         # Listar tus repos
+gh repo view                         # Ver info del repo actual
+gh repo clone [usuario/repo]         # Clonar repo
 
 # Pull Requests
 gh pr list                    # Listar PRs
 gh pr view [PR]               # Ver PR
-gh pr create                  # Crear PR
+gh pr create --title "feat: login" --body "Descripción"  # Crear PR con opciones
+gh pr create --draft          # Crear PR como borrador
 gh pr checkout [PR]           # Cambiar a rama de PR
-gh pr merge [PR]              # Fusionar PR
-gh pr review [PR]             # Revisar PR
+gh pr merge [PR]              # Fusionar PR (merge commit)
+gh pr merge [PR] --squash     # Squash and merge
+gh pr merge [PR] --rebase     # Rebase and merge
+gh pr review [PR] --approve   # Aprobar PR
+gh pr diff [PR]               # Ver diff de la PR
+gh pr checks [PR]             # Ver estado de CI/CD
 
 # Issues
 gh issue list                 # Listar issues
 gh issue view [issue]         # Ver issue
-gh issue create               # Crear issue
+gh issue create --title "Bug: login" --label "bug, P0"  # Crear issue con opciones
 gh issue close [issue]        # Cerrar issue
+gh issue reopen [issue]       # Reabrir issue
 
-# Releases
+# GitHub Actions (CI/CD)
+gh workflow list              # Listar workflows
+gh workflow run [workflow]    # Ejecutar workflow
+gh run list                  # Ver ejecuciones recientes
+gh run view [run-id]         # Ver detalle de una ejecución
+gh run watch [run-id]        # Ver ejecución en tiempo real
+gh run cancel [run-id]       # Cancelar ejecución
+
+# Búsqueda
+gh search repos [query]      # Buscar repositorios
+gh search issues [query]     # Buscar issues
+gh search code [query]       # Buscar en código
+
+# API personalizada
+gh api repos/{owner}/{repo}/actions/runs  # Llamada API directa
+
+# Releases y Gist
 gh release list               # Listar releases
-gh release create             # Crear release
-
-# Gist
+gh release create v1.0.0      # Crear release
 gh gist list                  # Listar gists
-gh gist create                # Crear gist
+gh gist create archivo.cs     # Crear gist desde archivo
+
+# Configuración
+gh alias set prs 'pr list --state open'  # Crear alias personalizado
+gh config set editor code                 # Configurar editor por defecto
+```
 
 # Repository
 gh repo view                  # Ver repo
@@ -376,7 +439,7 @@ git reflog                    # Ver historial
 git reset --hard HEAD@{n}     # Restaurar
 
 # Recuperar archivo eliminado
-git checkout -- archivo.txt
+git restore archivo.txt
 
 # Recuperar commit eliminado
 git reflog
