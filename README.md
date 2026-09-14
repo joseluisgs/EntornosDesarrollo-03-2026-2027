@@ -19,8 +19,8 @@ UD03. Sistema de Control de Versiones. 1DAW. Curso 2026-2027.
 ## Contenido en YouTube
 
 - [Resumen]()
-- [Git básico, Ramas y Fusiones](https://youtu.be/hG1iohmNt-c)
-- [GitHub y Pull Requests](https://youtu.be/IAtGf34X-Yo)
+- [Git Inicial y manejo de ramas]()
+- [Git Remoto, GitHub y Colaboración]()
 - [Lista de Reproducción](https://www.youtube.com/playlist?list=PLIaRVRNDWeMA)
 
 ## Resultados de Aprendizaje y Criterios de Evaluación
@@ -31,7 +31,7 @@ UD03. Sistema de Control de Versiones. 1DAW. Curso 2026-2027.
 
     - f) Se ha realizado el control de versiones integrado en el entorno de desarrollo.
     - h) Se han utilizado repositorios remotos para el desarrollo de código colaborativo.
-    -i) Se han utilizado herramientas para la integración continua del código.
+    - i) Se han utilizado herramientas para la integración continua del código.
 
 
 ## Autor
