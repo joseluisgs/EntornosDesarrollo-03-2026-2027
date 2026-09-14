@@ -24,8 +24,8 @@
     - [2.6.4. Comparativa de Flujos](#264-comparativa-de-flujos)
   - [2.7. Rama Main vs Master](#27-rama-main-vs-master)
   - [2.8. Buenas Prácticas con Ramas](#28-buenas-prácticas-con-ramas)
-    - [2.8.1. ✅ Recomendaciones](#281--recomendaciones)
-    - [2.8.2. ❌ Errores a Evitar](#282--errores-a-evitar)
+    - [2.8.1. Recomendaciones](#281-recomendaciones)
+    - [2.8.2. Errores a Evitar](#282-errores-a-evitar)
   - [2.9. Resumen de Comandos Avanzados](#29-resumen-de-comandos-avanzados)
 
 
@@ -826,7 +826,7 @@ git merge hotfix/1.1.1 --no-ff
 | **Ramas principales** | Solo `main` | `main` + `develop` |
 | **Release branches** | No | Sí |
 | **Hotfixes** | Rama desde main | Rama desde main |
-| **Ideal para** | CD,部署 continua | Proyectos con versiones |
+| **Ideal para** | CD, despliegue continuo | Proyectos con versiones |
 | **Ejemplo uso** | Web apps modernas | Software embebido |
 
 ## 2.7. Rama Main vs Master

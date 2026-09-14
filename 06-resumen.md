@@ -270,7 +270,7 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 
 4. **Ejercicio 4:** Crea un repositorio en GitHub, conéctalo a tu repositorio local y sube los cambios con `git push`.
 
-5. **Ejercicio 5:** Crea una Pull Request en GitHub, pide revisión a un compañero y融合ala después de la revisión.
+5. **Ejercicio 5:** Crea una Pull Request en GitHub, pide revisión a un compañero y fúsiónala después de la revisión.
 
 6. **Ejercicio 6:** Usa `git revert` para deshacer un commit compartido y `git reset --soft` para deshacer uno local. Compara los resultados.
 
@@ -279,26 +279,30 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 
 ## 6.8. ¿Qué viene después?
 
-En la **UD 04: Desarrollo Web Frontend** aprenderás a crear interfaces de usuario con HTML, CSS y JavaScript. Git será tu aliado para versionar cada componente y funcionalidad.
+En la **UD04: Diseño Orientado a Objetos: Diagrama de Clases** aprenderás a modelar sistemas complejos con diagramas UML. Git seguirá siendo tu aliado para versionar cada diagrama y iteración del diseño.
 
 | Tema de la UD actual | Se usa en la siguiente UD para |
 |----------------------|-------------------------------|
-| Repositorios y commits | Versionar cada ejercicio y proyecto práctico |
-| Ramas y merges | Desarrollar componentes frontend en paralelo |
-| GitHub y PRs | Compartir tu portfolio de proyectos web |
-| Colaboración | Trabajar en equipo en proyectos frontend |
+| Repositorios y commits | Versionar cada diagrama y evolución del diseño |
+| Ramas y merges | Explorar alternativas de diseño en paralelo |
+| GitHub y PRs | Revisar diagramas con el equipo |
+| Colaboración | Trabajar en equipo en el modelado del sistema |
 
 
 ## 6.9. Mapa de Conexiones entre Temas
 
 ```mermaid
 graph LR
-    UD01[UD01: Fundamentos Programación] --> UD02[UD02: Entornos Desarrollo]
+    UD01[UD01: Desarrollo de Software] --> UD02[UD02: Entornos de Desarrollo]
     UD02 --> UD03[UD03: Control de Versiones]
-    UD03 --> UD04[UD04: Desarrollo Web Frontend]
-    UD04 --> UD05[UD05: Desarrollo Web Backend]
-    UD05 --> UD06[UD06: Bases de Datos]
-    UD06 --> UD07[UD07: Despliegue y DevOps]
+    UD03 --> UD04[UD04: Diagrama de Clases]
+    UD04 --> UD05[UD05: Diagramas Comportamiento]
+    UD05 --> UD06[UD06: Optimización y Refactorización]
+    UD06 --> UD07[UD07: Diseño y Realización de Pruebas]
+
+    UD03 -.->|Git para controlar código| UD02
+    UD03 -.->|Versionar diseños| UD04
+    UD03 -.->|Colaboración en equipo| UD06
 
     style UD01 fill:#4CAF50,color:#fff
     style UD02 fill:#2196F3,color:#fff

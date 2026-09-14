@@ -24,6 +24,7 @@
       - [1.4.7.5. git reflog: Tu salvavidas](#1475-git-reflog-tu-salvavidas)
       - [1.4.7.6. git commit --amend: Modificar el último commit](#1476-git-commit---amend-modificar-el-último-commit)
       - [1.4.7.7. Tabla Comparativa: ¿Cuándo usar cada comando?](#1477-tabla-comparativa-cuándo-usar-cada-comando)
+      - [1.4.7.8. Casos Prácticos Detallados](#1478-casos-prácticos-detallados)
     - [1.4.8. Eliminar Archivos](#148-eliminar-archivos)
     - [1.4.9. Ignorar Archivos](#149-ignorar-archivos)
     - [1.4.10. Etiquetado (Tags)](#1410-etiquetado-tags)
@@ -483,24 +484,121 @@ git log -p archivo.txt
 
 Deshacer cambios en Git puede hacerse de varias formas, dependiendo de lo que quieras lograr.
 
+#### Las tres zonas de Git
+
+Antes de entender los comandos, necesitas visualizar las **tres zonas** donde vive tu código:
+
 ```mermaid
-graph TD
-    A[¿Qué quieres deshacer?] --> B{¿Trabajo local?}
-    B -->|No, compartido| C[Usa git revert]
-    B -->|Sí| D{¿Historial?}
-    D -->|Conservar historial| E[git revert]
-    D -->|Modificar historial| F{¿Qué nivel?}
-    F -->|Solo deshacer commit| G[git reset --soft]
-    F -->|Commit + staging| H[git reset --mixed]
-    F -->|TODO| I[git reset --hard]
-    
-    style C fill:#4CAF50,color:#fff
-    style G fill:#FF9800,color:#fff
-    style H fill:#9C27B0,color:#fff
-    style I fill:#f44336,color:#fff
+graph LR
+    WT[Working Tree<br/>Directorio de Trabajo] -->|git add| SA[Staging Area<br/>Área de Preparación]
+    SA -->|git commit| HR[Historial<br/>Repositorio Local]
+    HR -->|git push| RM[Remoto<br/>GitHub/GitLab]
+
+    style WT fill:#FF9800,color:#fff
+    style SA fill:#9C27B0,color:#fff
+    style HR fill:#2196F3,color:#fff
+    style RM fill:#4CAF50,color:#fff
 ```
 
-#### 1.4.7.1. git restore: Deshacer cambios locales
+| Zona | Qué es | Equivalente |
+|------|--------|-------------|
+| **Working Tree** | Archivos en tu disco duro, editándolos | Tu cuaderno de borradores |
+| **Staging Area** | Archivos preparados para el siguiente commit | La mesa donde pones lo que vas a fotocopiar |
+| **Historial** | Commits confirmados (base de datos local) | El archivador con copias certificadas |
+| **Remoto** | Repositorio en GitHub/GitLab | La nube donde comparten los archivos |
+
+> 💡 **Punto de partida:** ¿Por qué tres zonas y no solo "antes y después del commit"? Porque a veces quieres deshacer UNA COSA: borrar cambios del disco, quitar archivos del staging, o borrar commits. Cada zona necesita su propio comando.
+
+> 🔗 **Conexión:** Antes viste `git add` y `git commit`. Ahora veremos qué pasa cuando algo sale mal y necesitas marcha atrás.
+
+**¿Qué comando afecta a cada zona?**
+
+```mermaid
+graph TD
+    A[Comando] --> B[git restore]
+    A --> C[git restore --staged]
+    A --> D[git reset --soft]
+    A --> E[git reset --mixed]
+    A --> F[git reset --hard]
+    A --> G[git revert]
+
+    B --> H[Afecta: Working Tree]
+    C --> I[Afecta: Staging]
+    D --> J[Afecta: Historial]
+    E --> K[Afecta: Historial + Staging]
+    F --> L[Afecta: Historial + Staging + Working Tree]
+    G --> M[Afecta: Historial (añade commit inverso)]
+
+    style H fill:#FF9800,color:#fff
+    style I fill:#9C27B0,color:#fff
+    style J fill:#2196F3,color:#fff
+    style K fill:#9C27B0,color:#fff
+    style L fill:#f44336,color:#fff
+    style M fill:#4CAF50,color:#fff
+```
+
+> 💡 **Analogía:** Piensa en tres cajones. `git restore` vacía el cajón de arriba (Working Tree). `git restore --staged` vacía el cajón del medio (Staging). `git reset` vacía el cajón de abajo (Historial). `git reset --hard` vacía LOS TRES.
+
+#### Escenario real: "Commiteé y subí algo mal"
+
+Este es el escenario que más miedo da a los desarrolladores:
+
+```mermaid
+graph TD
+    A[Tu código funciona] --> B[git commit]
+    B --> C[git push origin main]
+    C --> D[Compañero ve tu código]
+    D --> E[Tú te das cuenta del error]
+    E --> F{¿Qué hago?}
+
+    F -->|git revert| G[Crea commit inverso]
+    F -->|git reset| H[Mueve puntero HEAD]
+    F -->|git restore| I[No sirve aquí]
+
+    G --> J[Código arreglado + historial preservado]
+    H --> K[Código arreglado + historial alterado]
+    I --> L[❌ No deshace commits]
+
+    style A fill:#4CAF50,color:#fff
+    style E fill:#f44336,color:#fff
+    style G fill:#2196F3,color:#fff
+    style H fill:#FF9800,color:#fff
+    style I fill:#607D8B,color:#fff
+```
+
+> ⚠️ **Regla de oro:** Si ya hiciste `push` y hay gente trabajando contigo → **USA `git revert`**. Nunca `git reset` en código compartido.
+
+📌 **Ejemplo real:** En GitHub, cuando ves un commit que dice "Revert 'Add feature X'", es un `git revert`. El commit original sigue ahí, pero el revert lo invalida. Así funciona todo el equipo de Netflix, Google y cualquier empresa con Git.
+
+**Flujo de decisión: ¿Qué comando uso?**
+
+```mermaid
+graph TD
+    INICIO[¿Qué necesito deshacer?] --> Q1{¿Estoy en<br/>Working Tree?}
+
+    Q1 -->|Sí, cambios sin add| RESTORE[git restore archivo]
+    Q1 -->|No, ya hice add| Q2{¿Estoy en<br/>Staging?}
+
+    Q2 -->|Sí, quiero quitar del staging| RESTSTAGED[git restore --staged archivo]
+    Q2 -->|No, ya commiteé| Q3{¿Lo subí<br/>al remoto?}
+
+    Q3 -->|No, solo local| Q4{¿Qué nivel<br/>deshago?}
+
+    Q4 -->|Solo el commit| SOFT[git reset --soft HEAD~1]
+    Q4 -->|Commit + staging| MIXED[git reset --mixed HEAD~1]
+    Q4 -->|TODO| HARD[git reset --hard HEAD~1]
+
+    Q3 -->|Sí, ya hice push| REVERT[git revert HEAD]
+
+    style RESTORE fill:#FF9800,color:#fff
+    style RESTSTAGED fill:#9C27B0,color:#fff
+    style SOFT fill:#2196F3,color:#fff
+    style MIXED fill:#9C27B0,color:#fff
+    style HARD fill:#f44336,color:#fff
+    style REVERT fill:#4CAF50,color:#fff
+```
+
+#### 1.4.7.1. git restore: Deshacer cambios en Working Tree
 
 ```bash
 # Deshacer cambios en un archivo (volver al último commit)
@@ -513,7 +611,37 @@ git restore .
 git restore --staged archivo.txt
 ```
 
-> 💡 **Metáfora de `git restore`:** `git restore` es como **tirar el borrador al papelera y sacar una copia limpia del archivador**. Si has escrito algo mal en tu cuaderno, lo tiras y sacas una copia nueva del armario. Los cambios locales desaparecen.
+> 💡 **Metáfora de `git restore`:** `git restore` es como **tirar el borrador al papelera y sacar una copia limpia del archivador**. Si has escrito algo mal en tu cuaderno, lo tiras y sacas una copia nueva del armario.
+
+**git restore: ¿Qué zona afecta?**
+
+```mermaid
+gitGraph
+    commit id: "A" tag: "HEAD"
+    commit id: "B"
+```
+
+| Comando | Zona afectada | ¿Borra commits? | ¿Borra cambios? |
+|---------|---------------|-------------------|------------------|
+| `git restore archivo` | Working Tree | ❌ No | ✅ Sí, los cambios locales |
+| `git restore --staged archivo` | Staging | ❌ No | ❌ No, se mueven a Working Tree |
+| `git restore --source=HEAD~1 archivo` | Working Tree | ❌ No | ✅ Sí, coge versión del commit anterior |
+
+```mermaid
+graph LR
+    subgraph "ANTES de git restore archivo.txt"
+        A1[Working Tree: modificado] --> A2[Staging: limpio]
+        A2 --> A3[Commit B: versión original]
+    end
+
+    subgraph "DESPUÉS de git restore archivo.txt"
+        B1[Working Tree: versión original] --> B2[Staging: limpio]
+        B2 --> B3[Commit B: versión original]
+    end
+
+    style A1 fill:#f44336,color:#fff
+    style B1 fill:#4CAF50,color:#fff
+```
 
 > ⚠️ **Error común:** Usar `git restore .` sin querer → pierdes todos tus cambios locales. Siempre revisa qué hay sin commit antes de ejecutarlo.
 
@@ -535,7 +663,25 @@ git revert 7cff591~2..7cff591
 
 > 💡 **Ventaja de revert:** Es seguro para trabajo compartido porque no borra commits, crea nuevos que deshacen los cambios.
 
-> 💡 **Metáfora de `git revert`:** `git revert` es como **añadir una página suplementaria al libro** que dice "lo que se puso en la página anterior estaba mal, haced como si no existiera". No arrancas la página anterior (el commit sigue ahí), pero añades una nueva que la invalida. Es la forma segura de deshacer algo en equipo.
+> 💡 **Metáfora de `git revert`:** `git revert` es como **añadir una página suplementaria al libro** que dice "lo que se puso en la página anterior estaba mal, haced como si no existiera". No arrancas la página anterior (el commit sigue ahí), pero añades una nueva que la invalida.
+
+**git revert: ¿Qué zona afecta?**
+
+```mermaid
+gitGraph
+    commit id: "A"
+    commit id: "B"
+    commit id: "C" tag: "HEAD"
+    commit id: "Revert C" tag: "Nuevo HEAD"
+```
+
+| Comando | Zona afectada | ¿Borra commits? | ¿Historial limpio? |
+|---------|---------------|-------------------|---------------------|
+| `git revert HEAD` | Historial | ❌ No, crea commit inverso | ✅ Sí |
+| `git revert -n HEAD` | Ninguna (prepara) | ❌ No | Pendiente de commit |
+| `git revert HEAD~2..HEAD` | Historial | ❌ No, crea commits inversos | ✅ Sí |
+
+> 📌 **Ejemplo real:** Cuando un deploy a producción falla, el equipo usa `git revert` para deshacer el último commit sin perder nada del historial. Así puede haber un "papel" de qué pasó y por qué se revirtió.
 
 #### 1.4.7.3. git reset: Mover el puntero HEAD
 
@@ -560,19 +706,49 @@ graph TD
     style I fill:#f44336,color:#fff
 ```
 
+**git reset --soft: Solo mueve HEAD**
+
 ```bash
-# SOFT: Solo mueve HEAD, mantiene todo
-# El commit se elimina pero los cambios vuelven al staging
 git reset --soft HEAD~1
+```
 
-# MIXED (por defecto): Deshace commit y staging
-# El commit se elimina, cambios quedan sin stagiar
+```mermaid
+gitGraph
+    commit id: "A"
+    commit id: "B"
+    commit id: "C" tag: "Se elimina"
+```
+
+| Zona | ¿Qué pasa? |
+|------|------------|
+| Working Tree | ✅ Intacto (tus cambios siguen ahí) |
+| Staging | ✅ Intacto (los archivos siguen preparados) |
+| Historial | ❌ Se elimina el commit, pero los cambios vuelven al staging |
+
+**git reset --mixed (por defecto): Deshace commit y staging**
+
+```bash
 git reset HEAD~1
+# Equivale a: git reset --mixed HEAD~1
+```
 
-# HARD: ¡TODO BORRADO!
-# El commit se elimina Y los cambios locales se borran
+| Zona | ¿Qué pasa? |
+|------|------------|
+| Working Tree | ✅ Intacto (tus cambios siguen ahí) |
+| Staging | ❌ Se borra (tienes que volver a hacer `git add`) |
+| Historial | ❌ Se elimina el commit |
+
+**git reset --hard: ¡TODO BORRADO!**
+
+```bash
 git reset --hard HEAD~1
 ```
+
+| Zona | ¿Qué pasa? |
+|------|------------|
+| Working Tree | ❌ Se borra (los archivos vuelven al estado del commit anterior) |
+| Staging | ❌ Se borra |
+| Historial | ❌ Se elimina el commit |
 
 > ⚠️ **ADVERTENCIA:** `git reset --hard` es **irreversible**. Los cambios se borran del disco. Solo usar si estás completamente seguro.
 
@@ -600,6 +776,8 @@ git reset --hard HEAD~1
 git revert HEAD
 # Crea un nuevo commit que deshace el anterior
 ```
+
+> 📝 **Nota sobre `git reset --hard`:** Si ejecutas `git reset --hard HEAD~1` por error, **no todo está perdido**. Usa `git reflog` para encontrar el commit eliminado y `git reset --hard [hash]` para recuperarlo. `git reflog` guarda todos los movimientos de HEAD durante 90 días.
 
 #### 1.4.7.5. git reflog: Tu salvavidas
 
@@ -636,14 +814,64 @@ git commit --amend --author="Nuevo Autor <email@ej.com>"
 
 #### 1.4.7.7. Tabla Comparativa: ¿Cuándo usar cada comando?
 
-| Comando | ¿Cuándo usarlo? | ¿Historial? | ¿Seguro compartido? |
-|---------|-----------------|-------------|---------------------|
-| `git restore archivo` | Descartar cambios locales | ❌ No | ✅ Sí |
-| `git restore --staged` | Quitar del staging | ❌ No | ✅ Sí |
-| `git revert HEAD` | Invertir commit | ✅ Sí | ✅ Sí |
-| `git reset --soft` | Deshacer commit, guardar cambios | ❌ No | ❌ No |
-| `git reset --mixed` | Deshacer commit y staging | ❌ No | ❌ No |
-| `git reset --hard` | ¡Todo fuera! | ❌ No | ❌ No |
+| Comando | ¿Qué hace? | ¿Zona afectada? | ¿Seguro en equipo? | Ejemplo de uso |
+|---------|-------------|------------------|---------------------|----------------|
+| `git restore archivo` | Descarta cambios locales | Working Tree | ✅ Sí | "Me equivoqué editando, vuelvo a la versión del commit" |
+| `git restore --staged` | Quita del staging | Staging | ✅ Sí | "Commiteé un archivo de más, lo quito del staging" |
+| `git revert HEAD` | Crea commit inverso | Historial | ✅ Sí | "Commiteé algo mal en main, lo revierto sin perder nada" |
+| `git reset --soft` | Deshace commit, guarda cambios | Historial | ❌ No (local) | "Quiero rehacer el commit con mejor mensaje" |
+| `git reset --mixed` | Deshace commit y staging | Historial + Staging | ❌ No (local) | "Quiero rehacer el commit y reorganizar archivos" |
+| `git reset --hard` | Borra TODO | Historial + Staging + Working Tree | ❌ No (local) | "Descarto completamente este trabajo" |
+| `git commit --amend` | Modifica último commit | Historial | ❌ No (local) | "Olvidé añadir un archivo al commit" |
+
+> 💡 **Regla de oro:** `git restore` = sin historial. `git reset` = solo local. `git revert` = compartido.
+
+> 📌 **Ejemplo real:** Netflix usa `git revert` cuando un feature afecta a producción. En lugar de borrar el historial (que perdería trazabilidad), crean commits inversos que documentan qué se hizo y por qué se deshizo.
+
+#### 1.4.7.8. Casos Prácticos Detallados
+
+**Caso 1: Commiteé un archivo que no debería**
+
+```bash
+# El error: commiteé mi contraseña
+git add .env
+git commit -m "Configuración"
+
+# La solución: quitar del staging y rehacer
+git reset --soft HEAD~1        # Deshace el commit, mantiene cambios
+git restore --staged .env      # Quita .env del staging
+echo ".env" >> .gitignore      # Añadir a .gitignore
+git add .gitignore
+git commit -m "Configuración sin .env"
+```
+
+**Caso 2: Commiteé código con errores en main**
+
+```bash
+# El error: el build falla después de mi commit
+git log --oneline
+# a1b2c3d Fix: arreglé el login (🔴 falla tests)
+# e4f5g6h Feature: añadí el sistema de logs
+
+# La solución: revert del commit problemático
+git revert a1b2c3d
+# Se crea un nuevo commit que deshace los cambios de a1b2c3d
+```
+
+**Caso 3: Quiero reorganizar mis últimos 3 commits antes de push**
+
+```bash
+# El error: 3 commits desordenados que quiero limpiar
+git log --oneline
+# c1d2e3f Fix typo
+# b2a3c4d WIP: algo que funciona
+# a1b2c3d Feature inicial
+
+# La solución: rebase interactivo
+git rebase -i HEAD~3
+# En el editor, cambia "pick" por "squash" para combinar
+# Resultado: un solo commit limpio
+```
 
 ### 1.4.8. Eliminar Archivos
 

@@ -24,9 +24,9 @@
     - [5.5.3. Colores y Formato](#553-colores-y-formato)
     - [5.5.4. .gitconfig Completo](#554-gitconfig-completo)
   - [5.6. Errores Comunes y Soluciones](#56-errores-comunes-y-soluciones)
-    - [5.6.1. ❌ Errores Típicos](#561--errores-típicos)
-    - [5.6.2. ⚠️ Recuperación de Errores](#562--recuperación-de-errores)
-    - [5.6.3. 🆘 Comandos de Emergencia](#563--comandos-de-emergencia)
+    - [5.6.1. Errores Típicos](#561-errores-típicos)
+    - [5.6.2. Recuperación de Errores](#562-recuperación-de-errores)
+    - [5.6.3. Comandos de Emergencia](#563-comandos-de-emergencia)
 
 
 # 5. Herramientas y Recursos
