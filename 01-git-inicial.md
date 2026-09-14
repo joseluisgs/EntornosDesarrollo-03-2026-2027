@@ -10,24 +10,25 @@
   - [1.3. Ciclo de Vida de los Archivos en Git](#13-ciclo-de-vida-de-los-archivos-en-git)
     - [1.3.1. Los tres estados de Git](#131-los-tres-estados-de-git)
   - [1.4. Comandos Git Esenciales](#14-comandos-git-esenciales)
-    - [1.4.1. Configuración Inicial](#141-configuración-inicial)
-    - [1.4.2. Creación y Clonación de Repositorios](#142-creación-y-clonación-de-repositorios)
-    - [1.4.3. Gestión de Cambios](#143-gestión-de-cambios)
-    - [1.4.4. Commit](#144-commit)
-    - [1.4.5. Diff](#145-diff)
-    - [1.4.6. Historial](#146-historial)
-    - [1.4.7. Deshacer Cambios](#147-deshacer-cambios)
-      - [1.4.7.1. git restore: Deshacer cambios locales](#1471-git-restore-deshacer-cambios-locales)
-      - [1.4.7.2. git revert: Crear commit que deshace](#1472-git-revert-crear-commit-que-deshace)
-      - [1.4.7.3. git reset: Mover el puntero HEAD](#1473-git-reset-mover-el-puntero-head)
-      - [1.4.7.4. Trucos: Eliminar el Último Commit](#1474-trucos-eliminar-el-último-commit)
-      - [1.4.7.5. git reflog: Tu salvavidas](#1475-git-reflog-tu-salvavidas)
-      - [1.4.7.6. git commit --amend: Modificar el último commit](#1476-git-commit---amend-modificar-el-último-commit)
-      - [1.4.7.7. Tabla Comparativa: ¿Cuándo usar cada comando?](#1477-tabla-comparativa-cuándo-usar-cada-comando)
-      - [1.4.7.8. Casos Prácticos Detallados](#1478-casos-prácticos-detallados)
-    - [1.4.8. Eliminar Archivos](#148-eliminar-archivos)
-    - [1.4.9. Ignorar Archivos](#149-ignorar-archivos)
-    - [1.4.10. Etiquetado (Tags)](#1410-etiquetado-tags)
+    - [1.4.1. Instalación de Git](#141-instalación-de-git)
+    - [1.4.2. Configuración Inicial y .gitconfig](#142-configuración-inicial-y-gitconfig)
+    - [1.4.3. Creación y Clonación de Repositorios](#143-creación-y-clonación-de-repositorios)
+    - [1.4.4. Gestión de Cambios](#144-gestión-de-cambios)
+    - [1.4.5. Commit](#145-commit)
+    - [1.4.6. Diff](#146-diff)
+    - [1.4.7. Historial](#147-historial)
+    - [1.4.8. Deshacer Cambios](#148-deshacer-cambios)
+      - [1.4.8.1. git restore: Deshacer cambios locales](#1481-git-restore-deshacer-cambios-locales)
+      - [1.4.8.2. git revert: Crear commit que deshace](#1482-git-revert-crear-commit-que-deshace)
+      - [1.4.8.3. git reset: Mover el puntero HEAD](#1483-git-reset-mover-el-puntero-head)
+      - [1.4.8.4. Trucos: Eliminar el Último Commit](#1484-trucos-eliminar-el-último-commit)
+      - [1.4.8.5. git reflog: Tu salvavidas](#1485-git-reflog-tu-salvavidas)
+      - [1.4.8.6. git commit --amend: Modificar el último commit](#1486-git-commit---amend-modificar-el-último-commit)
+      - [1.4.8.7. Tabla Comparativa: ¿Cuándo usar cada comando?](#1487-tabla-comparativa-cuándo-usar-cada-comando)
+      - [1.4.8.8. Casos Prácticos Detallados](#1488-casos-prácticos-detallados)
+    - [1.4.9. Eliminar Archivos](#149-eliminar-archivos)
+    - [1.4.10. Ignorar Archivos](#1410-ignorar-archivos)
+    - [1.4.11. Etiquetado (Tags)](#1411-etiquetado-tags)
   - [1.5. Guardar Cambios Temporales](#15-guardar-cambios-temporales)
   - [1.6. Resumen de Comandos Básicos](#16-resumen-de-comandos-básicos)
 
@@ -218,14 +219,93 @@ gitGraph
 
 ## 1.4. Comandos Git Esenciales
 
-### 1.4.1. Configuración Inicial
+### 1.4.1. Instalación de Git
+
+Antes de usar Git, necesitas instalarlo en tu sistema. Los alumnos de 1DAW trabajamos en diferentes sistemas operativos, así que aquí tienes las instrucciones para cada uno.
+
+#### Windows
+
+**Opción 1: Con el gestor de paquetes (recomendado)**
+```powershell
+# Abrir PowerShell como administrador
+winget install Git.Git
+```
+
+**Opción 2: Descarga manual**
+1. Ve a [git-scm.com](https://git-scm.com/download/win)
+2. Descarga el instalador para tu arquitectura (64-bit)
+3. Ejecuta el instalador con las opciones por defecto
+4. Durante la instalación, selecciona "Use Git from the Windows Command Prompt"
+
+**Verificación:**
+```powershell
+git --version
+# Salida: git version 2.47.x.windows.1
+```
+
+#### Linux (Debian/Ubuntu)
+
+```bash
+# Actualizar índices de paquetes
+sudo apt update
+
+# Instalar Git
+sudo apt install git
+
+# Verificar instalación
+git --version
+# Salida: git version 2.47.x
+```
+
+#### Linux (Fedora)
+
+```bash
+sudo dnf install git
+git --version
+```
+
+#### Linux (Arch Linux)
+
+```bash
+pacman -S git
+git --version
+```
+
+#### macOS
+
+**Opción 1: Homebrew (recomendado)**
+```bash
+# Si no tienes Homebrew: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install git
+git --version
+```
+
+**Opción 2: Xcode Command Line Tools**
+```bash
+xcode-select --install
+# Se abre un diálogo, pulsa "Instalar"
+git --version
+```
+
+> 💡 **Consejo:** Tras la instalación en cualquier SO, verifica con `git --version`. Si el comando no se reconoce, reinicia la terminal.
+
+---
+
+### 1.4.2. Configuración Inicial y `.gitconfig`
+
+Una vez instalado Git, lo primero es configurar tu identidad. Esta información aparecerá en cada commit que hagas.
+
+#### Comandos de configuración
 
 ```bash
 # Configurar nombre y email (obligatorio)
-git config --global user.name "Tu Nombre"
-git config --global user.email "tu.email@ejemplo.com"
+git config --global user.name "José Luis González"
+git config --global user.email "joseluisgonsan@gmail.com"
 
-# Configurar editor por defecto (recomendado: VS Code)
+# Configurar rama por defecto al crear repos
+git config --global init.defaultBranch "main"
+
+# Configurar editor por defecto (VS Code)
 git config --global core.editor "code --wait"
 
 # Activar coloreado de la salida
@@ -234,6 +314,7 @@ git config --global color.ui auto
 # Ver la configuración actual
 git config --list
 git config user.name    # Ver solo el nombre
+git config user.email   # Ver solo el email
 ```
 
 > 📝 **Configuración por proyecto:** Sin `--global`, la configuración solo aplica al proyecto actual.
@@ -245,7 +326,69 @@ git config user.name    # Ver solo el nombre
 > - Usar `--global` sin querer → afecta a todos tus proyectos
 > - No configurar el editor → Git abrirá un editor por defecto. Si ves una pantalla rara, es Vim: pulsa ESC, escribe `:wq` y Enter para salir.
 
-### 1.4.2. Creación y Clonación de Repositorios
+#### El fichero `.gitconfig`
+
+Cuando ejecutas `git config`, Git guarda la configuración en un archivo llamado `.gitconfig`. Este archivo se encuentra en:
+
+| SO | Ruta del fichero |
+|----|------------------|
+| **Windows** | `C:\Users\TuUsuario\.gitconfig` |
+| **Linux** | `~/.gitconfig` |
+| **macOS** | `~/.gitconfig` |
+
+> 💡 **Consejo:** Puedes editar este archivo directamente con tu editor favorito en lugar de usar comandos `git config`. Es especialmente útil para configuraciones avanzadas como alias y colores.
+
+#### Ejemplo de `.gitconfig` del profesor
+
+```gitconfig
+[user]
+    email = joseluisgonsan@gmail.com
+    name = José Luis González
+[init]
+    defaultBranch = "main"
+[core]
+    autocrlf = input
+    editor = code --wait
+[diff]
+    tool = vscode
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+[merge]
+    tool = vscode
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
+[alias]
+    uncommit = reset --soft HEAD^
+    tree = log --graph --oneline
+[color]
+    ui = always
+    branch = always
+    diff = always
+    interactive = always
+    status = always
+    grep = always
+    pager = true
+    decorate = always
+    showbranch = always
+```
+
+#### Explicación de cada sección
+
+| Sección | Qué configura | Ejemplo de uso |
+|---------|---------------|----------------|
+| **`[user]`** | Tu identidad: nombre y email. Aparece en cada commit. | `git config --global user.name "Tu Nombre"` |
+| **`[init]`** | Rama por defecto al crear repos con `git init`. Antes era `master`, ahora `main`. | `git config --global init.defaultBranch "main"` |
+| **`[core]`** | Comportamiento general del editor y saltos de línea. `autocrlf = input` convierte saltos al hacer commit. | `git config --global core.editor "code --wait"` |
+| **`[diff]`** | Herramienta para ver diferencias entre versiones. | Al ejecutar `git diff`, se abre VS Code |
+| **`[difftool]`** | Comando para lanzar la herramienta de diff. `$LOCAL` y `$REMOTE` son las dos versiones. | `code --wait --diff archivo_v1.cs archivo_v2.cs` |
+| **`[merge]`** | Herramienta para resolver conflictos de fusión. | Al ejecutar `git mergetool`, se abre VS Code |
+| **`[mergetool]`** | Comando para lanzar la herramienta de merge. `$MERGED` es el archivo con conflictos. | `code --wait Program.cs` |
+| **`[alias]`** | Atajos de comandos. `uncommit` deshace el último commit sin borrar cambios; `tree` muestra el historial como grafo. | En vez de `git log --graph --oneline`, escribes `git tree` |
+| **`[color]`** | Colores en la salida de Git. `always` significa que siempre se muestran colores. | La terminal muestra ramas en verde, conflictos en rojo, etc. |
+
+> 🔧 **Truco:** Si quieres probar tu `.gitconfig`, ejecuta `git config --list` y comprueba que todas las secciones aparecen. También puedes abrir el archivo directamente: `code ~/.gitconfig`
+
+### 1.4.3. Creación y Clonación de Repositorios
 
 ```bash
 # Inicializar un nuevo repositorio
@@ -284,7 +427,7 @@ git clone --depth 1 repositorio
 > 💡 **Metáfora de `git clone`:** `git clone` es como **fotocopiar toda la biblioteca** y llevártela a casa. No solo copias los libros actuales (archivos), sino también todo el catálogo de cuándo se añadió cada libro (historial). Tienes una copia idéntica y completa.
 
 **Pros de `git clone`:**
-### 1.4.3. Gestión de Cambios
+### 1.4.4. Gestión de Cambios
 
 ```bash
 # Ver estado del repositorio
@@ -319,7 +462,7 @@ git reset .         # Quitar todo
 
 > ⚠️ **Error común:** `git add .` sin revisar antes. Puede meter archivos `.env`, `bin/`, `obj/`, credenciales... Siempre revisa con `git status` antes de commitear.
 
-### 1.4.4. Commit
+### 1.4.5. Commit
 
 ```bash
 # Commit con mensaje
@@ -358,7 +501,7 @@ git commit --amend
 > - Olvidar `git add` antes del commit → el commit queda vacío
 > - Commitear archivos sensibles (contraseñas, `.env`) → quedan en el historial para siempre
 
-### 1.4.5. Diff
+### 1.4.6. Diff
 
 ```bash
 # Ver cambios NO preparados
@@ -383,7 +526,7 @@ git diff --stat
 > ⚠️ **Error común:** Olvidar que `git diff` solo muestra cambios NO preparados. Para ver los cambios preparados, usa `git diff --staged`.
 
 **Pros de `git diff`:**
-### 1.4.6. Historial
+### 1.4.7. Historial
 
 ```bash
 # Ver historial completo
@@ -410,7 +553,7 @@ git log -p archivo.txt
 > - No saber que puedes filtrar con `--oneline`, `-5`, o por archivo
 
 **Pros de `git log`:**
-### 1.4.7. Deshacer Cambios
+### 1.4.8. Deshacer Cambios
 
 Deshacer cambios en Git puede hacerse de varias formas, dependiendo de lo que quieras lograr.
 
@@ -528,7 +671,7 @@ graph TD
     style REVERT fill:#4CAF50,color:#fff
 ```
 
-#### 1.4.7.1. git restore: Deshacer cambios en Working Tree
+#### 1.4.8.1. git restore: Deshacer cambios en Working Tree
 
 ```bash
 # Deshacer cambios en un archivo (volver al último commit)
@@ -575,7 +718,7 @@ graph LR
 
 > ⚠️ **Error común:** Usar `git restore .` sin querer → pierdes todos tus cambios locales. Siempre revisa qué hay sin commit antes de ejecutarlo.
 
-#### 1.4.7.2. git revert: Crear commit que deshace
+#### 1.4.8.2. git revert: Crear commit que deshace
 
 ```bash
 # Revertir el último commit (crea nuevo commit)
@@ -613,7 +756,7 @@ gitGraph
 
 > 📌 **Ejemplo real:** Cuando un deploy a producción falla, el equipo usa `git revert` para deshacer el último commit sin perder nada del historial. Así puede haber un "papel" de qué pasó y por qué se revirtió.
 
-#### 1.4.7.3. git reset: Mover el puntero HEAD
+#### 1.4.8.3. git reset: Mover el puntero HEAD
 
 Git reset tiene tres modos que afectan diferentes áreas:
 
@@ -687,7 +830,7 @@ git reset --hard HEAD~1
 > - `--mixed` (por defecto): Mueves el marcador Y borras el cuaderno. Tienes que volver a copiar lo que quieras.
 > - `--hard`: Mueves el marcador, borras el cuaderno Y tiras el original al fuego. No hay vuelta atrás.
 
-#### 1.4.7.4. Trucos: Eliminar el Último Commit
+#### 1.4.8.4. Trucos: Eliminar el Último Commit
 
 ```bash
 # OPCIÓN 1: Conservar los cambios en staging (recomendado)
@@ -709,7 +852,7 @@ git revert HEAD
 
 > 📝 **Nota sobre `git reset --hard`:** Si ejecutas `git reset --hard HEAD~1` por error, **no todo está perdido**. Usa `git reflog` para encontrar el commit eliminado y `git reset --hard [hash]` para recuperarlo. `git reflog` guarda todos los movimientos de HEAD durante 90 días.
 
-#### 1.4.7.5. git reflog: Tu salvavidas
+#### 1.4.8.5. git reflog: Tu salvavidas
 
 ```bash
 # Ver todo el historial de HEAD (incluye resets)
@@ -727,7 +870,7 @@ git reset --hard [commit-hash]
 
 > 💡 **Truco profesional:** `git reflog` guarda todos los movimientos de HEAD, incluso después de un `reset --hard`. Úsalo para recuperar commits "perdidos".
 
-#### 1.4.7.6. git commit --amend: Modificar el último commit
+#### 1.4.8.6. git commit --amend: Modificar el último commit
 
 ```bash
 # Cambiar el mensaje del último commit
@@ -743,7 +886,7 @@ git commit --amend --author="Nuevo Autor <email@ej.com>"
 
 > 📝 **Nota:** --amend cambia el historial. No usar en commits ya subidos a un remoto compartido.
 
-#### 1.4.7.7. Tabla Comparativa: ¿Cuándo usar cada comando?
+#### 1.4.8.7. Tabla Comparativa: ¿Cuándo usar cada comando?
 
 | Comando | ¿Qué hace? | ¿Zona afectada? | ¿Seguro en equipo? | Ejemplo de uso |
 |---------|-------------|------------------|---------------------|----------------|
@@ -759,7 +902,7 @@ git commit --amend --author="Nuevo Autor <email@ej.com>"
 
 > 📌 **Ejemplo real:** Netflix usa `git revert` cuando un feature afecta a producción. En lugar de borrar el historial (que perdería trazabilidad), crean commits inversos que documentan qué se hizo y por qué se deshizo.
 
-#### 1.4.7.8. Casos Prácticos Detallados
+#### 1.4.8.8. Casos Prácticos Detallados
 
 **Caso 1: Commiteé un archivo que no debería**
 
@@ -804,7 +947,7 @@ git rebase -i HEAD~3
 # Resultado: un solo commit limpio
 ```
 
-### 1.4.8. Eliminar Archivos
+### 1.4.9. Eliminar Archivos
 
 ```bash
 # Eliminar archivo del repositorio Y del disco
@@ -821,7 +964,7 @@ git rm *.log
 
 > ⚠️ **Error común:** `git rm archivo.txt` sin querer. Si el archivo estaba staged (git add) pero no commiteado, puedes recuperarlo con `git restore`. Si fue commiteado alguna vez, existe en el objeto de Git. Usa `git rm --cached` si solo quieres dejar de rastrearlo sin borrar del disco.
 
-### 1.4.9. Ignorar Archivos
+### 1.4.10. Ignorar Archivos
 
 El archivo `.gitignore` lista patrones a ignorar:
 
@@ -860,7 +1003,7 @@ dist/
 **Pros de `.gitignore`:**
 > ⚠️ **Error común:** Crear `.gitignore` después de haber commiteado archivos sensibles. Si un archivo ya está en el historial, `.gitignore` no lo borra. Tienes que eliminarlo del historial con `git filter-repo` o BFG Repo Cleaner. `git filter-branch` está deprecated desde Git 2.24.
 
-### 1.4.10. Etiquetado (Tags)
+### 1.4.11. Etiquetado (Tags)
 
 ```bash
 # Ver etiquetas existentes
