@@ -65,14 +65,9 @@ El **control de versiones** es un sistema que registra los cambios realizados en
 
 ### 1.1.1. Git vs Sistemas Centralizados
 
-| Aspecto | Git (Distribuido) | SVN (Centralizado) |
-|---------|------------------|-------------------|
-| **Copias** | Cada desarrollador tiene TODO el historial | Solo tiene la última versión |
-| **Trabajo sin conexión** | ✅ Completo | ❌ Limitado |
-| **Velocidad** | Rápido (local) | Más lento (servidor) |
-| **Integridad** | SHA-1 (40 caracteres) | Checksum simple |
+Git es **distribuido**: cada desarrollador tiene una copia completa del historial. Los sistemas anteriores (como SVN) eran centralizados y más limitados. Por eso la industria usa Git.
 
-> **💡 Ventaja distribuida:** Si el servidor central cae, todos los desarrolladores pueden seguir trabajando porque tienen una copia completa.
+> 💡 **Ventaja distribuida:** Si el servidor central cae, todos los desarrolladores pueden seguir trabajando porque tienen una copia completa.
 
 > 💡 **Metáfora: Máquina del tiempo vs Fotocopiadora**
 > - **Git (distribuido)** es como una **máquina del tiempo**: cada desarrollador tiene una copia completa de todo el historial. Puedes "viajar" a cualquier punto del pasado, crear una rama paralela y volver sin problemas. Si se destruye una máquina, las demás siguen teniendo todo el historial.
@@ -80,16 +75,9 @@ El **control de versiones** es un sistema que registra los cambios realizados en
 
 > ⚠️ **Error común:** Pensar que "distribuido" significa que cada uno tiene una versión diferente. No: todos tienen la **misma información completa**, pero de forma independiente.
 
-**Ventajas e inconvenientes de cada modelo:**
+### 1.1.2. ¿Qué es un Hash?
 
-| Aspecto | Git (Distribuido) ✅ | SVN (Centralizado) ⚠️ |
-|---------|------------------|-------------------|
-| **Copias** | Cada desarrollador tiene TODO el historial | Solo tiene la última versión |
-| **Trabajo sin conexión** | ✅ Completo — puedes hacer commits, ver logs, crear ramas sin internet | ❌ Limitado — necesitas conexión al servidor para casi todo |
-| **Velocidad** | Rápido (operaciones locales) | Más lento (cada operación va al servidor) |
-| **Integridad** | SHA-1 (40 caracteres) — detecta cualquier manipulación | Checksum simple — menos garantías |
-| **Ramificación** | Muy rápida y ligera | Lenta y costosa |
-| **Colaboración** | Merge y rebase muy potentes | Merges a veces problemáticos |
+Un **hash** es como una contraseña única que Git genera automáticamente para cada commit. Si cambias UNA letra del código, el hash cambia completamente. Git usa el algoritmo SHA-1 para generar hashes de 40 caracteres (ej: `a1b2c3d4e5f6...`). Esto garantiza la integridad: nadie puede manipular un commit sin que se detecte.
 | **Riesgo de pérdida** | Mínimo — cada copia es un backup completo | Alto — si el servidor cae sin backup, pierdes todo |
 | **Complejidad inicial** | Más conceptos que aprender (HEAD, staging, branches) | Más sencillo de entender al principio |
 | **Recta de aprendizaje** | Pronunciada al principio, plana después | Suave al principio, problemática después |
@@ -237,9 +225,8 @@ gitGraph
 git config --global user.name "Tu Nombre"
 git config --global user.email "tu.email@ejemplo.com"
 
-# Configurar editor por defecto
-git config --global core.editor "code --wait"  # VS Code
-git config --global core.editor "vim"          # Vim
+# Configurar editor por defecto (recomendado: VS Code)
+git config --global core.editor "code --wait"
 
 # Activar coloreado de la salida
 git config --global color.ui auto
@@ -256,14 +243,7 @@ git config user.name    # Ver solo el nombre
 > ⚠️ **Errores comunes de configuración:**
 > - Olvidar poner el email correcto → tus commits aparecerán con un email fantasma
 > - Usar `--global` sin querer → afecta a todos tus proyectos
-> - No configurar el editor → Git abrirá vim por defecto (y si no lo conoces, no sabrás salir)
-
-**Pros:**
-- Configuración una sola vez y olvidarte
-- Puedes tener configuración por proyecto (sin `--global`)
-
-**Contras:**
-- Si no configuras el email, GitHub no vincula tus commits a tu perfil
+> - No configurar el editor → Git abrirá un editor por defecto. Si ves una pantalla rara, es Vim: pulsa ESC, escribe `:wq` y Enter para salir.
 
 ### 1.4.2. Creación y Clonación de Repositorios
 
@@ -283,14 +263,6 @@ ls -la .git
 > 💡 **Metáfora de `git init`:** `git init` es como **instalar una caja fuerte** en una habitación. Antes de init, tu carpeta es una habitación normal. Después, tiene un cajón secreto (`.git`) donde todo lo que pase quedará registrado. Sin la caja fuerte, no hay control de versiones.
 
 **Pros de `git init`:**
-- Creas un repositorio local en segundos
-- Puedes trabajar sin conexión desde el primer momento
-- Es reversible: si borras la carpeta `.git`, vuelves a ser una carpeta normal
-
-**Contras:**
-- Si ejecutas `git init` en una carpeta que ya tiene un repositorio, puedes liarte
-- Olvidar que `.git` está ahí puede hacer que subas cosas que no debes
-
 > ⚠️ **Error común:** Ejecutar `git init` dentro de un repositorio ya existente. Git te avisará: `Reinitialized existing Git repository`. No es peligroso, pero confunde.
 
 ```bash
@@ -312,15 +284,6 @@ git clone --depth 1 repositorio
 > 💡 **Metáfora de `git clone`:** `git clone` es como **fotocopiar toda la biblioteca** y llevártela a casa. No solo copias los libros actuales (archivos), sino también todo el catálogo de cuándo se añadió cada libro (historial). Tienes una copia idéntica y completa.
 
 **Pros de `git clone`:**
-- Tienes todo el historial de la proyecto
-- Puedes trabajar sin conexión
-- Puedes crear ramas, hacer commits y fusionar sin afectar a nadie
-
-**Contras:**
-- Si el repositorio es muy grande, la clonación tarda
-- Ocupa más espacio en disco que una descarga simple
-- Clonar por HTTPS pide usuario y contraseña (mejor usar SSH o tokens)
-
 ### 1.4.3. Gestión de Cambios
 
 ```bash
@@ -330,7 +293,7 @@ git status
 # Ver estado resumido
 git status -s
 # Salida: M archivo.txt  (Modified)
-#        ?? nuevo_archivo.java  (Untracked)
+# ?? nuevo_archivo.cs  (Untracked)
 
 # Añadir un archivo específico al staging
 git add archivo.txt
@@ -342,7 +305,7 @@ git add .
 git add -u
 
 # Añadir con patrón
-git add *.java      # Todos los .java
+git add *.cs         # Todos los .cs
 git add docs/*.md   # Todos los .md en docs/
 
 # Quitar del staging (mantener cambios)
@@ -353,21 +316,6 @@ git reset .         # Quitar todo
 > 💡 **Metáfora de `git status`:** `git status` es como **mirar por el cristal del escaparate**. Te dice qué hay dentro (staged), qué está en el almacén esperando (modified) y qué es nuevo y nadie ha visto (untracked). Es el comando que más vas a ejecutar.
 
 > 💡 **Metáfora de `git add`:** `git add` es como **pasar productos del almacén al escaparate**. Coges los archivos que quieres incluir en el próximo commit y los pones en la zona de preparación. `git add .` es como vaciar todo el almacén al escaparate de golpe (cuidado con lo que incluyes).
-
-**Pros de `git status`:**
-- Te da una visión completa de todo lo que pasa
-- `git status -s` es rápido y conciso
-
-**Contras:**
-- En repositorios muy grandes, puede ser un poco lento
-
-**Pros de `git add`:**
-- Control fino: puedes añadir solo lo que quieres
-- Puedes usar patrones (`*.cs`) para añadir grupos de archivos
-
-**Contras de `git add`:**
-- `git add .` puede añadir archivos que no querías (basura, temporales)
-- Si añades un archivo de configuración con secretos, quedan expuestos en el commit
 
 > ⚠️ **Error común:** `git add .` sin revisar antes. Puede meter archivos `.env`, `bin/`, `obj/`, credenciales... Siempre revisa con `git status` antes de commitear.
 
@@ -404,13 +352,11 @@ git commit --amend
 > - Commitear archivos sensibles (contraseñas, `.env`) → quedan en el historial para siempre
 
 **Pros de `git commit`:**
-- Cada commit es una instantánea recuperable
-- Puedes volver a cualquier punto con `git checkout`
-- El historial completo te ayuda a entender la evolución del proyecto
-
-**Contras:**
-- Si el mensaje no es claro, el historial no sirve de nada
-- `--amend` cambia el historial, no usar si ya está compartido
+> ⚠️ **Errores comunes con commits:**
+> - Mensajes vagos: `git commit -m "fix"` → Nadie entenderá qué arreglaste
+> - Commits demasiado grandes: meters 50 archivos a la vez → imposible hacer revert limpio
+> - Olvidar `git add` antes del commit → el commit queda vacío
+> - Commitear archivos sensibles (contraseñas, `.env`) → quedan en el historial para siempre
 
 ### 1.4.5. Diff
 
@@ -437,14 +383,6 @@ git diff --stat
 > ⚠️ **Error común:** Olvidar que `git diff` solo muestra cambios NO preparados. Para ver los cambios preparados, usa `git diff --staged`.
 
 **Pros de `git diff`:**
-- Te permite revisar exactamente qué cambia antes de commitear
-- `git diff --stat` es un resumen rápido (cuántos archivos, cuántas líneas)
-- Puedes comparar cualquier par de commits
-
-**Contras:**
-- En repositorios grandes, la salida puede ser enorme
-- No muestra archivos binarios (imágenes, PDFs) solo texto
-
 ### 1.4.6. Historial
 
 ```bash
@@ -472,14 +410,6 @@ git log -p archivo.txt
 > - No saber que puedes filtrar con `--oneline`, `-5`, o por archivo
 
 **Pros de `git log`:**
-- Historial completo y detallado
-- Puedes filtrar por archivo, autor, fecha, rango de commits
-- `git log --oneline` es perfecto para un resumen rápido
-
-**Contras:**
-- Sin opciones, la salida es muy verbosa
-- No es fácil de leer si no usas `--oneline` o `--graph`
-
 ### 1.4.7. Deshacer Cambios
 
 Deshacer cambios en Git puede hacerse de varias formas, dependiendo de lo que quieras lograr.
@@ -889,15 +819,7 @@ git rm *.log
 
 > 💡 **Metáfora de `git rm`:** `git rm` es como **sacar un libro de la estantería y tirarlo a la papelera**. El libro desaparece de la estantería (repositorio) Y de la papelera (disco). `git rm --cached` es como sacarlo de la estantería pero dejarlo en la mesa: ya no está archivado, pero lo tienes a mano.
 
-> ⚠️ **Error común:** `git rm archivo.txt` sin querer. Si el archivo estaba staged (git add) pero no commiteado, puedes recuperarlo con `git fsck --lost-found`. Si fue commiteado alguna vez, existe en el objeto de Git. Usa `git rm --cached` si solo quieres dejar de rastrearlo sin borrar del disco.
-
-**Pros:**
-- Limpia archivos que no deberían estar en el historial
-- `--cached` permite dejar de rastrear sin borrar del disco
-
-**Contras:**
-- `git rm` borra el archivo del disco (peligro si no tienes backup)
-- Si lo haces sin querer y haces commit, el archivo desaparece del historial
+> ⚠️ **Error común:** `git rm archivo.txt` sin querer. Si el archivo estaba staged (git add) pero no commiteado, puedes recuperarlo con `git restore`. Si fue commiteado alguna vez, existe en el objeto de Git. Usa `git rm --cached` si solo quieres dejar de rastrearlo sin borrar del disco.
 
 ### 1.4.9. Ignorar Archivos
 
@@ -936,13 +858,7 @@ dist/
 > ⚠️ **Error común:** Crear `.gitignore` después de haber commiteado archivos sensibles. Si un archivo ya está en el historial, `.gitignore` no lo borra. Tienes que eliminarlo del historial con `git filter-repo` o BFG Repo Cleaner. `git filter-branch` está deprecated desde Git 2.24.
 
 **Pros de `.gitignore`:**
-- Evita subir basura, compilados y secretos
-- Se crea una vez y funciona siempre
-- Soporta patrones muy flexibles
-
-**Contras:**
-- Si lo creas tarde, tienes que limpiar el historial manualmente
-- Los archivos ya tracked no se ignoran automáticamente
+> ⚠️ **Error común:** Crear `.gitignore` después de haber commiteado archivos sensibles. Si un archivo ya está en el historial, `.gitignore` no lo borra. Tienes que eliminarlo del historial con `git filter-repo` o BFG Repo Cleaner. `git filter-branch` está deprecated desde Git 2.24.
 
 ### 1.4.10. Etiquetado (Tags)
 
@@ -978,15 +894,6 @@ git push origin v1.0
 
 **Pros de los tags:**
 - Identificar versiones liberadas de un vistazo
-- Puedes volver a cualquier versión con `git checkout v1.0`
-- Son ligeros: no ocupan espacio extra en el historial
-- Útiles para releases, despliegues y documentación
-
-**Contras:**
-- Si no los usas, el historial es una secuencia numérica sin sentido
-- Tags apuntan a un commit fijo: si el commit se "pierde" (reset --hard), el tag queda huérfano
-- No confundir tags con ramas: un tag es estático, una rama es dinámica
-
 **Flujo típico de Git: init → add → commit → tag**
 
 ```mermaid
@@ -1092,3 +999,48 @@ git pull --rebase          # Bajar y rebasear (historial limpio)
 | **Deshacer** | `git checkout` o `git restore` para recuperar archivos |
 
 En el siguiente punto veremos ramas y fusiones: cómo crear líneas de desarrollo paralelas, unirlas sin perder trabajo y resolver conflictos cuando dos personas modifican lo mismo.
+
+---
+
+### Ejercicio Rápido: Tu Primer Repositorio
+
+> 🎯 **Escenario:** Vamos a crear una web de cafetería. Primero el papel, luego el código.
+
+**En papel (2 min):** Dibuja en una hoja cómo crees que funciona el flujo: carpeta → Git → commit → historial. ¿Qué pasos necesitas?
+
+**Ahora en terminal:**
+
+```bash
+# 1. Crear el proyecto
+mkdir cafeteria-web
+cd cafeteria-web
+git init
+
+# 2. Crear el primer archivo
+echo "<h1>Bienvenidos a Café Code</h1>" > index.html
+
+# 3. Ver el estado (¿qué dice Git?)
+git status
+
+# 4. Añadir y commitear
+git add index.html
+git commit -m "feat: página principal de cafetería"
+
+# 5. Ver el historial
+git log --oneline
+
+# 6. Modificar el archivo
+echo "<p>Café especial del día: Latte</p>" >> index.html
+
+# 7. Ver la diferencia
+git diff
+
+# 8. Guardar el cambio
+git add index.html
+git commit -m "feat: añadir especial del día"
+
+# 9. Ver el historial completo
+git log --oneline --graph
+```
+
+> 💡 **¿Qué pasó?** Creaste un repositorio, hiciste 2 commits con mensajes descriptivos, y Git guardó cada cambio como una instantánea. Si algo sale mal, puedes volver al commit anterior con `git restore`.
