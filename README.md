@@ -11,7 +11,8 @@ UD03. Sistema de Control de Versiones. 1DAW. Curso 2026-2027.
 3. [Git Remoto](./03-git-remoto.md)
 4. [Colaboración](./04-colaboracion.md)
 5. [Herramientas y Recursos](./05-herramientas.md)
-6. [Resumen y Conclusiones](./06-resumen.md)
+6. [Guía de Emergencia Git](./06-guia-emergencia.md)
+7. [Resumen y Conclusiones](./06-resumen.md)
 
 ## Tutorial
 - [Tutorial de Git y GitHub](https://github.com/joseluisgs/git-tutorial)
