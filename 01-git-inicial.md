@@ -604,7 +604,7 @@ graph TD
     D --> J[Afecta: Historial]
     E --> K[Afecta: Historial + Staging]
     F --> L[Afecta: Historial + Staging + Working Tree]
-    G --> M[Afecta: Historial (añade commit inverso)]
+    G --> M[Afecta: Historial - añade commit inverso]
 
     style H fill:#FF9800,color:#fff
     style I fill:#9C27B0,color:#fff
