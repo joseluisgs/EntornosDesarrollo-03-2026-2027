@@ -723,30 +723,42 @@ graph TD
 **Flujo de decisión: ¿Qué comando uso?**
 
 ```mermaid
-graph TD
-    INICIO[¿Qué necesito deshacer?] --> Q1{¿Estoy en<br/>Working Tree?}
-
-    Q1 -->|Sí, cambios sin add| RESTORE[git restore archivo]
-    Q1 -->|No, ya hice add| Q2{¿Estoy en<br/>Staging?}
-
-    Q2 -->|Sí, quiero quitar del staging| RESTSTAGED[git restore --staged archivo]
-    Q2 -->|No, ya commiteé| Q3{¿Lo subí<br/>al remoto?}
-
+flowchart TD
+    INICIO[¡Error en Git!] --> Q1{¿Está solo en<br/>Working Tree?}
+    Q1 -->|Sí, sin git add| RESTORE[git restore archivo]
+    Q1 -->|No| Q2{¿Está en<br/>Staging?}
+    Q2 -->|Sí, sin commit| RESTSTAGED[git restore --staged archivo]
+    Q2 -->|No, ya commiteé| Q3{¿Está compartido?<br/>push, PR o mergeado}
     Q3 -->|No, solo local| Q4{¿Qué nivel<br/>deshago?}
-
     Q4 -->|Solo el commit| SOFT[git reset --soft HEAD~1]
     Q4 -->|Commit + staging| MIXED[git reset --mixed HEAD~1]
     Q4 -->|TODO| HARD[git reset --hard HEAD~1]
+    Q3 -->|Sí, compartido| Q5{¿Ya está<br/>mergeado en main?}
+    Q5 -->|No, solo push| FORCE[git push --force-with-lease]
+    Q5 -->|Sí, mergeado| REVERT[git revert HEAD]
 
-    Q3 -->|Sí, ya hice push| REVERT[git revert HEAD]
-
-    style RESTORE fill:#FF9800,color:#fff
-    style RESTSTAGED fill:#9C27B0,color:#fff
+    style RESTORE fill:#4CAF50,color:#fff
+    style RESTSTAGED fill:#4CAF50,color:#fff
     style SOFT fill:#2196F3,color:#fff
-    style MIXED fill:#9C27B0,color:#fff
+    style MIXED fill:#FF9800,color:#fff
     style HARD fill:#f44336,color:#fff
+    style FORCE fill:#FF9800,color:#fff
     style REVERT fill:#4CAF50,color:#fff
 ```
+
+> ⚠️ **La regla de oro:** Cuanto más tarde en darte cuenta del error y más se propague hacia arriba (staging → commit → push → PR → merge), más difícil y peligroso es solucionarlo.
+
+| Nivel | ¿Dónde está el error? | Herramienta | Dificultad |
+|-------|------------------------|-------------|------------|
+| 1 | Working Tree (sin add) | `git restore` | ★☆☆☆☆ Trivial |
+| 2 | Staging (sin commit) | `git restore --staged` | ★☆☆☆☆ Trivial |
+| 3 | Commit local (sin push) | `git reset` | ★★☆☆☆ Fácil |
+| 4 | Push local (sin merge) | `git push --force-with-lease` | ★★★☆☆ Media |
+| 5 | Push compartido (sin merge) | `git revert` | ★★★★☆ Alta |
+| 6 | Mergeado en main | `git revert` | ★★★★☆ Alta |
+| 7 | Desplegado en producción | `git revert` + hotfix | ★★★★★ Muy alta |
+
+> 💡 **Consejo:** Si descubres el error en el **nivel 1-3** (trabajo local), la solución es fácil y segura. Si llegas al **nivel 4-7** (compartido), necesitas `git revert` y paciencia.
 
 #### 1.4.8.1. git restore: Deshacer cambios en Working Tree
 
