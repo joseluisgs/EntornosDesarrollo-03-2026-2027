@@ -405,7 +405,15 @@ ls -la .git
 
 > 💡 **Metáfora de `git init`:** `git init` es como **instalar una caja fuerte** en una habitación. Antes de init, tu carpeta es una habitación normal. Después, tiene un cajón secreto (`.git`) donde todo lo que pase quedará registrado. Sin la caja fuerte, no hay control de versiones.
 
-**Pros de `git init`:**
+```mermaid
+gitGraph
+    commit id: "git init: repositorio vacío"
+    commit id: "Primer commit: archivos iniciales"
+    commit id: "Segundo commit: más cambios"
+```
+
+> 💡 **`git init` crea el repositorio.** `git clone` copia uno existente. En ambos casos, después de ejecutarlos, tienes un repositorio local con historial.
+
 > ⚠️ **Error común:** Ejecutar `git init` dentro de un repositorio ya existente. Git te avisará: `Reinitialized existing Git repository`. No es peligroso, pero confunde.
 
 ```bash
@@ -459,6 +467,15 @@ git reset .         # Quitar todo
 > 💡 **Metáfora de `git status`:** `git status` es como **mirar por el cristal del escaparate**. Te dice qué hay dentro (staged), qué está en el almacén esperando (modified) y qué es nuevo y nadie ha visto (untracked). Es el comando que más vas a ejecutar.
 
 > 💡 **Metáfora de `git add`:** `git add` es como **pasar productos del almacén al escaparate**. Coges los archivos que quieres incluir en el próximo commit y los pones en la zona de preparación. `git add .` es como vaciar todo el almacén al escaparate de golpe (cuidado con lo que incluyes).
+
+```mermaid
+gitGraph
+    commit id: "commit anterior"
+    commit id: "git add: archivos al staging"
+    commit id: "git commit: guardar instantánea"
+```
+
+> 💡 **El flujo es:** Working Tree (modificas) → `git add` → Staging (preparas) → `git commit` → Repositorio (guardas). Siempre en ese orden.
 
 > ⚠️ **Error común:** `git add .` sin revisar antes. Puede meter archivos `.env`, `bin/`, `obj/`, credenciales... Siempre revisa con `git status` antes de commitear.
 
@@ -527,9 +544,18 @@ git diff --stat
 
 > 💡 **Metáfora de `git diff`:** `git diff` es como **poner dos fotos una al lado de la otra** y señalar con un lápiz rojo lo que ha cambiado. Te muestra línea por línea qué se ha añadido, borrado o modificado. Es tu "detective privado" antes de hacer commit.
 
+```mermaid
+gitGraph
+    commit id: "Commit A"
+    commit id: "Commit B"
+    commit id: "Commit C (último)"
+    commit id: "Cambios sin commit (diff los ve)"
+```
+
+> 💡 **`git diff` compara el Working Tree con el último commit.** Si quieres ver cambios preparados (staged), usa `git diff --staged`.
+
 > ⚠️ **Error común:** Olvidar que `git diff` solo muestra cambios NO preparados. Para ver los cambios preparados, usa `git diff --staged`.
 
-**Pros de `git diff`:**
 ### 1.4.7. Historial
 
 ```bash
@@ -551,6 +577,17 @@ git log -p archivo.txt
 ```
 
 > 💡 **Metáfora de `git log`:** `git log` es como la **bitácora de un capitán de barco**. Cada commit es una entrada en el diario: cuándo se hizo, quién lo hizo, y qué pasó. Puedes recorrer el diario desde el primer día hasta ahora.
+
+```mermaid
+gitGraph
+    commit id: "Commit A: inicio"
+    commit id: "Commit B: login"
+    commit id: "Commit C: tests"
+    commit id: "Commit D: docs"
+    commit id: "Commit E: fix"
+```
+
+> 💡 **`git log --oneline`** muestra cada commit en una sola línea. **`git log --graph`** muestra las ramas como un grafo. Juntos: `git log --oneline --graph` son tu mejor herramienta para entender el historial.
 
 > ⚠️ **Errores comunes con `git log`:**
 > - `git log` sin opciones en un proyecto grande → te sale un wall of text infinito
@@ -966,6 +1003,16 @@ git rm *.log
 
 > 💡 **Metáfora de `git rm`:** `git rm` es como **sacar un libro de la estantería y tirarlo a la papelera**. El libro desaparece de la estantería (repositorio) Y de la papelera (disco). `git rm --cached` es como sacarlo de la estantería pero dejarlo en la mesa: ya no está archivado, pero lo tienes a mano.
 
+```mermaid
+gitGraph
+    commit id: "Commit A: archivo.txt existe"
+    commit id: "Commit B: modificar archivo.txt"
+    commit id: "Commit C: git rm archivo.txt"
+    commit id: "Commit D: archivo.txt eliminado"
+```
+
+> 💡 **`git rm` elimina el archivo del repositorio y del disco.** `git rm --cached` solo lo elimina del repositorio (queda en tu carpeta). En ambos casos, el archivo sigue existiendo en commits anteriores.
+
 > ⚠️ **Error común:** `git rm archivo.txt` sin querer. Si el archivo estaba staged (git add) pero no commiteado, puedes recuperarlo con `git restore`. Si fue commiteado alguna vez, existe en el objeto de Git. Usa `git rm --cached` si solo quieres dejar de rastrearlo sin borrar del disco.
 
 ### 1.4.10. Ignorar Archivos
@@ -1002,9 +1049,17 @@ dist/
 
 > 💡 **Metáfora de `.gitignore`:** `.gitignore` es como una **lista de personas que no pueden entrar a la biblioteca**. Le dices a Git: "estos archivos son privados, temporales o basura, ni los mires". Sin esta lista, Git rastrea todo, incluyendo contraseñas, archivos de compilación y basura del sistema.
 
-> ⚠️ **Error común:** Crear `.gitignore` después de haber commiteado archivos sensibles. Si un archivo ya está en el historial, `.gitignore` no lo borra. Tienes que eliminarlo del historial con `git filter-repo` o BFG Repo Cleaner. `git filter-branch` está deprecated desde Git 2.24.
+```mermaid
+gitGraph
+    commit id: "Commit A: .gitignore creado"
+    commit id: "Commit B: archivo.log ignorado"
+    commit id: "Commit C: bin/ ignorado"
+    commit id: "Commit D: solo archivos rastreados"
+```
 
-**Pros de `.gitignore`:**
+> 💡 **`.gitignore` solo afecta archivos nuevos.** Si un archivo ya está rastreado, `.gitignore` no lo borra. Primero haz `git rm --cached`, luego añade la regla a `.gitignore`.
+
+> ⚠️ **Error común:** Crear `.gitignore` después de haber commiteado archivos sensibles. Si un archivo ya está en el historial, `.gitignore` no lo borra. Tienes que eliminarlo del historial con `git filter-repo` o BFG Repo Cleaner. `git filter-branch` está deprecated desde Git 2.24.
 > ⚠️ **Error común:** Crear `.gitignore` después de haber commiteado archivos sensibles. Si un archivo ya está en el historial, `.gitignore` no lo borra. Tienes que eliminarlo del historial con `git filter-repo` o BFG Repo Cleaner. `git filter-branch` está deprecated desde Git 2.24.
 
 ### 1.4.11. Etiquetado (Tags)
