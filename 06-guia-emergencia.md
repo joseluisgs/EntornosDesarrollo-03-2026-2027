@@ -94,7 +94,7 @@ flowchart TD
 
 ## 6.4. Escenario 1: Mensaje de commit mal
 
-**Nivel de fallo:** Minimo
+**Nivel de fallo:** Minimo 💩
 
 **Que paso:** Pusiste un mensaje que no toca ("fix", "asdf", "test").
 **Donde estas:** Commit local.
@@ -116,7 +116,7 @@ gitGraph
 
 ## 6.5. Escenario 2: Commit con contenido mal
 
-**Nivel de fallo:** Bajo
+**Nivel de fallo:** Bajo 💩💩
 
 **Que paso:** Commiteaste un archivo que no tocaba o con cambios erroneos.
 **Donde estas:** Commit local, sin push.
@@ -144,7 +144,7 @@ gitGraph
 
 ## 6.6. Escenario 3: Etiqueta mal creada (local)
 
-**Nivel de fallo:** Minimo
+**Nivel de fallo:** Minimo 💩
 
 **Que paso:** Creaste un tag `v1.0` en vez de `v1.0.0`.
 **Donde estas:** Tag local, sin push.
@@ -166,7 +166,7 @@ gitGraph
 
 ## 6.7. Escenario 4: Trabajaste en rama equivocada
 
-**Nivel de fallo:** Bajo
+**Nivel de fallo:** Bajo 💩💩
 
 **Que paso:** Hiciste commits en `main` en vez de `feature/login`.
 **Donde estas:** Commits en rama incorrecta.
@@ -202,7 +202,7 @@ gitGraph
 
 ## 6.8. Escenario 5: Etiqueta mal creada (remota)
 
-**Nivel de fallo:** Medio
+**Nivel de fallo:** Medio 💩💩💩
 
 **Que paso:** Subiste un tag erroneo a GitHub.
 **Donde estas:** Tag en GitHub.
@@ -224,7 +224,7 @@ git push origin v1.0.0
 
 ## 6.9. Escenario 6: Fusion por error (local)
 
-**Nivel de fallo:** Medio
+**Nivel de fallo:** Medio 💩💩💩
 
 **Que paso:** Fusionaste `feature/X` en `main` sin querer, sin push.
 **Donde estas:** Merge local.
@@ -241,7 +241,7 @@ git reset --hard HEAD~1
 
 ## 6.10. Escenario 7: Push con datos equivocados
 
-**Nivel de fallo:** Alto
+**Nivel de fallo:** Alto 💩💩💩💩
 
 **Que paso:** Subiste commits que no corresponden a esa rama.
 **Donde estas:** Push a GitHub.
@@ -263,7 +263,7 @@ git push
 
 ## 6.11. Escenario 8: Fusion por error (remota)
 
-**Nivel de fallo:** Muy alto
+**Nivel de fallo:** Muy alto 💩💩💩💩💩
 
 **Que paso:** Ya subiste el merge a GitHub.
 **Donde estas:** Merge compartido.
@@ -281,7 +281,7 @@ git push
 
 ## 6.12. Escenario 9: PR aceptada por error
 
-**Nivel de fallo:** Critico
+**Nivel de fallo:** Critico 💩💩💩💩💩
 
 **Que paso:** Fusionaste un PR que no debias en `main`.
 **Donde estas:** Merge en GitHub.
