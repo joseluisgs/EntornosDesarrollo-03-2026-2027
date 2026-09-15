@@ -488,13 +488,17 @@ git commit --amend
 
 > 💡 **Metáfora de `git commit`:** `git commit` es como **sellar un sobre con una foto dentro**. Una vez sellado (commit), el contenido queda registrado permanentemente con una fecha, un autor y una descripción. No puedes abrir el sobre y cambiar la foto sin crear un nuevo sobre (nuevo commit).
 
-> ⚠️ **Errores comunes con commits:**
-> - Mensajes vagos: `git commit -m "fix"` → Nadie entenderá qué arreglaste
-> - Commits demasiado grandes: meters 50 archivos a la vez → imposible hacer revert limpio
-> - Olvidar `git add` antes del commit → el commit queda vacío
-> - Commitear archivos sensibles (contraseñas, `.env`) → quedan en el historial para siempre
+```mermaid
+gitGraph
+    commit id: "git init"
+    commit id: "Commit 1: archivos iniciales"
+    commit id: "Commit 2: añadir login"
+    commit id: "Commit 3: fix bug password"
+    commit id: "Commit 4: docs: actualizar README"
+```
 
-**Pros de `git commit`:**
+> 💡 **Cada commit es una foto fija** del proyecto en un momento dado. Si quieres volver al estado del Commit 2, puedes hacerlo sin problemas. El historial es tu máquina del tiempo.
+
 > ⚠️ **Errores comunes con commits:**
 > - Mensajes vagos: `git commit -m "fix"` → Nadie entenderá qué arreglaste
 > - Commits demasiado grandes: meters 50 archivos a la vez → imposible hacer revert limpio
