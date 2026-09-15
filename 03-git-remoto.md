@@ -637,6 +637,20 @@ v2.1.3
 - No todos los proyectos lo siguen estrictamente
 - Puede ser confuso al principio cuándo usar MAJOR vs MINOR
 
+```mermaid
+flowchart TD
+    A[¿Qué tipo de cambio?] --> B{¿Cambio incompatible<br/>con versiones anteriores?}
+    B -->|Sí| C[Incrementar MAJOR<br/>v1.0.0 → v2.0.0<br/>Resetear MINOR y PATCH a 0]
+    B -->|No| D{¿Nueva funcionalidad<br/>compatible?}
+    D -->|Sí| E[Incrementar MINOR<br/>v1.0.0 → v1.1.0<br/>Resetear PATCH a 0]
+    D -->|No| F{¿Solo corrección<br/>de bugs?}
+    F -->|Sí| G[Incrementar PATCH<br/>v1.0.0 → v1.0.1]
+
+    style C fill:#f44336,color:#fff
+    style E fill:#FF9800,color:#fff
+    style G fill:#4CAF50,color:#fff
+```
+
 ## 3.6. SSH Keys
 
 > 💡 **Metáfora:** SSH Keys son como una llave maestra que abre la puerta de tu casa sin necesitar contraseña cada vez. Generas un par de llaves: una pública (que dejas en la recepción de GitHub) y una privada (que guardas en tu casa, tu PC). Cuando llegas a la puerta de GitHub, ellos reconocen tu llave privada y te dejan pasar sin pedirte usuario ni contraseña.
@@ -679,6 +693,23 @@ SHA256:abc123def456ghi789jkl012mno345pqr678stu901 miemail@ejemplo.com
 ```
 
 > ⚠️ **NUNCA compartas tu clave privada** (`id_ed25519`). Solo la pública (`.pub`) se sube a GitHub. Es como dar copias de tu llave pública, pero guardar la llave maestra solo para ti.
+
+```mermaid
+sequenceDiagram
+    participant D as Developer
+    participant T as Terminal
+    participant A as SSH Agent
+    participant G as GitHub
+
+    D->>T: ssh-keygen -t ed25519
+    T-->>T: Genera par de claves (pública + privada)
+    D->>A: eval $(ssh-agent -s)
+    D->>A: ssh-add ~/.ssh/id_ed25519
+    D->>T: cat ~/.ssh/id_ed25519.pub | clip
+    D->>G: Pegar clave pública en Settings → SSH keys
+    D->>T: ssh -T git@github.com
+    G-->>D: Hi usuario! Has successfully authenticated
+```
 
 ### 3.6.2. Añadir Clave a GitHub
 
@@ -836,6 +867,28 @@ git pull origin main
 # 6. Ver diferencias antes de pull
 git fetch origin
 git diff main origin/main
+```
+
+```mermaid
+flowchart TD
+    A[git clone / git init] --> B[git checkout -b feature/X]
+    B --> C[Trabajar en la feature]
+    C --> D[git add + git commit]
+    D --> E{¿Listo para compartir?}
+    E -->|No| C
+    E -->|Sí| F[git push -u origin feature/X]
+    F --> G[gh pr create]
+    G --> H{¿Aprobado?}
+    H -->|No, cambios solicitados| C
+    H -->|Sí| I[gh pr merge]
+    I --> J[git checkout main]
+    J --> K[git pull origin main]
+    K --> L{¿Más features?}
+    L -->|Sí| B
+    L -->|No| M[Fin del ciclo]
+
+    style A fill:#2196F3,color:#fff
+    style I fill:#4CAF50,color:#fff
 ```
 
 **Resumen del punto:**

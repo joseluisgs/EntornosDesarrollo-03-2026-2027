@@ -144,6 +144,25 @@ git stash push -m "WIP: refactorizando"
 | Sourcetree | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | Gratis |
 | VS Code + Git | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | Gratis |
 
+```mermaid
+flowchart TD
+    A{¿Cuál es tu<br/>prioridad?}
+    A -->|Aprendizaje visual| B[GitKraken]
+    A -->|Solo GitHub, simple| C[GitHub Desktop]
+    A -->|Gratis + potente| D[Sourcetree]
+    A -->|Ya usas VS Code| E[VS Code + GitLens]
+
+    B --> F[Gratis para uso personal]
+    C --> G[Solo Windows/Mac]
+    D --> H[Integra con Jira]
+    E --> I[Ligero y extensible]
+
+    style B fill:#9C27B0,color:#fff
+    style C fill:#2196F3,color:#fff
+    style D fill:#FF9800,color:#fff
+    style E fill:#4CAF50,color:#fff
+```
+
 ## 5.2. Extensiones VS Code para Git
 
 ### 5.2.1. GitLens
@@ -321,6 +340,39 @@ gitGraph
     commit id: "gh pr merge"
 ```
 
+```mermaid
+mindmap
+  root((gh - GitHub CLI))
+    Auth
+      gh auth login
+      gh auth status
+      gh auth logout
+    Repos
+      gh repo create
+      gh repo list
+      gh repo clone
+      gh repo fork
+    PRs
+      gh pr list
+      gh pr create
+      gh pr view
+      gh pr merge
+      gh pr review
+      gh pr diff
+    Issues
+      gh issue list
+      gh issue create
+      gh issue close
+    Actions
+      gh workflow list
+      gh run list
+      gh run view
+    Search
+      gh search repos
+      gh search issues
+      gh search code
+```
+
 ## 5.4. Recursos de Aprendizaje
 
 ### 5.4.1. Tutoriales Interactivos
@@ -435,6 +487,23 @@ git log --all --oneline --graph
 
 # Encontrar "perdido" commit
 git fsck --lost-found
+```
+
+```mermaid
+flowchart TD
+    A[¿Qué error tienes?] --> B{¿Borraste un archivo<br/>sin querer?}
+    B -->|Sí| C[git restore archivo.txt]
+    B -->|No| D{¿Hiciste reset --hard<br/>y perdiste todo?}
+    D -->|Sí| E[git reflog → buscar hash]
+    E --> F[git reset --hard hash]
+    D -->|No| G{¿Tienes conflicto<br/>de merge?}
+    G -->|Sí| H[Abrir archivo → resolver marcadores]
+    H --> I[git add → git commit]
+    G -->|No| J[Consultar tabla de errores]
+
+    style C fill:#4CAF50,color:#fff
+    style F fill:#FF9800,color:#fff
+    style I fill:#4CAF50,color:#fff
 ```
 
 **Resumen del punto:**

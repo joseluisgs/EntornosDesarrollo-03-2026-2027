@@ -772,6 +772,23 @@ gh pr review [PR-number] --approve   # Aprobar PR
 gh pr diff [PR-number]               # Ver cambios de la PR
 ```
 
+```mermaid
+flowchart TD
+    A[Developer hace push] --> B[GitHub recibe push]
+    B --> C[Workflow se activa]
+    C --> D[Checkout del código]
+    D --> E[Setup .NET SDK]
+    E --> F[dotnet restore]
+    F --> G[dotnet build]
+    G --> H[dotnet test]
+    H --> I{¿Todos los tests<br/>pasan?}
+    I -->|Sí| J[Build exitoso - merge permitido]
+    I -->|No| K[Build fallido - arreglar código]
+
+    style J fill:#4CAF50,color:#fff
+    style K fill:#f44336,color:#fff
+```
+
 ## 4.5. Issues y Projects
 
 > 💡 **Metáfora: Issues como "la lista de la compra del proyecto"**
@@ -858,6 +875,25 @@ graph LR
 
 > 💡 **Consejo:** Usa `Fixes` en commits y PRs. Es la forma más limpia de mantener Issues y código sincronizados.
 
+```mermaid
+flowchart LR
+    A[Issue creada] --> B[Asignada a<br/>desarrollador]
+    B --> C[Se crea rama<br/>feature/X]
+    C --> D[PR creada<br/>Fixes #N]
+    D --> E[CI ejecuta tests]
+    E --> F{Tests<br/>pasan?}
+    F -->|No| G[Arreglar código]
+    G --> E
+    F -->|Sí| H[Code Review]
+    H --> I{¿Aprobado?}
+    I -->|No| G
+    I -->|Sí| J[Merge PR]
+    J --> K[Issue cerrada<br/>automáticamente]
+
+    style A fill:#2196F3,color:#fff
+    style K fill:#4CAF50,color:#fff
+```
+
 ### 4.5.3. Projects
 
 **GitHub Projects** es un tablero kanban para gestionar trabajo.
@@ -918,6 +954,20 @@ Esto permite generar changelogs automáticos y saber en qué versión se introdu
 [cuerpo opcional]
 
 [pie opcional]
+```
+
+```mermaid
+graph TD
+    A["tipo(ámbito): descripción"] --> B[tipo: feat/fix/docs/refactor/test]
+    B --> C["feat → MINOR (nueva funcionalidad)"]
+    B --> D["fix → PATCH (corrección de bug)"]
+    B --> E["BREAKING CHANGE → MAJOR"]
+    B --> F["docs, refactor, test → sin impacto en versión"]
+
+    style C fill:#4CAF50,color:#fff
+    style D fill:#FF9800,color:#fff
+    style E fill:#f44336,color:#fff
+    style F fill:#607D8B,color:#fff
 ```
 
 ### 4.6.2. Tipos Comunes

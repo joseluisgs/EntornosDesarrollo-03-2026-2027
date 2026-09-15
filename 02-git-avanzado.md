@@ -557,6 +557,22 @@ git rebase --skip
 git rebase --onto nueva-base commit-inicial
 ```
 
+```mermaid
+flowchart TD
+    A[Rebase pausado por conflicto] --> B{¿Resolviste el conflicto?}
+    B -->|Sí| C[git rebase --continue]
+    B -->|No, quiero saltar| D[git rebase --skip]
+    B -->|No, quiero volver atrás| E[git rebase --abort]
+
+    C --> F[Rebase continúa]
+    D --> F
+    E --> G[Rebase cancelado, estado original]
+
+    style C fill:#4CAF50,color:#fff
+    style D fill:#FF9800,color:#fff
+    style E fill:#f44336,color:#fff
+```
+
 ### 2.3.2. Rebase Interactivo
 
 El rebase interactivo permite reorderar, combinar, editar y eliminar commits:
@@ -573,6 +589,27 @@ git rebase -i HEAD~3
 # fixup    = combinar, discard mensaje commit
 # drop     = eliminar commit
 # exec     = ejecutar comando
+```
+
+```mermaid
+mindmap
+  root((Rebase Interactivo))
+    pick
+      Mantener commit como está
+    reword
+      Cambiar mensaje de commit
+    edit
+      Pausar para modificar contenido
+    squash
+      Combinar con commit anterior
+      Conservar ambos mensajes
+    fixup
+      Combinar con commit anterior
+      Descartar este mensaje
+    drop
+      Eliminar commit completamente
+    exec
+      Ejecutar comando shell
 ```
 
 > 💡 **Ejemplo de uso:** Tienes commits "WIP", "fix", "fix2". Usa rebase interactivo para:
@@ -718,6 +755,21 @@ git add archivo-resuelto.txt
 
 # 6. Commit del merge (firmar el acuerdo)
 git commit -m "Resueltos conflictos de merge"
+```
+
+```mermaid
+sequenceDiagram
+    participant D as Developer
+    participant G as Git
+    participant F as Archivo
+
+    D->>G: git merge feature
+    G-->>G: ¡Conflicto detectado!
+    G->>F: Marca: <<<<<<< ======= >>>
+    D->>F: Abre archivo, edita, elimina marcadores
+    D->>G: git add archivo.txt
+    D->>G: git commit -m "Resuelto"
+    G-->>G: Merge completado
 ```
 
 > ⚠️ **Errores comunes al resolver conflictos:**
@@ -887,6 +939,29 @@ gitGraph
 ```
 
 ## 2.6. Flujos de Trabajo con Ramas
+
+```mermaid
+mindmap
+  root((Estrategias<br/>de Branching))
+    GitHub Flow
+      Solo main
+      Ramas de feature
+      PR obligatorio
+      Despliegue continuo
+      Simple y directo
+    GitFlow
+      main + develop
+      Feature branches
+      Release branches
+      Hotfix branches
+      Más estructurado
+    Trunk-Based
+      Solo main
+      Ramas muy cortas
+      Feature Flags
+      CI/CD esencial
+      Para equipos grandes
+```
 
 ### 2.6.1. GitHub Flow
 

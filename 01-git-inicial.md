@@ -388,6 +388,25 @@ Cuando ejecutas `git config`, Git guarda la configuración en un archivo llamado
 
 > 🔧 **Truco:** Si quieres probar tu `.gitconfig`, ejecuta `git config --list` y comprueba que todas las secciones aparecen. También puedes abrir el archivo directamente: `code ~/.gitconfig`
 
+**Jerarquía de configuración de Git:**
+
+```mermaid
+flowchart TD
+    A[Nivel Local<br/>.git/config] -->|Prioridad ALTA| B[¿Existe config local?]
+    B -->|Sí| C[Usar config local]
+    B -->|No| D[Nivel Global<br/>~/.gitconfig]
+    D -->|Prioridad MEDIA| E[¿Existe config global?]
+    E -->|Sí| F[Usar config global]
+    E -->|No| G[Nivel System<br/>/etc/gitconfig]
+    G -->|Prioridad BAJA| H[Usar config del sistema]
+
+    style A fill:#f44336,color:#fff
+    style D fill:#FF9800,color:#fff
+    style G fill:#607D8B,color:#fff
+```
+
+> 💡 **Regla:** La configuración más específica gana. Si configuras `user.email` a nivel local, se usa esa en ese proyecto, aunque tengas otra global.
+
 ### 1.4.3. Creación y Clonación de Repositorios
 
 ```bash
@@ -402,6 +421,23 @@ ls -la .git
 ```
 
 > 💡 **El directorio .git** es el "corazón" de Git. Contiene commits, ramas, configuración. Si lo borras, pierdes el historial.
+
+```mermaid
+flowchart TD
+    INICIO{¿Existe un repositorio<br/>remoto?}
+    INICIO -->|Sí| CLONE[git clone URL]
+    INICIO -->|No| INIT[git init]
+    INIT --> REMOTO{¿Quieres conectar<br/>con un remoto?}
+    REMOTO -->|Sí| REMOTE[git remote add origin URL]
+    REMOTE --> PUSH[git push -u origin main]
+    REMOTO -->|No| LOCAL[Trabajar solo local]
+
+    style CLONE fill:#4CAF50,color:#fff
+    style INIT fill:#2196F3,color:#fff
+    style LOCAL fill:#FF9800,color:#fff
+```
+
+> 💡 **`git init`** crea un repositorio nuevo. **`git clone`** copia uno existente. Ambos crean una carpeta con `.git` dentro.
 
 > 💡 **Metáfora de `git init`:** `git init` es como **instalar una caja fuerte** en una habitación. Antes de init, tu carpeta es una habitación normal. Después, tiene un cajón secreto (`.git`) donde todo lo que pase quedará registrado. Sin la caja fuerte, no hay control de versiones.
 
@@ -1015,6 +1051,21 @@ gitGraph
 
 > ⚠️ **Error común:** `git rm archivo.txt` sin querer. Si el archivo estaba staged (git add) pero no commiteado, puedes recuperarlo con `git restore`. Si fue commiteado alguna vez, existe en el objeto de Git. Usa `git rm --cached` si solo quieres dejar de rastrearlo sin borrar del disco.
 
+```mermaid
+flowchart TD
+    A[¿Qué quieres eliminar?] --> B{¿Borrar del disco Y del repo?}
+    B -->|Sí| C[git rm archivo.txt]
+    B -->|No| D{¿Solo dejar de rastrear?}
+    D -->|Sí| E[git rm --cached archivo.txt]
+    D -->|No| F{¿Y añadir a .gitignore?}
+    F -->|Sí| E
+    E --> G[Añadir a .gitignore]
+    F --> H[Commit: git add . && git commit]
+
+    style C fill:#f44336,color:#fff
+    style E fill:#FF9800,color:#fff
+```
+
 ### 1.4.10. Ignorar Archivos
 
 El archivo `.gitignore` lista patrones a ignorar:
@@ -1059,7 +1110,20 @@ gitGraph
 
 > 💡 **`.gitignore` solo afecta archivos nuevos.** Si un archivo ya está rastreado, `.gitignore` no lo borra. Primero haz `git rm --cached`, luego añade la regla a `.gitignore`.
 
-> ⚠️ **Error común:** Crear `.gitignore` después de haber commiteado archivos sensibles. Si un archivo ya está en el historial, `.gitignore` no lo borra. Tienes que eliminarlo del historial con `git filter-repo` o BFG Repo Cleaner. `git filter-branch` está deprecated desde Git 2.24.
+```mermaid
+flowchart TD
+    A[Crear .gitignore] --> B{¿Cuándo lo creas?}
+    B -->|ANTES de commitear| C[Seguro: archivos nunca rastreados]
+    B -->|DESPUÉS de commitear| D[Problema: .gitignore NO borra del historial]
+    D --> E[Solución: git rm --cached archivo]
+    E --> F[Añadir regla a .gitignore]
+    F --> G[Commit: git add .gitignore && git commit]
+
+    style C fill:#4CAF50,color:#fff
+    style D fill:#f44336,color:#fff
+    style G fill:#4CAF50,color:#fff
+```
+
 > ⚠️ **Error común:** Crear `.gitignore` después de haber commiteado archivos sensibles. Si un archivo ya está en el historial, `.gitignore` no lo borra. Tienes que eliminarlo del historial con `git filter-repo` o BFG Repo Cleaner. `git filter-branch` está deprecated desde Git 2.24.
 
 ### 1.4.11. Etiquetado (Tags)
@@ -1154,6 +1218,26 @@ git stash branch nueva-rama stash@{0}
 > 💡 **Caso de uso:** Tienes cambios sin commit y necesitas cambiar de rama urgentemente. `git stash` los guarda, cambias de rama, y luego `git stash pop` para recuperar.
 
 > ⚠️ **Advertencia:** `git stash save` está deprecated desde Git 2.16. Usa siempre `git stash push -m "mensaje"`. La sintaxis antigua dejará de funcionar en futuras versiones.
+
+```mermaid
+sequenceDiagram
+    participant D as Developer
+    participant WD as Working Directory
+    participant S as Stash Stack
+    participant B as Otra Rama
+
+    D->>WD: Tiene cambios sin commit
+    D->>S: git stash push -m "WIP"
+    WD-->>WD: Limpio (stashed)
+    D->>B: git checkout hotfix
+    D->>B: Hace el hotfix
+    D->>B: git commit
+    D->>WD: git checkout feature
+    D->>S: git stash pop
+    WD-->>WD: Cambios restaurados
+```
+
+> 💡 **`git stash pop`** aplica y elimina. **`git stash apply`** aplica pero conserva. Usa `pop` en el día a día, `apply` si necesitas el stash en varias ramas.
 
 ## 1.6. Resumen de Comandos Básicos
 
