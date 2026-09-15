@@ -1,24 +1,24 @@
-- [6. Resumen y Conclusiones](#6-resumen-y-conclusiones)
-  - [6.1. Mapa Conceptual de la Unidad](#61-mapa-conceptual-de-la-unidad)
-  - [6.2. Conceptos Clave](#62-conceptos-clave)
+- [7. Resumen y Conclusiones](#7-resumen-y-conclusiones)
+  - [7.1. Mapa Conceptual de la Unidad](#71-mapa-conceptual-de-la-unidad)
+  - [7.2. Conceptos Clave](#72-conceptos-clave)
     - [Git Inicial](#git-inicial)
     - [Git Avanzado](#git-avanzado)
     - [Git Remoto](#git-remoto)
     - [Colaboración](#colaboración)
-  - [6.3. Herramientas y Perfiles](#63-herramientas-y-perfiles)
+  - [7.3. Herramientas y Perfiles](#73-herramientas-y-perfiles)
     - [Clientes Gráficos (GUI)](#clientes-gráficos-gui)
     - [Extensiones VS Code](#extensiones-vs-code)
     - [GitHub CLI y Terminal](#github-cli-y-terminal)
     - [Recursos de Aprendizaje](#recursos-de-aprendizaje)
-  - [6.4. Errores Comunes a Evitar](#64-errores-comunes-a-evitar)
-  - [6.5. Checklist de Supervivencia](#65-checklist-de-supervivencia)
-  - [6.6. Glosario de Términos](#66-glosario-de-términos)
-  - [6.7. Ejercicios de Repaso](#67-ejercicios-de-repaso)
-  - [6.8. ¿Qué viene después?](#68-qué-viene-después)
-  - [6.9. Mapa de Conexiones entre Temas](#69-mapa-de-conexiones-entre-temas)
+  - [7.4. Errores Comunes a Evitar](#74-errores-comunes-a-evitar)
+  - [7.5. Checklist de Supervivencia](#75-checklist-de-supervivencia)
+  - [7.6. Glosario de Términos](#76-glosario-de-términos)
+  - [7.7. Ejercicios de Repaso](#77-ejercicios-de-repaso)
+  - [7.8. ¿Qué viene después?](#78-qué-viene-después)
+  - [7.9. Mapa de Conexiones entre Temas](#79-mapa-de-conexiones-entre-temas)
 
 
-# 6. Resumen y Conclusiones
+# 7. Resumen y Conclusiones
 
 > 💡 **Punto de partida:** Has aprendido los comandos, las ramas, los remotos y la colaboración. Ahora es momento de consolidar todo: como un músico que repasa la partitura antes del concierto.
 
@@ -38,7 +38,7 @@ El control de versiones con Git es una habilidad fundamental para cualquier desa
 > 💡 **Consejo final:** La práctica es clave. Crea un repositorio personal y experimenta con todos los comandos. Los errores son la mejor forma de aprender.
 
 
-## 6.1. Mapa Conceptual de la Unidad
+## 7.1. Mapa Conceptual de la Unidad
 
 ```mermaid
 graph TD
@@ -90,7 +90,7 @@ graph TD
 ```
 
 
-## 6.2. Conceptos Clave
+## 7.2. Conceptos Clave
 
 ### Git Inicial
 
@@ -145,7 +145,7 @@ graph TD
 📌 **Ejemplo real:** Las empresas como Google o Microsoft usan Pull Requests y Code Review para garantizar la calidad de su código antes de producción.
 
 
-## 6.3. Herramientas y Perfiles
+## 7.3. Herramientas y Perfiles
 
 ### Clientes Gráficos (GUI)
 
@@ -185,7 +185,7 @@ graph TD
 | **Git Cheat Sheet** | education.github.com | Referencia rápida |
 
 
-## 6.4. Errores Comunes a Evitar
+## 7.4. Errores Comunes a Evitar
 
 | Error | Por qué está mal | Cómo evitarlo |
 |-------|------------------|---------------|
@@ -205,7 +205,7 @@ graph TD
 | No probar tras resolver conflictos | Puedes introducir bugs sin darte cuenta | Ejecuta el proyecto completo después de cada merge |
 
 
-## 6.5. Checklist de Supervivencia
+## 7.5. Checklist de Supervivencia
 
 Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 
@@ -249,7 +249,7 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 - [ ] ¿Puedo configurar alias y personalizar Git?
 
 
-## 6.6. Glosario de Términos
+## 7.6. Glosario de Términos
 
 | Término | Definición |
 |---------|------------|
@@ -285,7 +285,7 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 | **Detached HEAD** | Estado donde HEAD apunta a un commit, no a una rama |
 
 
-## 6.7. Ejercicios de Repaso
+## 7.7. Ejercicios de Repaso
 
 > 📝 **Escenario:** Estás desarrollando la web de una cafetería (`cafeteria-web`). Usa el escenario de la cafetería para practicar cada ejercicio.
 
@@ -318,7 +318,7 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 > 📌 **Ejemplo real:** En entrevistas técnicas de empresas como Telefónica o Accenture, es habitual preguntar "¿qué diferencia hay entre `git merge` y `git rebase`?" y "¿cómo deshaces un commit compartido?". Estos ejercicios te preparan para esas preguntas.
 
 
-## 6.8. ¿Qué viene después?
+## 7.8. ¿Qué viene después?
 
 En la **UD04: Diseño Orientado a Objetos: Diagrama de Clases** aprenderás a modelar sistemas complejos con diagramas UML. Git seguirá siendo tu aliado para versionar cada diagrama y iteración del diseño.
 
@@ -330,7 +330,7 @@ En la **UD04: Diseño Orientado a Objetos: Diagrama de Clases** aprenderás a mo
 | Colaboración | Trabajar en equipo en el modelado del sistema |
 
 
-## 6.9. Mapa de Conexiones entre Temas
+## 7.9. Mapa de Conexiones entre Temas
 
 ```mermaid
 graph LR
