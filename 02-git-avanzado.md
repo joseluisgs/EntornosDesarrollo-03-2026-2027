@@ -152,6 +152,15 @@ git checkout --track origin/nombre-rama
 
 > 💡 **checkout vs switch:** `git switch` es más reciente y su sintaxis es más intuitiva. `git checkout` todavía funciona pero está en desuso para cambios de rama.
 
+```mermaid
+gitGraph
+    commit id: "main"
+    branch feature
+    checkout feature
+    commit id: "Trabajo en feature"
+    checkout main
+```
+
 ### Metáforas y Errores Comunes por Comando
 
 #### `git branch` — El mapa de universos
@@ -235,6 +244,19 @@ graph TD
 📌 **Ejemplo real:** Estás desarrollando una funcionalidad nueva y tu jefe te pide un hotfix urgente. Sin `stash`, tendrías que hacer commit de medio código, crear la rama del fix, y luego intentar deshacer el commit. Con `stash`: `git stash`, cambias de rama, haces el fix, vuelves y `git stash pop`. Limpio y rápido.
 
 > ⚠️ **Advertencia:** `git stash save` está deprecated. Usa siempre `git stash push -m "mensaje"`.
+
+```mermaid
+gitGraph
+    commit id: "Commit A"
+    branch feature
+    checkout feature
+    commit id: "Trabajo pendiente"
+    commit id: "Stash guarda cambios"
+    checkout main
+    commit id: "Hotfix en main"
+    checkout feature
+    commit id: "Stash aplica cambios"
+```
 
 #### `git switch` — La versión moderna del portal
 
@@ -558,6 +580,20 @@ git rebase -i HEAD~3
 > 2. `squash "fix2"` → combinar con anterior
 > 3. `drop "WIP"` → eliminar commit temporal
 
+```mermaid
+gitGraph
+    commit id: "A"
+    branch feature
+    checkout feature
+    commit id: "WIP"
+    commit id: "Fix typo"
+    commit id: "Feature completa"
+    checkout main
+    commit id: "main avanza"
+    checkout feature
+    commit id: "Squash: todo junto"
+```
+
 ### 2.3.3. Merge vs Rebase: ¿Cuándo usar cada uno?
 
 ```mermaid
@@ -617,6 +653,20 @@ git push origin feature
 | Más fácil de hacer bisect para bugs | Puede causar problemas al equipo |
 | Conflictos resueltos por commit individual | Requiere `--force` si ya se hizo push |
 | Ideal antes de un PR limpio | Pierde el contexto de ramas |
+
+```mermaid
+gitGraph
+    commit id: "A"
+    branch feature
+    checkout feature
+    commit id: "Cambio en feature"
+    checkout main
+    commit id: "Cambio en main"
+    checkout feature
+    commit id: "Rebase sobre main"
+    checkout main
+    commit id: "Merge feature"
+```
 
 ## 2.4. Resolución de Conflictos
 
@@ -790,6 +840,19 @@ git checkout main
 git merge feature/nueva-funcionalidad
 ```
 
+```mermaid
+gitGraph
+    commit id: "main estable"
+    branch feature/login
+    checkout feature/login
+    commit id: "Login: paso 1"
+    commit id: "Login: paso 2"
+    commit id: "Login: tests"
+    checkout main
+    commit id: "Merge: feature/login"
+    commit id: "Release v1.1"
+```
+
 ### 2.5.2. Rama por Bugfix
 
 ```mermaid
@@ -810,6 +873,17 @@ git checkout -b hotfix/descripcion main
 # ...arreglar...
 git checkout main
 git merge hotfix/descripcion
+```
+
+```mermaid
+gitGraph
+    commit id: "v1.0 estable"
+    branch hotfix/bug-critico
+    checkout hotfix/bug-critico
+    commit id: "Fix: bug crítico"
+    checkout main
+    commit id: "Merge hotfix"
+    commit id: "v1.0.1"
 ```
 
 ## 2.6. Flujos de Trabajo con Ramas
@@ -1097,3 +1171,18 @@ git branch -d feature/reservas
 ```
 
 > 💡 **¿Qué pasó?** Creaste dos funcionalidades en paralelo sin que se pisaran entre sí. Cada rama era una "versión alternativa" de tu proyecto, y al fusionarlas, Git las unió sin perder nada de cada una.
+
+```mermaid
+gitGraph
+    commit id: "main: index.html"
+    branch feature/carta
+    checkout feature/carta
+    commit id: "carta.html"
+    checkout main
+    branch feature/reservas
+    checkout feature/reservas
+    commit id: "reservas.html"
+    checkout main
+    commit id: "Merge feature/carta"
+    commit id: "Merge feature/reservas"
+```

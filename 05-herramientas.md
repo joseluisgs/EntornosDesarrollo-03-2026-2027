@@ -308,6 +308,19 @@ gh pr review --approve
 gh pr merge --merge
 ```
 
+```mermaid
+gitGraph
+    commit id: "git init"
+    commit id: "git add + commit"
+    branch feature
+    checkout feature
+    commit id: "cambios en feature"
+    commit id: "git push"
+    commit id: "gh pr create"
+    checkout main
+    commit id: "gh pr merge"
+```
+
 ## 5.4. Recursos de Aprendizaje
 
 ### 5.4.1. Tutoriales Interactivos

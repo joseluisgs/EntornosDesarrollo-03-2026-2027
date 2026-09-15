@@ -210,6 +210,16 @@ branch 'main' set up to track 'origin/main'.
 >
 > **Nunca usar push --force en ramas compartidas.** Destruye el trabajo de otros. Usa `--force-with-lease` que verifica que nadie más ha subido cambios antes de sobrescribir.
 
+```mermaid
+gitGraph
+    commit id: "Commit A local"
+    commit id: "Commit B local"
+    commit id: "git push: sube al remoto"
+    commit id: "Commit C local"
+    commit id: "Commit D local"
+    commit id: "git push: sube al remoto"
+```
+
 ### 3.3.3. git fetch
 
 > 💡 **Metáfora:** `git fetch` es como mirar el menú de un restaurante sin pedir nada. Bajas la información de qué hay disponible (qué cambios hay en el remoto), pero no te tocas nada. Es la forma segura de ver qué han hecho otros antes de decidir si quieres integrarlo.
@@ -258,6 +268,18 @@ From https://github.com/miusuario/mi-proyecto
 
 > 💡 **Recuerda:** `fetch` es seguro porque no modifica tu código local. Siempre puedes revisar con `git diff` antes de decidir si fusionas.
 
+```mermaid
+gitGraph
+    commit id: "A local"
+    commit id: "B local"
+    branch remote
+    checkout remote
+    commit id: "C remoto"
+    commit id: "D remoto"
+    checkout main
+    commit id: "fetch: solo descarga"
+```
+
 ### 3.3.4. git pull
 
 > 💡 **Metáfora:** `git pull` es como ir al restaurante, mirar el menú Y pedir directamente lo que quieras. Traes los cambios del remoto Y los integras automáticamente en tu código. Es como si un mensajero te trajera las cajas de la bodega y las abriera directamente en tu casa, colocando todo donde debe estar.
@@ -300,6 +322,18 @@ Fast-forward
 > ⚠️ **Error más común:** `CONFLICT (content): Merge conflict in archivo` — significa que tú y alguien más modificasteis las mismas líneas. Solución: abrir el archivo, resolver el conflicto, `git add .` y `git commit`.
 >
 > 💡 **Consejo:** Si prefieres tener control total, usa `git fetch` + `git merge` por separado en lugar de `git pull`. Así revisas qué va a cambiar antes de que suceda.
+
+```mermaid
+gitGraph
+    commit id: "A local"
+    commit id: "B local"
+    branch remote
+    checkout remote
+    commit id: "C remoto"
+    commit id: "D remoto"
+    checkout main
+    commit id: "pull: descarga Y fusiona"
+```
 
 ### 3.3.5. Diferencia entre fetch y pull
 
@@ -448,6 +482,14 @@ git push -u origin main
 
 > ⚠️ **Error común:** `error: src refspec main does not match any` — significa que no tienes commits en tu repositorio. Solución: asegúrate de hacer al menos un `git commit` antes de hacer push.
 
+```mermaid
+gitGraph
+    commit id: "git init"
+    commit id: "Primer commit"
+    commit id: "git push -u origin main"
+    commit id: "Tracking configurado"
+```
+
 ### 3.4.3. Clonar Repositorio Existente
 
 > 💡 **Metáfora:** Clonar es como mudarte a una casa que ya está amueblada. Alguien ya construyó todo (el código, la estructura, los archivos) y tú solo traes una copia exacta a tu ordenador. Es la forma más rápida de empezar a trabajar en un proyecto existente.
@@ -504,6 +546,18 @@ git merge origin/main
 git fetch --all
 ```
 
+```mermaid
+gitGraph
+    commit id: "A local"
+    branch upstream
+    checkout upstream
+    commit id: "B upstream"
+    commit id: "C upstream"
+    checkout main
+    commit id: "fetch + merge upstream"
+    commit id: "push a mi fork"
+```
+
 ## 3.5. Tags y Versiones
 
 ### 3.5.1. Crear y Subir Tags
@@ -535,6 +589,15 @@ git tag -d v1.0
 
 # Eliminar tag remoto
 git push origin --delete v1.0
+```
+
+```mermaid
+gitGraph
+    commit id: "v0.1: inicio"
+    commit id: "v0.2: desarrollo"
+    commit id: "v1.0.0: release estable"
+    commit id: "v1.0.1: hotfix"
+    commit id: "v1.1.0: nueva feature"
 ```
 
 ### 3.5.2. Semantic Versioning
@@ -840,6 +903,18 @@ git push -u origin gh-pages
 
 # Volver a main
 git checkout main
+```
+
+```mermaid
+gitGraph
+    commit id: "main: desarrollo"
+    branch gh-pages
+    checkout gh-pages
+    commit id: "gh-pages: web desplegada"
+    checkout main
+    commit id: "nuevo desarrollo en main"
+    checkout gh-pages
+    commit id: "gh-pages: actualizado"
 ```
 
 ### 3.9.4. Desplegar con GitHub Actions (Automático)

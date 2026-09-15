@@ -306,6 +306,21 @@ git merge upstream/main
 git push origin main
 ```
 
+**Flujo visual del fork actualizado:**
+
+```mermaid
+gitGraph
+    commit id: "A main"
+    branch upstream
+    checkout upstream
+    commit id: "B upstream"
+    commit id: "C upstream"
+    checkout main
+    commit id: "fetch upstream"
+    commit id: "merge upstream/main"
+    commit id: "push origin main"
+```
+
 > ⚠️ **Errores comunes al mantener el fork actualizado:**
 >
 > 1. **Olvidarse de sincronizar**: Si no ejecutas `git fetch upstream` regularmente, tu fork se queda atrás y al enviar una PR tendrás conflictos enormes.
@@ -473,6 +488,20 @@ gh pr list --state merged
 gh pr close 87  # Solo si no se fusionó aún
 ```
 
+**Flujo visual del squash merge:**
+
+```mermaid
+gitGraph
+    commit id: "A: repo original"
+    branch B-feature
+    checkout B-feature
+    commit id: "B: fix login"
+    commit id: "B: fix tests"
+    commit id: "B: push"
+    checkout main
+    commit id: "Squash: un solo commit"
+```
+
 #### Paso 7: Ana — Sincronizar su Fork
 
 ```bash
@@ -493,6 +522,37 @@ git branch -d fix/corregir-login
 git status
 # On branch main
 # nothing to commit, working tree clean
+```
+
+**Flujo visual de la sincronización del fork:**
+
+```mermaid
+gitGraph
+    commit id: "Ana: fork original"
+    branch upstream
+    checkout upstream
+    commit id: "Carlos: merge PR"
+    checkout main
+    commit id: "Ana: fetch upstream"
+    commit id: "Ana: merge upstream/main"
+    commit id: "Ana: push origin main"
+```
+
+**Flujo visual completo con gitGraph:**
+
+```mermaid
+gitGraph
+    commit id: "A: repo original"
+    branch B-fork
+    checkout B-fork
+    commit id: "B: fork + clone"
+    commit id: "B: cambio en feature"
+    commit id: "B: push a fork"
+    commit id: "B: crea PR"
+    checkout main
+    commit id: "A: merge PR"
+    checkout B-fork
+    commit id: "B: sync fork"
 ```
 
 ---
