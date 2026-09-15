@@ -307,12 +307,12 @@ gitGraph
 
 ## 6.13. Resumen: Que comando segun el error
 
-| Error | Local | Compartido en GitHub |
-|-------|-------|----------------------|
-| Mensaje mal | `git commit --amend` | `git commit --amend` + `--force-with-lease` |
-| Contenido mal | `git reset --soft/--hard` | `git revert` |
-| Tag mal | `git tag -d` | `git tag -d` + `git push --delete` |
-| Fusion por error | `git reset --hard HEAD~1` | `git revert -m 1` |
-| Rama equivocada | `git stash` + `git checkout` | `git cherry-pick` + `git reset` |
-| Push equivocado | `git reset --hard` + `--force-with-lease` | `git revert` |
-| PR aceptada por error | `git revert` | `git revert -m 1` |
+| Error | Nivel de fallo | Local | Compartido en GitHub |
+|-------|----------------|-------|----------------------|
+| Mensaje mal | Minimo 💩 | `git commit --amend` | `git commit --amend` + `--force-with-lease` |
+| Contenido mal | Bajo 💩💩 | `git reset --soft/--hard` | `git revert` |
+| Tag mal | Minimo 💩 | `git tag -d` | `git tag -d` + `git push --delete` |
+| Fusión por error | Medio 💩💩💩 | `git reset --hard HEAD~1` | `git revert -m 1` |
+| Rama equivocada | Bajo 💩💩 | `git stash` + `git checkout` | `git cherry-pick` + `git reset` |
+| Push equivocado | Alto 💩💩💩💩 | `git reset --hard` + `--force-with-lease` | `git revert` |
+| PR aceptada por error | Critico 💩💩💩💩💩 | `git revert` | `git revert -m 1` |
