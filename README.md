@@ -19,9 +19,9 @@ UD03. Sistema de Control de Versiones. 1DAW. Curso 2026-2027.
 
 ## Contenido en YouTube
 
-- [Resumen]()
-- [Git Inicial y manejo de ramas]()
-- [Git Remoto, GitHub y Colaboración]()
+- [Resumen](https://youtu.be/WzaN-hiQn7w)
+- [Git Inicial y manejo de ramas](https://youtu.be/TlLp23Iv2rw)
+- [Git Remoto, GitHub y Colaboración](https://youtu.be/u0qmU2CK61I)
 - [Lista de Reproducción](https://www.youtube.com/playlist?list=PLIaRVRNDWeMA)
 
 ## Resultados de Aprendizaje y Criterios de Evaluación
