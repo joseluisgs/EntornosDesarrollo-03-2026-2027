@@ -600,7 +600,8 @@ brew install --cask font-fira-code-nerd-font
 # Descargar e instalar Oh My Posh
 curl -s https://ohmyposh.dev/install.sh | bash
 
-# Descargar una Nerd Font
+# Descargar una Nerd Font desde https://www.nerdfonts.com/font-downloads
+# Elige la fuente que prefieras (FiraCode, JetBrainsMono, Cascadia Code, etc.)
 mkdir -p ~/.local/share/fonts
 cd ~/.local/share/fonts
 curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/latest/FiraCode.zip
@@ -620,4 +621,4 @@ fc-cache -fv
 
 > ⚠️ **Sin la Nerd Font**, Oh My Posh mostrará caracteres raros o cuadros en lugar de iconos. Siempre instala primero la fuente y luego configúrala en la terminal.
 
-> 💡 **Consejo:** Otras Nerd Fonts populares son **JetBrainsMono Nerd Font**, **Cascadia Code Nerd Font** y **Hack Nerd Font**. Elige la que más te guste.
+> 💡 **Consejo:** Descarga las fuentes desde [nerdfonts.com](https://www.nerdfonts.com/font-downloads). Otras Nerd Fonts populares son **JetBrainsMono Nerd Font**, **Cascadia Code Nerd Font** y **Hack Nerd Font**. Elige la que más te guste.
