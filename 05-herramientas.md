@@ -23,6 +23,7 @@
     - [5.6.1. Errores Típicos](#561-errores-típicos)
     - [5.6.2. Recuperación de Errores](#562-recuperación-de-errores)
     - [5.6.3. Comandos de Emergencia](#563-comandos-de-emergencia)
+  - [5.7. Personalizar la Terminal: Oh My Posh y Nerd Fonts](#57-personalizar-la-terminal-oh-my-posh-y-nerd-fonts)
 
 
 # 5. Herramientas y Recursos
@@ -518,6 +519,7 @@ flowchart TD
 | **GitHub CLI** | Terminal para gestionar GitHub directamente |
 | **gitref.com** | Referencia rápida de comandos |
 | **Oh My Zsh** | Framework de terminal con plugins de Git |
+| **Oh My Posh** | Temas para la terminal con iconos y colores |
 
 En el Resumen consolidaremos todo lo aprendido en la unidad: conceptos, comandos, flujos de trabajo y herramientas.
 
@@ -565,3 +567,57 @@ En el Resumen consolidaremos todo lo aprendido en la unidad: conceptos, comandos
    ```
 
 > 💡 **Consejo:** Si `gh auth status` muestra "Logged in", todo está configurado correctamente. Ya puedes usar GitHub desde la terminal sin abrir el navegador.
+
+## 5.7. Personalizar la Terminal: Oh My Posh y Nerd Fonts
+
+**Oh My Posh** es un motor de temas para la terminal que muestra iconos, colores e información útil como la rama de Git actual, el directorio, el estado de los archivos, etc.
+
+Para que los iconos se vean correctamente necesitas una **fuente Nerd Font**. Las Nerd Fonts son fuentes programadas con miles de iconos extra (git, Docker, flechas, carpetas, etc.) que Oh My Posh usa para decorar la terminal.
+
+**Instalación en Windows:**
+
+```bash
+# Instalar Oh My Posh con scoop
+scoop install oh-my-posh
+
+# Instalar una Nerd Font (por ejemplo, FiraCode)
+scoop install FiraCode-NF
+```
+
+**Instalación en macOS:**
+
+```bash
+# Instalar Oh My Posh con brew
+brew install oh-my-posh
+
+# Instalar una Nerd Font
+brew install --cask font-fira-code-nerd-font
+```
+
+**Instalación en Linux (Ubuntu/Debian):**
+
+```bash
+# Descargar e instalar Oh My Posh
+curl -s https://ohmyposh.dev/install.sh | bash
+
+# Descargar una Nerd Font
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts
+curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/latest/FiraCode.zip
+unzip FiraCode.zip
+rm FiraCode.zip
+fc-cache -fv
+```
+
+**Configurar la fuente en tu terminal:**
+
+- **Windows Terminal:** Ve a Configuración → Perfil → Apariencia → Fuente → selecciona "FiraCode Nerd Font"
+- **VS Code:** Añade en `settings.json`:
+  ```json
+  "terminal.integrated.fontFamily": "FiraCode Nerd Font"
+  ```
+- **PowerShell:** Ve a Propiedades → Fuente → selecciona "FiraCode Nerd Font"
+
+> ⚠️ **Sin la Nerd Font**, Oh My Posh mostrará caracteres raros o cuadros en lugar de iconos. Siempre instala primero la fuente y luego configúrala en la terminal.
+
+> 💡 **Consejo:** Otras Nerd Fonts populares son **JetBrainsMono Nerd Font**, **Cascadia Code Nerd Font** y **Hack Nerd Font**. Elige la que más te guste.
