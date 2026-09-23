@@ -30,7 +30,7 @@
     - [1.4.10. Ignorar Archivos](#1410-ignorar-archivos)
     - [1.4.11. Etiquetado (Tags)](#1411-etiquetado-tags)
   - [1.5. Guardar Cambios Temporales](#15-guardar-cambios-temporales)
-  - [1.6. Resumen de Comandos Básicos](#16-resumen-de-comandos-básicos)
+
 
 
 # 1. Git Inicial
@@ -288,8 +288,6 @@ git --version
 ```
 
 > 💡 **Consejo:** Tras la instalación en cualquier SO, verifica con `git --version`. Si el comando no se reconoce, reinicia la terminal.
-
----
 
 ### 1.4.2. Configuración Inicial y `.gitconfig`
 
@@ -1284,6 +1282,13 @@ git pull --rebase          # Bajar y rebasear (historial limpio)
 > 3. `git commit` para guardarlos
 > 4. `git push` para subir al remoto
 
+> 💡 **Buenas Prácticas:**
+> - Siempre crea `.gitignore` al inicio de cada proyecto
+> - Usa `git stash` para guardar cambios parciales sin contaminar el historial
+> - Escribe mensajes de commit descriptivos: qué y por qué, no solo "fix"
+> - Usa `git revert` en código compartido, `git reset` solo en local
+> - Configura tu `.gitconfig` antes de empezar: nombre, email y editor
+
 **Resumen del punto:**
 
 | Concepto | Descripción |
@@ -1296,9 +1301,17 @@ git pull --rebase          # Bajar y rebasear (historial limpio)
 | **Historial** | Lista ordenada de todos los commits |
 | **Deshacer** | `git checkout` o `git restore` para recuperar archivos |
 
-En el siguiente punto veremos ramas y fusiones: cómo crear líneas de desarrollo paralelas, unirlas sin perder trabajo y resolver conflictos cuando dos personas modifican lo mismo.
+### ¿Qué viene después?
 
----
+En la **UD03 - Punto 02: Git Avanzado** aprenderás a crear ramas, fusionarlas, resolver conflictos y usar estrategias de branching como GitHub Flow y GitFlow.
+
+| Tema de la UD actual | Se usa en la siguiente UD para |
+|----------------------|-------------------------------|
+| Comandos básicos (init, add, commit) | Crear ramas y hacer merge |
+| Deshacer cambios (restore, reset, revert) | Resolver conflictos de fusión |
+| .gitignore | Trabajar en equipo sin subir basura |
+| Stash | Guardar cambios al cambiar de rama |
+| Tags | Marcar versiones en ramas de release |
 
 ### Ejercicio Rápido: Tu Primer Repositorio
 

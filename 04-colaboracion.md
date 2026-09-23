@@ -24,7 +24,6 @@
     - [4.6.1. Formato Convencional](#461-formato-convencional)
     - [4.6.2. Tipos Comunes](#462-tipos-comunes)
     - [4.6.3. Ejemplos](#463-ejemplos)
-  - [4.7. Resumen de Colaboración](#47-resumen-de-colaboración)
 
 
 # 4. Colaboración
@@ -1058,9 +1057,7 @@ gh run list               # Ver workflows
 | **Projects** | Tableros Kanban para organizar el trabajo |
 | **Convenciones** | Formato estándar para mensajes de commit |
 
-En el siguiente punto veremos las herramientas y recursos para Git: clientes gráficos, extensiones de VS Code, terminal Git y trucos para potenciar tu productividad.
-
----
+> 💡 **¿Qué viene después?** En la **UD05: Herramientas de Desarrollo** aprenderás a usar clientes gráficos de Git, extensiones de VS Code, terminales especializadas y otras herramientas que potenciarán tu productividad como desarrollador.
 
 ## Ejercicio Rápido: La Cafetería Colaborativa
 

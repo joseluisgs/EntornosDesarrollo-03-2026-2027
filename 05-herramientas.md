@@ -435,7 +435,7 @@ git config --global core.editor "code --wait"
 
 ## 5.6. Errores Comunes y Soluciones
 
-### 5.6.1. ❌ Errores Típicos
+### 5.6.1. Errores Típicos
 
 | Error | Causa | Solución |
 |-------|-------|----------|
@@ -447,7 +447,7 @@ git config --global core.editor "code --wait"
 | "merge conflict" | Dos personas modificaron lo mismo | Resolver conflictos |
 | "detached HEAD" | Checkout a commit, no rama | `git checkout rama` |
 
-### 5.6.2. ⚠️ Recuperación de Errores
+### 5.6.2. Recuperación de Errores
 
 ```bash
 # Recuperar cambios después de reset --hard
@@ -468,7 +468,7 @@ git reset --soft HEAD~1
 git log --all --full-history -- archivo.txt
 ```
 
-### 5.6.3. 🆘 Comandos de Emergencia
+### 5.6.3. Comandos de Emergencia
 
 ```bash
 # Ver todo el historial (incluido resets)
@@ -507,6 +507,12 @@ flowchart TD
     style I fill:#4CAF50,color:#fff
 ```
 
+> 💡 **Buenas Prácticas:**
+> - **Instala siempre VS Code + GitLens + GitHub CLI** como punto de partida. Son las herramientas más usadas en la industria y te cubren el 90% de necesidades.
+> - **Configura tu editor de Git antes de empezar:** `git config --global core.editor "code --wait"` evita problemas con mensajes de commit.
+> - **Usa clientes gráficos si prefieres visual:** GitKraken para aprendizaje, GitHub Desktop para simplicidad. No hay una herramienta "mejor", la que te haga productivo es la correcta.
+> - **Aprende los comandos básicos de terminal** aunque uses GUI. Habrá momentos (CI/CD, scripts, merge conflicts) donde necesitarás la línea de comandos.
+
 **Resumen del punto:**
 
 | Herramienta | Descripción |
@@ -523,7 +529,16 @@ flowchart TD
 
 En el Resumen consolidaremos todo lo aprendido en la unidad: conceptos, comandos, flujos de trabajo y herramientas.
 
----
+**¿Qué viene después?**
+
+En la **UD04: Diseño Orientado a Objetos: Diagrama de Clases** usarás Git para versionar tus diagramas UML y el diseño de clases. Las herramientas que aprendiste aquí (ramas, commits, PRs) te permitirán iterar sobre diseños sin perder versiones anteriores.
+
+| Tema de la UD actual | Se usa en la siguiente UD para |
+|----------------------|-------------------------------|
+| Clientes GUI y extensiones | Visualizar cambios en diagramas UML |
+| GitHub CLI | Automatizar tareas de versionado de diseño |
+| Configuración avanzada | Personalizar tu entorno para modelado |
+| Errores comunes | Recuperar versiones de diagramas borrados |
 
 ## Ejercicio Rápido: Configurar tu Estación de Desarrollo
 

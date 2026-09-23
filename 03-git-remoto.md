@@ -23,9 +23,8 @@
     - [3.6.3. Usar SSH en lugar de HTTPS](#363-usar-ssh-en-lugar-de-https)
     - [3.6.4. Ventajas y Desventajas: SSH vs HTTPS](#364-ventajas-y-desventajas-ssh-vs-https)
     - [3.6.5. Errores Comunes con SSH](#365-errores-comunes-con-ssh)
-  - [3.7. Resumen de Comandos Remotos](#37-resumen-de-comandos-remotos)
-  - [3.8. Workflow Remoto Completo](#38-workflow-remoto-completo)
-  - [3.9. GitHub Pages](#39-github-pages)
+  - [3.7. Workflow Remoto Completo](#37-workflow-remoto-completo)
+  - [3.8. GitHub Pages](#38-github-pages)
 
 
 # 3. Git Remoto
@@ -118,7 +117,7 @@ graph TD
     style F fill:#FF9800,color:#fff
     style G fill:#9C27B0,color:#fff
     style E fill:#009688,color:#fff
-    style H fill:#795548,color:#fff
+    style H fill:#607D8B,color:#fff
 ```
 
 > 📝 **Nota del Profesor:** `origin` es solo un nombre por defecto. Podrías tener varios remotos: `origin` (tu repo principal), `upstream` (repo original del que hiciste fork), `backup` (copia de seguridad). Es como tener varias bóvedas con diferentes direcciones.
@@ -891,6 +890,16 @@ flowchart TD
     style I fill:#4CAF50,color:#fff
 ```
 
+> 💡 **Buenas Prácticas:**
+>
+> - **Usa `git fetch` antes de `git pull`** cuando trabajes en equipo — así revisas qué va a cambiar antes de que suceda.
+> - **Nunca hagas `git push --force` en ramas compartidas** — destruye el trabajo de otros. Usa `--force-with-lease`.
+> - **Configura SSH** para evitar introducir contraseñas constantemente — es más cómodo y seguro.
+> - **Aplica Semantic Versioning** en tus tags — comunica claramente qué tipo de cambios incluye cada versión.
+> - **Usa `.editorconfig`** en todos los proyectos de equipo — mantiene el estilo uniforme sin discusiones.
+
+> 📌 **Ejemplo real:** Cuando Netflix publica herramientas open source en GitHub, configuran SSH para los desarrolladores del equipo, usan tags semánticos para cada release y mantienen un `.editorconfig` para que el código sea consistente independientemente del editor que use cada desarrollador.
+
 **Resumen del punto:**
 
 | Concepto | Descripción |
@@ -903,6 +912,8 @@ flowchart TD
 | **pull** | Descarga y fusiona cambios del remoto (fetch + merge) |
 | **SSH** | Protocolo de autenticación segura sin contraseñas |
 | **Tags** | Marcadores para versiones (v1.0.0, v2.1.3) |
+
+> 💡 **¿Qué viene después?** En la **UD04: Colaboración** aprenderás a crear Pull Requests, trabajar con Forks, hacer Code Review y configurar pipelines de CI/CD con GitHub Actions — todo lo necesario para trabajar en equipo de forma profesional.
 
 ## 3.9. GitHub Pages
 
@@ -998,8 +1009,6 @@ jobs:
 > 🔗 **Conexión:** GitHub Pages se conecta directamente con los Actions que verás en la UD04 de Colaboración. Cada push a `main` activa el workflow de despliegue.
 
 En el siguiente punto veremos Pull Requests, Forks y colaboración: cómo proponer cambios en proyectos de otros, revisar código y trabajar en equipo de forma profesional.
-
----
 
 ## Ejercicio Rápido: La Cafetería en la Nube
 

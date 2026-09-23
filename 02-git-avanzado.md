@@ -26,7 +26,7 @@
   - [2.8. Buenas Prácticas con Ramas](#28-buenas-prácticas-con-ramas)
     - [2.8.1. Recomendaciones](#281-recomendaciones)
     - [2.8.2. Errores a Evitar](#282-errores-a-evitar)
-  - [2.9. Resumen de Comandos Avanzados](#29-resumen-de-comandos-avanzados)
+
 
 
 # 2. Git Avanzado
@@ -1140,7 +1140,7 @@ git push -u origin main
 
 ## 2.8. Buenas Prácticas con Ramas
 
-### 2.8.1. ✅ Recomendaciones
+### 2.8.1. Recomendaciones
 
 1. **Ramas cortas**: Crear, trabajar y fusionar rápidamente
 2. **Nombres descriptivos**: `feature/login`, `bugfix/header`, `hotfix/security`
@@ -1148,7 +1148,7 @@ git push -u origin main
 4. **Mensajes claros**: Explicar el "por qué", no solo el "qué"
 5. **Integrar temprano**: Hacer merge a main frecuentemente
 
-### 2.8.2. ❌ Errores a Evitar
+### 2.8.2. Errores a Evitar
 
 | Error | Consecuencia | Solución |
 |-------|--------------|----------|
@@ -1196,9 +1196,17 @@ git commit                  # Commit de merge
 | **GitHub Flow** | Rama principal + ramas de feature + PR |
 | **GitFlow** | Ramas main, develop, feature, release, hotfix |
 
-En el siguiente punto veremos GitHub y los repositorios remotos: cómo subir tu código a la nube, clonar proyectos, sincronizar cambios y trabajar con otros desarrolladores en la misma base de código.
+### ¿Qué viene después?
 
----
+En la **UD03 - Punto 03: GitHub y Repositorios Remotos** aprenderás a crear repositorios en la nube, clonar proyectos, sincronizar cambios y colaborar con otros desarrolladores.
+
+| Tema de la UD actual | Se usa en la siguiente UD para |
+|----------------------|-------------------------------|
+| Ramas y merge | Crear ramas en repositorios remotos |
+| GitHub Flow / GitFlow | Organizar el trabajo en equipo con PR |
+| Cherry-pick | Traer commits específicos entre repos |
+| Resolución de conflictos | Resolver conflictos al hacer pull/push |
+| Rebase | Mantener historial limpio antes de PR |
 
 ### Ejercicio Rápido: Ramas y Merge
 

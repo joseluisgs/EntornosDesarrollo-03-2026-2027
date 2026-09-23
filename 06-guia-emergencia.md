@@ -11,7 +11,6 @@
   - [6.10. Escenario 7: Push con datos equivocados](#610-escenario-7-push-con-datos-equivocados)
   - [6.11. Escenario 8: Fusión por error (remota)](#611-escenario-8-fusión-por-error-remota)
   - [6.12. Escenario 9: PR aceptada por error](#612-escenario-9-pr-aceptada-por-error)
-  - [6.13. Resumen: Qué comando según el error](#613-resumen-qué-comando-según-el-error)
 
 
 # 6. Guía de Emergencia Git
@@ -305,7 +304,15 @@ gitGraph
 
 > 💡 **En GitHub:** Ve al commit de merge → "Revert" button → crea automaticamente un PR de revert.
 
-## 6.13. Resumen: Que comando segun el error
+> 💡 **Buenas Prácticas:**
+> - **Siempre usa `git revert` en código compartido**, nunca `git reset`. `revert` crea un commit inverso sin romper el historial de otros.
+> - **Aprende a leer el nivel de error antes de actuar.** Si estás en nivel 1-3 (local), la solución es fácil y segura. Si llegaste al nivel 4-7, necesitas planificar.
+> - **Usa `--force-with-lease` en vez de `--force`.** Verifica que nadie más ha subido cambios antes de sobrescribir.
+> - **Practica los escenarios de error** en un repositorio temporal. Saber qué hacer bajo presión es clave para el examen y para la vida real.
+
+📌 **Ejemplo real:** En equipos de desarrollo profesional, los errores de merge compartido o PR aceptada por error son habituales. GitHub incluso tiene un botón "Revert" en la interfaz que ejecuta `git revert -m 1` automáticamente, creando un PR de reversión. Empresas como Spotify o Amazon usan esta práctica como parte de su proceso de release management.
+
+**Resumen del punto:**
 
 | Error | Nivel de fallo | Local | Compartido en GitHub |
 |-------|----------------|-------|----------------------|
@@ -316,3 +323,13 @@ gitGraph
 | Rama equivocada | Bajo 💩💩 | `git stash` + `git checkout` | `git cherry-pick` + `git reset` |
 | Push equivocado | Alto 💩💩💩💩 | `git reset --hard` + `--force-with-lease` | `git revert` |
 | PR aceptada por error | Critico 💩💩💩💩💩 | `git revert` | `git revert -m 1` |
+
+**¿Qué viene después?**
+
+En la **UD04: Diseño Orientado a Objetos: Diagrama de Clases** aprenderás a modelar sistemas con diagramas UML. Los conceptos de ramas y merges serán útiles para versionar diferentes iteraciones de tus diseños.
+
+| Tema de la UD actual | Se usa en la siguiente UD para |
+|----------------------|-------------------------------|
+| Deshacer errores | Recuperar versiones de diagramas borrados |
+| Ramas y merges | Explorar alternativas de diseño en paralelo |
+| Revert vs reset | Mantener historial limpio de diseño |
