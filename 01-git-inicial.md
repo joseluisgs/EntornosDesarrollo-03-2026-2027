@@ -1,39 +1,39 @@
-- [1. Git Inicial](#1-git-inicial)
+- [1. Git inicial](#1-git-inicial)
   - [1.1. Introducción a Git](#11-introducción-a-git)
-    - [1.1.1. Git vs Sistemas Centralizados](#111-git-vs-sistemas-centralizados)
-  - [1.2. Conceptos Clave en Git](#12-conceptos-clave-en-git)
-    - [1.2.1. Repositorio (Repository)](#121-repositorio-repository)
-    - [1.2.2. Commit (Confirmación)](#122-commit-confirmación)
-    - [1.2.3. Área de Preparación (Staging Area)](#123-área-de-preparación-staging-area)
-    - [1.2.4. Directorio de Trabajo (Working Directory)](#124-directorio-de-trabajo-working-directory)
+    - [1.1.1. Git vs sistemas centralizados](#111-git-vs-sistemas-centralizados)
+  - [1.2. Conceptos clave en Git](#12-conceptos-clave-en-git)
+    - [1.2.1. Repositorio (repository)](#121-repositorio-repository)
+    - [1.2.2. Commit (confirmación)](#122-commit-confirmación)
+    - [1.2.3. Área de preparación (staging area)](#123-área-de-preparación-staging-area)
+    - [1.2.4. Directorio de trabajo (working directory)](#124-directorio-de-trabajo-working-directory)
     - [1.2.5. HEAD](#125-head)
-  - [1.3. Ciclo de Vida de los Archivos en Git](#13-ciclo-de-vida-de-los-archivos-en-git)
+  - [1.3. Ciclo de vida de los archivos en Git](#13-ciclo-de-vida-de-los-archivos-en-git)
     - [1.3.1. Los tres estados de Git](#131-los-tres-estados-de-git)
-  - [1.4. Comandos Git Esenciales](#14-comandos-git-esenciales)
+  - [1.4. Comandos Git esenciales](#14-comandos-git-esenciales)
     - [1.4.1. Instalación de Git](#141-instalación-de-git)
-    - [1.4.2. Configuración Inicial y .gitconfig](#142-configuración-inicial-y-gitconfig)
-    - [1.4.3. Creación y Clonación de Repositorios](#143-creación-y-clonación-de-repositorios)
-    - [1.4.4. Gestión de Cambios](#144-gestión-de-cambios)
+    - [1.4.2. Configuración inicial y .gitconfig](#142-configuración-inicial-y-gitconfig)
+    - [1.4.3. Creación y clonación de repositorios](#143-creación-y-clonación-de-repositorios)
+    - [1.4.4. Gestión de cambios](#144-gestión-de-cambios)
     - [1.4.5. Commit](#145-commit)
     - [1.4.6. Diff](#146-diff)
     - [1.4.7. Historial](#147-historial)
-    - [1.4.8. Deshacer Cambios](#148-deshacer-cambios)
-      - [1.4.8.1. git restore: Deshacer cambios locales](#1481-git-restore-deshacer-cambios-locales)
-      - [1.4.8.2. git revert: Crear commit que deshace](#1482-git-revert-crear-commit-que-deshace)
-      - [1.4.8.3. git reset: Mover el puntero HEAD](#1483-git-reset-mover-el-puntero-head)
-      - [1.4.8.4. Trucos: Eliminar el Último Commit](#1484-trucos-eliminar-el-último-commit)
-      - [1.4.8.5. git reflog: Tu salvavidas](#1485-git-reflog-tu-salvavidas)
-      - [1.4.8.6. git commit --amend: Modificar el último commit](#1486-git-commit---amend-modificar-el-último-commit)
-      - [1.4.8.7. Tabla Comparativa: ¿Cuándo usar cada comando?](#1487-tabla-comparativa-cuándo-usar-cada-comando)
-      - [1.4.8.8. Casos Prácticos Detallados](#1488-casos-prácticos-detallados)
-    - [1.4.9. Eliminar Archivos](#149-eliminar-archivos)
-    - [1.4.10. Ignorar Archivos](#1410-ignorar-archivos)
-    - [1.4.11. Etiquetado (Tags)](#1411-etiquetado-tags)
-  - [1.5. Guardar Cambios Temporales](#15-guardar-cambios-temporales)
+    - [1.4.8. Deshacer cambios](#148-deshacer-cambios)
+      - [1.4.8.1. git restore: deshacer cambios locales](#1481-git-restore-deshacer-cambios-locales)
+      - [1.4.8.2. git revert: crear commit que deshace](#1482-git-revert-crear-commit-que-deshace)
+      - [1.4.8.3. git reset: mover el puntero HEAD](#1483-git-reset-mover-el-puntero-head)
+      - [1.4.8.4. Trucos: eliminar el último commit](#1484-trucos-eliminar-el-último-commit)
+      - [1.4.8.5. git reflog: tu salvavidas](#1485-git-reflog-tu-salvavidas)
+      - [1.4.8.6. git commit --amend: modificar el último commit](#1486-git-commit---amend-modificar-el-último-commit)
+      - [1.4.8.7. Tabla comparativa: ¿cuándo usar cada comando?](#1487-tabla-comparativa-cuándo-usar-cada-comando)
+      - [1.4.8.8. Casos prácticos detallados](#1488-casos-prácticos-detallados)
+    - [1.4.9. Eliminar archivos](#149-eliminar-archivos)
+    - [1.4.10. Ignorar archivos](#1410-ignorar-archivos)
+    - [1.4.11. Etiquetado (tags)](#1411-etiquetado-tags)
+  - [1.5. Guardar cambios temporales](#15-guardar-cambios-temporales)
 
 
 
-# 1. Git Inicial
+# 1. Git inicial
 
 > 💡 **Punto de partida:** ¿Alguna vez has borrado un archivo por accidente y has deseado poder volver atrás en el tiempo? Git es exactamente eso: una máquina del tiempo para tu código.
 
@@ -64,7 +64,7 @@ El **control de versiones** es un sistema que registra los cambios realizados en
 
 > **💡 Dato histórico:** Linus Torvalds desarrolló Git porque el sistema anterior (BitKeeper) dejó de ser gratuito para el proyecto Linux. Necesitaba algo rápido, eficiente y distribuido.
 
-### 1.1.1. Git vs Sistemas Centralizados
+### 1.1.1. Git vs sistemas centralizados
 
 Git es **distribuido**: cada desarrollador tiene una copia completa del historial. Los sistemas anteriores (como SVN) eran centralizados y más limitados. Por eso la industria usa Git.
 
@@ -76,7 +76,7 @@ Git es **distribuido**: cada desarrollador tiene una copia completa del historia
 
 > ⚠️ **Error común:** Pensar que "distribuido" significa que cada uno tiene una versión diferente. No: todos tienen la **misma información completa**, pero de forma independiente.
 
-### 1.1.2. ¿Qué es un Hash?
+### 1.1.2. ¿Qué es un hash?
 
 Un **hash** es como una contraseña única que Git genera automáticamente para cada commit. Si cambias UNA letra del código, el hash cambia completamente. Git usa el algoritmo SHA-1 para generar hashes de 40 caracteres (ej: `a1b2c3d4e5f6...`). Esto garantiza la integridad: nadie puede manipular un commit sin que se detecte.
 | **Riesgo de pérdida** | Mínimo — cada copia es un backup completo | Alto — si el servidor cae sin backup, pierdes todo |
@@ -85,7 +85,7 @@ Un **hash** es como una contraseña única que Git genera automáticamente para 
 
 > 📝 **Conclusión del profesor:** Git es más complejo al principio, pero una vez que lo dominas, te da una libertad total. SVN es más fácil de empezar, pero te limita mucho a largo plazo. Por eso la industria entera usa Git.
 
-## 1.2. Conceptos Clave en Git
+## 1.2. Conceptos clave en Git
 
 ```mermaid
 graph TD
@@ -117,7 +117,7 @@ gitGraph
     commit id: "Fix: error de login"
 ```
 
-### 1.2.1. Repositorio (Repository)
+### 1.2.1. Repositorio (repository)
 
 Es el corazón del proyecto. Donde se almacenan todos los datos actualizados y el historial completo.
 
@@ -127,7 +127,7 @@ Es el corazón del proyecto. Donde se almacenan todos los datos actualizados y e
 
 > 💡 **Metáfora del repositorio:** Un repositorio es como una **biblioteca infinita**. Cada commit es un libro que guarda la historia completa del proyecto hasta ese momento. El directorio `.git` es el catálogo de la biblioteca: contiene todos los índices, los resúmenes y las conexiones entre libros. Si pierdes el catálogo (`.git`), la biblioteca sigue ahí pero ya no sabes dónde está nada.
 
-### 1.2.2. Commit (Confirmación)
+### 1.2.2. Commit (confirmación)
 
 Un `commit` es un punto de control. Es una "instantánea" del proyecto en un momento específico.
 
@@ -143,7 +143,7 @@ Un `commit` es un punto de control. Es una "instantánea" del proyecto en un mom
 
 > 💡 **Metáfora del commit:** Un commit es como una **fotografía con timbre y fecha**. Capturas exactamente cómo está el proyecto en ese momento: qué archivos, qué cambios, quién lo hizo y cuándo. La huella SHA-1 es como el número de serie de la foto: si alguien intenta manipularla, el número deja de coincidir y se detecta el fraude.
 
-### 1.2.3. Área de Preparación (Staging Area)
+### 1.2.3. Área de preparación (staging area)
 
 Zona intermedia donde se seleccionan los cambios que se incluirán en el próximo `commit`.
 
@@ -153,7 +153,7 @@ Zona intermedia donde se seleccionan los cambios que se incluirán en el próxim
 
 > 💡 **Metáfora del staging area:** El área de staging es como un **escaparate de una tienda**. Tienes muchos productos (archivos modificados) en el almacén (working directory), pero solo pones algunos en el escaparate (staging) para la próxima apertura (commit). Puedes añadir, quitar y reorganizar lo que quieres mostrar antes de que se haga la foto del escaparate.
 
-### 1.2.4. Directorio de Trabajo (Working Directory)
+### 1.2.4. Directorio de trabajo (working directory)
 
 Es la copia de los archivos del proyecto en tu máquina local. Aquí realizas las modificaciones directamente.
 
@@ -178,7 +178,7 @@ Es un puntero a la referencia de rama actual, que a su vez es un puntero al últ
 
 > 💡 **Metáfora de HEAD:** HEAD es como un **marcador de página** en un libro enorme. El libro es tu historial de commits. HEAD señala en qué página estás ahora. Si creas una nueva rama, es como si sacaras una copia de la página actual y empezaras a escribir una historia alternativa. HEAD se mueve con tu marcador a la nueva historia.
 
-## 1.3. Ciclo de Vida de los Archivos en Git
+## 1.3. Ciclo de vida de los archivos en Git
 
 ```mermaid
 graph LR
@@ -217,7 +217,7 @@ gitGraph
     commit id: "Estado: committed"
 ```
 
-## 1.4. Comandos Git Esenciales
+## 1.4. Comandos Git esenciales
 
 ### 1.4.1. Instalación de Git
 
@@ -289,7 +289,7 @@ git --version
 
 > 💡 **Consejo:** Tras la instalación en cualquier SO, verifica con `git --version`. Si el comando no se reconoce, reinicia la terminal.
 
-### 1.4.2. Configuración Inicial y `.gitconfig`
+### 1.4.2. Configuración inicial y `.gitconfig`
 
 Una vez instalado Git, lo primero es configurar tu identidad. Esta información aparecerá en cada commit que hagas.
 
@@ -405,7 +405,7 @@ flowchart TD
 
 > 💡 **Regla:** La configuración más específica gana. Si configuras `user.email` a nivel local, se usa esa en ese proyecto, aunque tengas otra global.
 
-### 1.4.3. Creación y Clonación de Repositorios
+### 1.4.3. Creación y clonación de repositorios
 
 ```bash
 # Inicializar un nuevo repositorio
@@ -469,7 +469,7 @@ git clone --depth 1 repositorio
 > 💡 **Metáfora de `git clone`:** `git clone` es como **fotocopiar toda la biblioteca** y llevártela a casa. No solo copias los libros actuales (archivos), sino también todo el catálogo de cuándo se añadió cada libro (historial). Tienes una copia idéntica y completa.
 
 **Pros de `git clone`:**
-### 1.4.4. Gestión de Cambios
+### 1.4.4. Gestión de cambios
 
 ```bash
 # Ver estado del repositorio
@@ -628,7 +628,7 @@ gitGraph
 > - No saber que puedes filtrar con `--oneline`, `-5`, o por archivo
 
 **Pros de `git log`:**
-### 1.4.8. Deshacer Cambios
+### 1.4.8. Deshacer cambios
 
 Deshacer cambios en Git puede hacerse de varias formas, dependiendo de lo que quieras lograr.
 
@@ -687,7 +687,7 @@ graph TD
 
 > 💡 **Analogía:** Piensa en tres cajones. `git restore` vacía el cajón de arriba (Working Tree). `git restore --staged` vacía el cajón del medio (Staging). `git reset` vacía el cajón de abajo (Historial). `git reset --hard` vacía LOS TRES.
 
-#### Escenario real: "Commiteé y subí algo mal"
+#### Escenario real: "commiteé y subí algo mal"
 
 Este es el escenario que más miedo da a los desarrolladores:
 
@@ -758,7 +758,7 @@ flowchart TD
 
 > 💡 **Consejo:** Si descubres el error en el **nivel 1-3** (trabajo local), la solución es fácil y segura. Si llegas al **nivel 4-7** (compartido), necesitas `git revert` y paciencia.
 
-#### 1.4.8.1. git restore: Deshacer cambios en Working Tree
+#### 1.4.8.1. git restore: deshacer cambios en working tree
 
 ```bash
 # Deshacer cambios en un archivo (volver al último commit)
@@ -805,7 +805,7 @@ graph LR
 
 > ⚠️ **Error común:** Usar `git restore .` sin querer → pierdes todos tus cambios locales. Siempre revisa qué hay sin commit antes de ejecutarlo.
 
-#### 1.4.8.2. git revert: Crear commit que deshace
+#### 1.4.8.2. git revert: crear commit que deshace
 
 ```bash
 # Revertir el último commit (crea nuevo commit)
@@ -843,7 +843,7 @@ gitGraph
 
 > 📌 **Ejemplo real:** Cuando un deploy a producción falla, el equipo usa `git revert` para deshacer el último commit sin perder nada del historial. Así puede haber un "papel" de qué pasó y por qué se revirtió.
 
-#### 1.4.8.3. git reset: Mover el puntero HEAD
+#### 1.4.8.3. git reset: mover el puntero HEAD
 
 Git reset tiene tres modos que afectan diferentes áreas:
 
@@ -917,7 +917,7 @@ git reset --hard HEAD~1
 > - `--mixed` (por defecto): Mueves el marcador Y borras el cuaderno. Tienes que volver a copiar lo que quieras.
 > - `--hard`: Mueves el marcador, borras el cuaderno Y tiras el original al fuego. No hay vuelta atrás.
 
-#### 1.4.8.4. Trucos: Eliminar el Último Commit
+#### 1.4.8.4. Trucos: eliminar el último commit
 
 ```bash
 # OPCIÓN 1: Conservar los cambios en staging (recomendado)
@@ -939,7 +939,7 @@ git revert HEAD
 
 > 📝 **Nota sobre `git reset --hard`:** Si ejecutas `git reset --hard HEAD~1` por error, **no todo está perdido**. Usa `git reflog` para encontrar el commit eliminado y `git reset --hard [hash]` para recuperarlo. `git reflog` guarda todos los movimientos de HEAD durante 90 días.
 
-#### 1.4.8.5. git reflog: Tu salvavidas
+#### 1.4.8.5. git reflog: tu salvavidas
 
 ```bash
 # Ver todo el historial de HEAD (incluye resets)
@@ -957,7 +957,7 @@ git reset --hard [commit-hash]
 
 > 💡 **Truco profesional:** `git reflog` guarda todos los movimientos de HEAD, incluso después de un `reset --hard`. Úsalo para recuperar commits "perdidos".
 
-#### 1.4.8.6. git commit --amend: Modificar el último commit
+#### 1.4.8.6. git commit --amend: modificar el último commit
 
 ```bash
 # Cambiar el mensaje del último commit
@@ -973,7 +973,7 @@ git commit --amend --author="Nuevo Autor <email@ej.com>"
 
 > 📝 **Nota:** --amend cambia el historial. No usar en commits ya subidos a un remoto compartido.
 
-#### 1.4.8.7. Tabla Comparativa: ¿Cuándo usar cada comando?
+#### 1.4.8.7. Tabla comparativa: ¿cuándo usar cada comando?
 
 | Comando | ¿Qué hace? | ¿Zona afectada? | ¿Seguro en equipo? | Ejemplo de uso |
 |---------|-------------|------------------|---------------------|----------------|
@@ -989,7 +989,7 @@ git commit --amend --author="Nuevo Autor <email@ej.com>"
 
 > 📌 **Ejemplo real:** Netflix usa `git revert` cuando un feature afecta a producción. En lugar de borrar el historial (que perdería trazabilidad), crean commits inversos que documentan qué se hizo y por qué se deshizo.
 
-#### 1.4.8.8. Casos Prácticos Detallados
+#### 1.4.8.8. Casos prácticos detallados
 
 **Caso 1: Commiteé un archivo que no debería**
 
@@ -1034,7 +1034,7 @@ git rebase -i HEAD~3
 # Resultado: un solo commit limpio
 ```
 
-### 1.4.9. Eliminar Archivos
+### 1.4.9. Eliminar archivos
 
 ```bash
 # Eliminar archivo del repositorio Y del disco
@@ -1076,7 +1076,7 @@ flowchart TD
     style E fill:#FF9800,color:#fff
 ```
 
-### 1.4.10. Ignorar Archivos
+### 1.4.10. Ignorar archivos
 
 El archivo `.gitignore` lista patrones a ignorar:
 
@@ -1136,7 +1136,7 @@ flowchart TD
 
 > ⚠️ **Error común:** Crear `.gitignore` después de haber commiteado archivos sensibles. Si un archivo ya está en el historial, `.gitignore` no lo borra. Tienes que eliminarlo del historial con `git filter-repo` o BFG Repo Cleaner. `git filter-branch` está deprecated desde Git 2.24.
 
-### 1.4.11. Etiquetado (Tags)
+### 1.4.11. Etiquetado (tags)
 
 ```bash
 # Ver etiquetas existentes
@@ -1193,7 +1193,7 @@ gitGraph
 >
 > Es como escribir un libro: escribes capítulos (commits), y cuando terminas una parte importante, pones un marcador (tag).
 
-## 1.5. Guardar Cambios Temporales
+## 1.5. Guardar cambios temporales
 
 ```bash
 # Guardar cambios actuales (sin hacer commit)
@@ -1249,7 +1249,7 @@ sequenceDiagram
 
 > 💡 **`git stash pop`** aplica y elimina. **`git stash apply`** aplica pero conserva. Usa `pop` en el día a día, `apply` si necesitas el stash en varias ramas.
 
-## 1.6. Resumen de Comandos Básicos
+## 1.6. Resumen de comandos básicos
 
 ```bash
 # Flujo básico
@@ -1313,7 +1313,7 @@ En la **UD03 - Punto 02: Git Avanzado** aprenderás a crear ramas, fusionarlas, 
 | Stash | Guardar cambios al cambiar de rama |
 | Tags | Marcar versiones en ramas de release |
 
-### Ejercicio Rápido: Tu Primer Repositorio
+### Ejercicio rápido: tu primer repositorio
 
 > 🎯 **Escenario:** Vamos a crear una web de cafetería. Primero el papel, luego el código.
 

@@ -1,33 +1,33 @@
-- [3. Git Remoto](#3-git-remoto)
+- [3. Git remoto](#3-git-remoto)
   - [3.1. Git vs GitHub](#31-git-vs-github)
     - [3.1.1. Alternativas a GitHub](#311-alternativas-a-github)
-    - [3.1.2. Comparativa de Plataformas](#312-comparativa-de-plataformas)
-  - [3.2. Arquitectura Remota](#32-arquitectura-remota)
-  - [3.3. Trabajar con Remotos](#33-trabajar-con-remotos)
+    - [3.1.2. Comparativa de plataformas](#312-comparativa-de-plataformas)
+  - [3.2. Arquitectura remota](#32-arquitectura-remota)
+  - [3.3. Trabajar con remotos](#33-trabajar-con-remotos)
     - [3.3.1. git remote](#331-git-remote)
     - [3.3.2. git push](#332-git-push)
     - [3.3.3. git fetch](#333-git-fetch)
     - [3.3.4. git pull](#334-git-pull)
     - [3.3.5. Diferencia entre fetch y pull](#335-diferencia-entre-fetch-y-pull)
   - [3.4. Trabajar con GitHub](#34-trabajar-con-github)
-    - [3.4.1. Crear Repositorio en GitHub](#341-crear-repositorio-en-github)
-    - [3.4.2. Conectar Repositorio Local](#342-conectar-repositorio-local)
-    - [3.4.3. Clonar Repositorio Existente](#343-clonar-repositorio-existente)
-    - [3.4.4. Sincronizar Cambios](#344-sincronizar-cambios)
-  - [3.5. Tags y Versiones](#35-tags-y-versiones)
-    - [3.5.1. Crear y Subir Tags](#351-crear-y-subir-tags)
+    - [3.4.1. Crear repositorio en GitHub](#341-crear-repositorio-en-github)
+    - [3.4.2. Conectar repositorio local](#342-conectar-repositorio-local)
+    - [3.4.3. Clonar repositorio existente](#343-clonar-repositorio-existente)
+    - [3.4.4. Sincronizar cambios](#344-sincronizar-cambios)
+  - [3.5. Tags y versiones](#35-tags-y-versiones)
+    - [3.5.1. Crear y subir tags](#351-crear-y-subir-tags)
     - [3.5.2. Semantic Versioning](#352-semantic-versioning)
-  - [3.6. SSH Keys](#36-ssh-keys)
-    - [3.6.1. Generar Clave SSH](#361-generar-clave-ssh)
-    - [3.6.2. Añadir Clave a GitHub](#362-añadir-clave-a-github)
+  - [3.6. SSH keys](#36-ssh-keys)
+    - [3.6.1. Generar clave SSH](#361-generar-clave-ssh)
+    - [3.6.2. Añadir clave a GitHub](#362-añadir-clave-a-github)
     - [3.6.3. Usar SSH en lugar de HTTPS](#363-usar-ssh-en-lugar-de-https)
-    - [3.6.4. Ventajas y Desventajas: SSH vs HTTPS](#364-ventajas-y-desventajas-ssh-vs-https)
-    - [3.6.5. Errores Comunes con SSH](#365-errores-comunes-con-ssh)
-  - [3.7. Workflow Remoto Completo](#37-workflow-remoto-completo)
+    - [3.6.4. Ventajas y desventajas: SSH vs HTTPS](#364-ventajas-y-desventajas-ssh-vs-https)
+    - [3.6.5. Errores comunes con SSH](#365-errores-comunes-con-ssh)
+  - [3.7. Workflow remoto completo](#37-workflow-remoto-completo)
   - [3.8. GitHub Pages](#38-github-pages)
 
 
-# 3. Git Remoto
+# 3. Git remoto
 
 > 💡 **Punto de partida:** ¿De qué sirve tener el mejor código del mundo si solo vive en tu ordenador? Un disco duro puede fallar, un portátil puede perderse. Los repositorios remotos son tu copia de seguridad en la nube y tu puerta al trabajo en equipo.
 
@@ -75,7 +75,7 @@ En el Punto 02 vimos ramas, fusiones, rebase y resolución de conflictos. Ahora 
 | **Gitea** | Auto-hosting ligero |
 | **Azure DevOps** | Enterprise Microsoft |
 
-### 3.1.2. Comparativa de Plataformas
+### 3.1.2. Comparativa de plataformas
 
 | Plataforma | Ventajas | Desventajas | Ideal para |
 |------------|----------|-------------|------------|
@@ -86,11 +86,11 @@ En el Punto 02 vimos ramas, fusiones, rebase y resolución de conflictos. Ahora 
 
 > 💡 **Consejo:** Para empezar, usa **GitHub**. Es donde está la mayor comunidad y donde los empleadores buscan desarrolladores. Cuando tengas experiencia, evalúa otras opciones según tus necesidades.
 
-## 3.2. Arquitectura Remota
+## 3.2. Arquitectura remota
 
 > 💡 **Metáfora:** Imagina que tu repositorio local es tu casa. El repositorio remoto (GitHub) es como una bodega en la nube donde guardas copias de seguridad de tus pertenencias. `origin` es simplemente la dirección de esa bodega. Cuando haces `push`, estás enviando cajas a la bodega. Cuando haces `pull`, estás trayendo cajas de vuelta a casa.
 
-### 3.2.1. Diagrama de Arquitectura
+### 3.2.1. Diagrama de arquitectura
 
 ```mermaid
 graph TD
@@ -122,7 +122,7 @@ graph TD
 
 > 📝 **Nota del Profesor:** `origin` es solo un nombre por defecto. Podrías tener varios remotos: `origin` (tu repo principal), `upstream` (repo original del que hiciste fork), `backup` (copia de seguridad). Es como tener varias bóvedas con diferentes direcciones.
 
-## 3.3. Trabajar con Remotos
+## 3.3. Trabajar con remotos
 
 ### 3.3.1. git remote
 
@@ -411,7 +411,7 @@ graph TD
 
 > 💡 **Metáfora:** Trabajar con GitHub es como abrir una cuenta en una plataforma de almacenamiento en la nube. Primero creas tu espacio (repo), luego conectas tu casa (repo local) con ese espacio, y por fin puedes enviar y recibir cajas (commits) de forma fluida.
 
-### 3.4.1. Crear Repositorio en GitHub
+### 3.4.1. Crear repositorio en GitHub
 
 > 💡 **Metáfora:** Es como reservar un terreno en la nube. Le pones un nombre, decides si es público o privado (como si tu casa tiene vistas al mar o está en un barrio cerrado), y lo preparas para que otros puedan venir a construir contigo.
 
@@ -461,7 +461,7 @@ TestResults/
 
 📌 **Ejemplo real:** Cuando Netflix creó su primer repositorio en GitHub para Herramientas Open Source, empezaron exactamente así: un repo público con README y .gitignore listos para que la comunidad pudiera contribuir desde el primer día.
 
-### 3.4.2. Conectar Repositorio Local
+### 3.4.2. Conectar repositorio local
 
 > 💡 **Metáfora:** Es como conectar tu casa con la bodega de la nube. Le das la dirección exacta (`git remote add origin URL`) y luego empiezas a enviar cajas (`git push`). El primer envío necesita un sello especial (`-u`) para que la empresa de mensajería aprenda la ruta.
 
@@ -489,7 +489,7 @@ gitGraph
     commit id: "Tracking configurado"
 ```
 
-### 3.4.3. Clonar Repositorio Existente
+### 3.4.3. Clonar repositorio existente
 
 > 💡 **Metáfora:** Clonar es como mudarte a una casa que ya está amueblada. Alguien ya construyó todo (el código, la estructura, los archivos) y tú solo traes una copia exacta a tu ordenador. Es la forma más rápida de empezar a trabajar en un proyecto existente.
 
@@ -525,7 +525,7 @@ Resolving deltas: 100% (12/12), done.
 
 📌 **Ejemplo real:** Cuando un nuevo desarrollador se une al proyecto de Glovo, lo primero que hace es `git clone` del repositorio principal. En segundos tiene todo el código en su PC y puede empezar a desarrollar.
 
-### 3.4.4. Sincronizar Cambios
+### 3.4.4. Sincronizar cambios
 
 > 💡 **Metáfora:** Sincronizar es como revisar el buzón de tu bodega para ver si ha llegado algo nuevo, y si es así, traerlo a casa y ordenarlo donde debe estar. `fetch` es mirar el buzón, `pull` es traer todo de golpe.
 
@@ -557,9 +557,9 @@ gitGraph
     commit id: "push a mi fork"
 ```
 
-## 3.5. Tags y Versiones
+## 3.5. Tags y versiones
 
-### 3.5.1. Crear y Subir Tags
+### 3.5.1. Crear y subir tags
 
 ```bash
 # Ver tags existentes
@@ -650,11 +650,11 @@ flowchart TD
     style G fill:#4CAF50,color:#fff
 ```
 
-## 3.6. SSH Keys
+## 3.6. SSH keys
 
 > 💡 **Metáfora:** SSH Keys son como una llave maestra que abre la puerta de tu casa sin necesitar contraseña cada vez. Generas un par de llaves: una pública (que dejas en la recepción de GitHub) y una privada (que guardas en tu casa, tu PC). Cuando llegas a la puerta de GitHub, ellos reconocen tu llave privada y te dejan pasar sin pedirte usuario ni contraseña.
 
-### 3.6.1. Generar Clave SSH
+### 3.6.1. Generar clave SSH
 
 ```bash
 # Generar nueva clave SSH
@@ -710,7 +710,7 @@ sequenceDiagram
     G-->>D: Hi usuario! Has successfully authenticated
 ```
 
-### 3.6.2. Añadir Clave a GitHub
+### 3.6.2. Añadir clave a GitHub
 
 1. Copiar clave pública:
    ```bash
@@ -738,7 +738,7 @@ git remote -v
 git remote set-url origin git@github.com:usuario/repo.git
 ```
 
-### 3.6.4. Ventajas y Desventajas: SSH vs HTTPS
+### 3.6.4. Ventajas y desventajas: SSH vs HTTPS
 
 | Aspecto | SSH | HTTPS |
 |---------|-----|-------|
@@ -751,7 +751,7 @@ git remote set-url origin git@github.com:usuario/repo.git
 
 📌 **Ejemplo real:** Los desarrolladores de Microsoft usan SSH para trabajar en el código de VS Code. Es la forma estándar en entornos profesionales porque evita tener que introducir contraseñas constantemente.
 
-### 3.6.5. Errores Comunes con SSH
+### 3.6.5. Errores comunes con SSH
 
 | Error | Solución |
 |-------|----------|
@@ -761,7 +761,7 @@ git remote set-url origin git@github.com:usuario/repo.git
 
 > 🔧 **Truco:** Para verificar que todo funciona, ejecuta `ssh -T git@github.com`. Si ves "Hi usuario! You've successfully authenticated", todo está correcto.
 
-### 3.6.6. .editorconfig: Consistencia en Equipo
+### 3.6.6. .editorconfig: consistencia en equipo
 
 > 💡 **Metáfora:** `.editorconfig` es como un **reglamento de estilo** que todos los miembros del equipo firman. Dice: "usamos 4 espacios, UTF-8, y sin espacios al final". Así no importa qué editor uses — el código queda igual.
 
@@ -802,7 +802,7 @@ indent_size = 2
 
 > 🔗 **Conexión:** `.editorconfig` complementa `.gitignore`. Mientras `.gitignore` dice qué archivos NO subir, `.editorconfig` dice CÓMO formatear los archivos que SÍ subes.
 
-## 3.7. Resumen de Comandos Remotos
+## 3.7. Resumen de comandos remotos
 
 ```bash
 # Ver remotos
@@ -842,7 +842,7 @@ git branch -a
 git remote prune origin
 ```
 
-## 3.8. Workflow Remoto Completo
+## 3.8. Workflow remoto completo
 
 ```bash
 # 1. Clonar repositorio
@@ -939,7 +939,7 @@ graph LR
     style D fill:#9C27B0,color:#fff
 ```
 
-### 3.9.2. Estructura de un Proyecto para GitHub Pages
+### 3.9.2. Estructura de un proyecto para GitHub Pages
 
 ```
 mi-proyecto/
@@ -952,7 +952,7 @@ mi-proyecto/
 
 > ⚠️ **Importante:** GitHub Pages solo sirve archivos **estáticos** (HTML, CSS, JS). No ejecuta C#, Python ni bases de datos. Para proyectos .NET, usa Azure o Docker.
 
-### 3.9.3. Desplegar desde una Rama
+### 3.9.3. Desplegar desde una rama
 
 ```bash
 # Crear rama gh-pages
@@ -981,7 +981,7 @@ gitGraph
     commit id: "gh-pages: actualizado"
 ```
 
-### 3.9.4. Desplegar con GitHub Actions (Automático)
+### 3.9.4. Desplegar con GitHub Actions (automático)
 
 Crea el archivo `.github/workflows/deploy.yml`:
 
@@ -1010,7 +1010,7 @@ jobs:
 
 En el siguiente punto veremos Pull Requests, Forks y colaboración: cómo proponer cambios en proyectos de otros, revisar código y trabajar en equipo de forma profesional.
 
-## Ejercicio Rápido: La Cafetería en la Nube
+## Ejercicio rápido: la cafetería en la nube
 
 > 📝 **Escenario:** Tienes un proyecto local para gestionar una cafetería (`cafeteria-web`). Quieres subirlo a GitHub y configurar SSH para no escribir la contraseña cada vez.
 

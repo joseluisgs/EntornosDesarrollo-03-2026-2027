@@ -1,17 +1,17 @@
 
-## Práctica 3: Sincronización, Ramificación y Control de Errores con Repositorios Remotos
+## Práctica 3: sincronización, ramificación y control de errores con repositorios remotos
 
-- [Práctica 3: Sincronización, Ramificación y Control de Errores con Repositorios Remotos](#práctica-3-sincronización-ramificación-y-control-de-errores-con-repositorios-remotos)
-  - [Conceptos Clave a Introducir y Reforzar:](#conceptos-clave-a-introducir-y-reforzar)
-  - [Fase 1: Creación del Repositorio Remoto y Primera Conexión](#fase-1-creación-del-repositorio-remoto-y-primera-conexión)
-  - [Fase 2: Sincronización y Descarga de Cambios (Pull vs. Fetch)](#fase-2-sincronización-y-descarga-de-cambios-pull-vs-fetch)
-  - [Fase 3: Trabajo con Ramas Remotas](#fase-3-trabajo-con-ramas-remotas)
-  - [Fase 4: Deshacer Cambios Publicados y Control de Errores Remotos](#fase-4-deshacer-cambios-publicados-y-control-de-errores-remotos)
-  - [Fase 5: Limpieza de Ramas Remotas](#fase-5-limpieza-de-ramas-remotas)
-  - [Importancia de Añadir el Repositorio Remoto](#importancia-de-añadir-el-repositorio-remoto)
+- [Práctica 3: sincronización, ramificación y control de errores con repositorios remotos](#práctica-3-sincronización-ramificación-y-control-de-errores-con-repositorios-remotos)
+  - [Conceptos clave a introducir y reforzar:](#conceptos-clave-a-introducir-y-reforzar)
+  - [Fase 1: creación del repositorio remoto y primera conexión](#fase-1-creación-del-repositorio-remoto-y-primera-conexión)
+  - [Fase 2: sincronización y descarga de cambios (pull vs. fetch)](#fase-2-sincronización-y-descarga-de-cambios-pull-vs-fetch)
+  - [Fase 3: trabajo con ramas remotas](#fase-3-trabajo-con-ramas-remotas)
+  - [Fase 4: deshacer cambios publicados y control de errores remotos](#fase-4-deshacer-cambios-publicados-y-control-de-errores-remotos)
+  - [Fase 5: limpieza de ramas remotas](#fase-5-limpieza-de-ramas-remotas)
+  - [Importancia de añadir el repositorio remoto](#importancia-de-añadir-el-repositorio-remoto)
 
 
-### Conceptos Clave a Introducir y Reforzar:
+### Conceptos clave a introducir y reforzar:
 
 1.  **Repositorio Remoto:** Lugar donde se almacenan los datos actualizados e históricos de cambios, a menudo en un servidor externo (como GitHub, GitLab o Bitbucket).
 2.  **Sincronización:** El proceso de intercambiar historial de versión entre el repositorio local y el remoto.
@@ -20,7 +20,7 @@
 5.  **`git fetch` vs. `git pull`:** `fetch` descarga los cambios remotos sin integrarlos, mientras que `pull` descarga e integra automáticamente (fetch + merge/rebase).
 6.  **`git revert`:** La manera segura de deshacer cambios que ya han sido **publicados** o compartidos en el repositorio remoto.
 
-### Fase 1: Creación del Repositorio Remoto y Primera Conexión
+### Fase 1: creación del repositorio remoto y primera conexión
 
 | **Paso** | **Descripción y Comandos**                                                                                                                                                            | **Concepto de Git**                                                           |
 | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------- |
@@ -31,7 +31,7 @@
 | **1.5**  | **Sube la rama principal (`master`/`main`) al remoto:** `git push -u origin master` (o `main`)                                                                                           | **`git push`** envía los *commits* locales al servidor. El flag `-u` establece tracking para futuros `push` sin argumentos.                       |
 | **1.6**  | **Verifica en la web** que tus archivos y el historial han sido subidos correctamente.                                                                                                |                                                                               |
 
-### Fase 2: Sincronización y Descarga de Cambios (Pull vs. Fetch)
+### Fase 2: sincronización y descarga de cambios (pull vs. fetch)
 
 **Potencia del Remoto:** La capacidad de sincronizar (Actualización o *sync*) permite integrar los cambios hechos en el remoto (por otros usuarios o desde otra máquina) en la copia de trabajo local.
 
@@ -43,7 +43,7 @@
 | **2.4**  | **Integra los cambios descargados (Merge):** `git merge origin/master`                                                                                                                           | Fusiona los cambios que `fetch` trajo, actualizando tu directorio de trabajo.                                                                        |
 | **2.5**  | **Alternativa de un solo paso:** (Si hubieras usado `git pull origin master`)                                                                                                                    | **`git pull`** es una combinación de `git fetch` y `git merge`.                                                                                      |
 
-### Fase 3: Trabajo con Ramas Remotas
+### Fase 3: trabajo con ramas remotas
 
 | **Paso** | **Descripción y Comandos**                                                                                                                                            | **Concepto de Git**                                                                                    |
 | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
@@ -55,7 +55,7 @@
 | **3.6**  | **Sube la rama `master` actualizada al remoto:** `git push origin master`                                                                                             | Sincroniza el resultado de la fusión con el servidor.                                                  |
 | **3.7**  | **Elimina la rama local:** `git branch -d feature/metadata`                                                                                                           | Se recomienda eliminar las ramas ya fusionadas.                                                        |
 
-### Fase 4: Deshacer Cambios Publicados y Control de Errores Remotos
+### Fase 4: deshacer cambios publicados y control de errores remotos
 
 **Control de Errores Remotos:** Si ya has subido un *commit* (`push`), **no debes** usar `git reset --hard` seguido de un `push --force` en la mayoría de los casos de trabajo colaborativo, ya que reescribe la historia. La herramienta recomendada para deshacer cambios **ya publicados** es `git revert`.
 
@@ -68,7 +68,7 @@
 | **4.5**  | **Sube el commit de reversión al remoto:** `git push origin master`                                                                                                                                     | Esto publica la corrección sin reescribir la historia, lo cual es vital para el trabajo compartido.                                                                                          |
 | **4.6**  | **Verifica:** `git log --oneline`. Deberías ver tanto el commit original con el error (ej: "Commit con datos sensibles") como el nuevo commit de anulación (ej: "Revert "Commit con datos sensibles""). | Esto muestra que Git añade historial (el *revert*) en lugar de modificarlo.                                                                                                                  |
 
-### Fase 5: Limpieza de Ramas Remotas
+### Fase 5: limpieza de ramas remotas
 
 | **Paso** | **Descripción y Comandos**                                                                                                                                        | **Concepto de Git**                                           |
 | :------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------ |
@@ -76,7 +76,7 @@
 | **5.2**  | **Elimina la rama del repositorio remoto:** `git push origin --delete test-branch`                                                                                | Este comando elimina la referencia de la rama en el servidor. |
 | **5.3**  | **Elimina la rama local:** `git branch -d test-branch`                                                                                                            | Eliminación de la referencia local, completando la limpieza.  |
 
-### Importancia de Añadir el Repositorio Remoto
+### Importancia de añadir el repositorio remoto
 
 Añadir un repositorio remoto (como GitHub o GitLab) añade un nivel de potencia crucial:
 

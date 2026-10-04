@@ -1,25 +1,25 @@
-- [7. Resumen y Conclusiones](#7-resumen-y-conclusiones)
-  - [7.1. Mapa Conceptual de la Unidad](#71-mapa-conceptual-de-la-unidad)
-  - [7.2. Conceptos Clave](#72-conceptos-clave)
-    - [Git Inicial](#git-inicial)
-    - [Git Avanzado](#git-avanzado)
-    - [Git Remoto](#git-remoto)
+- [7. Resumen y conclusiones](#7-resumen-y-conclusiones)
+  - [7.1. Mapa conceptual de la unidad](#71-mapa-conceptual-de-la-unidad)
+  - [7.2. Conceptos clave](#72-conceptos-clave)
+    - [Git inicial](#git-inicial)
+    - [Git avanzado](#git-avanzado)
+    - [Git remoto](#git-remoto)
     - [Colaboración](#colaboración)
-  - [7.3. Herramientas y Perfiles](#73-herramientas-y-perfiles)
-    - [Clientes Gráficos (GUI)](#clientes-gráficos-gui)
+  - [7.3. Herramientas y perfiles](#73-herramientas-y-perfiles)
+    - [Clientes gráficos (GUI)](#clientes-gráficos-gui)
     - [Extensiones VS Code](#extensiones-vs-code)
-    - [GitHub CLI y Terminal](#github-cli-y-terminal)
-    - [Recursos de Aprendizaje](#recursos-de-aprendizaje)
-  - [7.4. Errores Comunes a Evitar](#74-errores-comunes-a-evitar)
-  - [7.5. Checklist de Supervivencia](#75-checklist-de-supervivencia)
-  - [7.6. Glosario de Términos](#76-glosario-de-términos)
-  - [7.7. Ejercicios de Repaso](#77-ejercicios-de-repaso)
+    - [GitHub CLI y terminal](#github-cli-y-terminal)
+    - [Recursos de aprendizaje](#recursos-de-aprendizaje)
+  - [7.4. Errores comunes a evitar](#74-errores-comunes-a-evitar)
+  - [7.5. Checklist de supervivencia](#75-checklist-de-supervivencia)
+  - [7.6. Glosario de términos](#76-glosario-de-términos)
+  - [7.7. Ejercicios de repaso](#77-ejercicios-de-repaso)
   - [7.8. ¿Qué viene después?](#78-qué-viene-después)
-  - [7.9. Mapa de Conexiones entre Temas](#79-mapa-de-conexiones-entre-temas)
-  - [7.10. Buenas Prácticas](#710-buenas-prácticas)
+  - [7.9. Mapa de conexiones entre temas](#79-mapa-de-conexiones-entre-temas)
+  - [7.10. Buenas prácticas](#710-buenas-prácticas)
 
 
-# 7. Resumen y Conclusiones
+# 7. Resumen y conclusiones
 
 > 💡 **Punto de partida:** Has aprendido los comandos, las ramas, los remotos y la colaboración. Ahora es momento de consolidar todo: como un músico que repasa la partitura antes del concierto.
 
@@ -39,7 +39,7 @@ El control de versiones con Git es una habilidad fundamental para cualquier desa
 > 💡 **Consejo final:** La práctica es clave. Crea un repositorio personal y experimenta con todos los comandos. Los errores son la mejor forma de aprender.
 
 
-## 7.1. Mapa Conceptual de la Unidad
+## 7.1. Mapa conceptual de la unidad
 
 ```mermaid
 graph TD
@@ -91,9 +91,9 @@ graph TD
 ```
 
 
-## 7.2. Conceptos Clave
+## 7.2. Conceptos clave
 
-### Git Inicial
+### Git inicial
 
 | Concepto | Descripción |
 |----------|-------------|
@@ -106,7 +106,7 @@ graph TD
 
 📌 **Ejemplo real:** GitHub usa repositorios para almacenar millones de proyectos. Cada commit es una línea de tiempo que puedes navegar.
 
-### Git Avanzado
+### Git avanzado
 
 | Concepto | Descripción |
 |----------|-------------|
@@ -120,7 +120,7 @@ graph TD
 
 📌 **Ejemplo real:** Netflix usa ramas feature para desarrollar nuevas funcionalidades sin afectar la versión estable de su aplicación.
 
-### Git Remoto
+### Git remoto
 
 | Concepto | Descripción |
 |----------|-------------|
@@ -146,9 +146,9 @@ graph TD
 📌 **Ejemplo real:** Las empresas como Google o Microsoft usan Pull Requests y Code Review para garantizar la calidad de su código antes de producción.
 
 
-## 7.3. Herramientas y Perfiles
+## 7.3. Herramientas y perfiles
 
-### Clientes Gráficos (GUI)
+### Clientes gráficos (GUI)
 
 | Herramienta | Plataforma | Ideal para |
 |-------------|------------|------------|
@@ -166,7 +166,7 @@ graph TD
 | **Git History** | Ver historial de archivos |
 | **Git Indicators** | Indicadores de estado en el editor |
 
-### GitHub CLI y Terminal
+### GitHub CLI y terminal
 
 | Comando CLI | Descripción |
 |-------------|-------------|
@@ -175,7 +175,7 @@ graph TD
 | `gh issue create` | Crear Issue |
 | `gh run list` | Ver workflows de CI/CD |
 
-### Recursos de Aprendizaje
+### Recursos de aprendizaje
 
 | Recurso | URL | Tipo |
 |---------|-----|------|
@@ -186,7 +186,7 @@ graph TD
 | **Git Cheat Sheet** | education.github.com | Referencia rápida |
 
 
-## 7.4. Errores Comunes a Evitar
+## 7.4. Errores comunes a evitar
 
 | Error | Por qué está mal | Cómo evitarlo |
 |-------|------------------|---------------|
@@ -206,11 +206,11 @@ graph TD
 | No probar tras resolver conflictos | Puedes introducir bugs sin darte cuenta | Ejecuta el proyecto completo después de cada merge |
 
 
-## 7.5. Checklist de Supervivencia
+## 7.5. Checklist de supervivencia
 
 Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 
-### Git Inicial
+### Git inicial
 - [ ] ¿Entiendo la diferencia entre Git y GitHub?
 - [ ] ¿Puedo configurar Git con mi nombre y email?
 - [ ] ¿Sé usar `git add`, `git commit` y `git status`?
@@ -220,7 +220,7 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 - [ ] ¿Conozco `git reflog` para recuperar commits perdidos?
 - [ ] ¿Sé usar `git commit --amend` para corregir el último commit?
 
-### Git Avanzado
+### Git avanzado
 - [ ] ¿Puedo crear, cambiar y eliminar ramas?
 - [ ] ¿Sé resolver un merge básico?
 - [ ] ¿Conozco la diferencia entre `reset` y `revert`?
@@ -229,7 +229,7 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 - [ ] ¿Entiendo la diferencia entre `fast-forward` y `merge commit`?
 - [ ] ¿Sé usar `git rebase` de forma segura?
 
-### Git Remoto
+### Git remoto
 - [ ] ¿Puedo usar `git push` y `git pull`?
 - [ ] ¿Sé la diferencia entre `fetch` y `pull`?
 - [ ] ¿Puedo crear y subir tags?
@@ -250,7 +250,7 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 - [ ] ¿Puedo configurar alias y personalizar Git?
 
 
-## 7.6. Glosario de Términos
+## 7.6. Glosario de términos
 
 | Término | Definición |
 |---------|------------|
@@ -286,7 +286,7 @@ Antes de dar por cerrado el tema, asegúrate de poder responder **SÍ**:
 | **Detached HEAD** | Estado donde HEAD apunta a un commit, no a una rama |
 
 
-## 7.7. Ejercicios de Repaso
+## 7.7. Ejercicios de repaso
 
 > 📝 **Escenario:** Estás desarrollando la web de una cafetería (`cafeteria-web`). Usa el escenario de la cafetería para practicar cada ejercicio.
 
@@ -331,7 +331,7 @@ En la **UD04: Diseño Orientado a Objetos: Diagrama de Clases** aprenderás a mo
 | Colaboración | Trabajar en equipo en el modelado del sistema |
 
 
-## 7.9. Mapa de Conexiones entre Temas
+## 7.9. Mapa de conexiones entre temas
 
 ```mermaid
 graph LR
@@ -355,7 +355,7 @@ graph LR
     style UD07 fill:#4CAF50,color:#fff
 ```
 
-## 7.10. Buenas Prácticas
+## 7.10. Buenas prácticas
 
 > 💡 **Buenas Prácticas:**
 > - **Haz commits pequeños y frecuentes.** Un commit = un cambio lógico. Esto facilita hacer revert y entender el historial.

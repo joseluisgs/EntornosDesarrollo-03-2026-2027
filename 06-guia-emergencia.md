@@ -1,19 +1,19 @@
-- [6. Guía de Emergencia Git](#6-guía-de-emergencia-git)
-  - [6.1. La Regla de Oro](#61-la-regla-de-oro)
-  - [6.2. Diagrama de Decisión](#62-diagrama-de-decisión)
-  - [6.3. Niveles de Dificultad](#63-niveles-de-dificultad)
-  - [6.4. Escenario 1: Mensaje de commit mal](#64-escenario-1-mensaje-de-commit-mal)
-  - [6.5. Escenario 2: Commit con contenido mal](#65-escenario-2-commit-con-contenido-mal)
-  - [6.6. Escenario 3: Etiqueta mal creada (local)](#66-escenario-3-etiqueta-mal-creada-local)
-  - [6.7. Escenario 4: Trabajaste en rama equivocada](#67-escenario-4-trabajaste-en-rama-equivocada)
-  - [6.8. Escenario 5: Etiqueta mal creada (remota)](#68-escenario-5-etiqueta-mal-creada-remota)
-  - [6.9. Escenario 6: Fusión por error (local)](#69-escenario-6-fusión-por-error-local)
-  - [6.10. Escenario 7: Push con datos equivocados](#610-escenario-7-push-con-datos-equivocados)
-  - [6.11. Escenario 8: Fusión por error (remota)](#611-escenario-8-fusión-por-error-remota)
+- [6. Guía de emergencia Git](#6-guía-de-emergencia-git)
+  - [6.1. La regla de oro](#61-la-regla-de-oro)
+  - [6.2. Diagrama de decisión](#62-diagrama-de-decisión)
+  - [6.3. Niveles de dificultad](#63-niveles-de-dificultad)
+  - [6.4. Escenario 1: mensaje de commit mal](#64-escenario-1-mensaje-de-commit-mal)
+  - [6.5. Escenario 2: commit con contenido mal](#65-escenario-2-commit-con-contenido-mal)
+  - [6.6. Escenario 3: etiqueta mal creada (local)](#66-escenario-3-etiqueta-mal-creada-local)
+  - [6.7. Escenario 4: trabajaste en rama equivocada](#67-escenario-4-trabajaste-en-rama-equivocada)
+  - [6.8. Escenario 5: etiqueta mal creada (remota)](#68-escenario-5-etiqueta-mal-creada-remota)
+  - [6.9. Escenario 6: fusión por error (local)](#69-escenario-6-fusión-por-error-local)
+  - [6.10. Escenario 7: push con datos equivocados](#610-escenario-7-push-con-datos-equivocados)
+  - [6.11. Escenario 8: fusión por error (remota)](#611-escenario-8-fusión-por-error-remota)
   - [6.12. Escenario 9: PR aceptada por error](#612-escenario-9-pr-aceptada-por-error)
 
 
-# 6. Guía de Emergencia Git
+# 6. Guía de emergencia Git
 
 > 💡 **Punto de partida:** "¡He hecho algo mal en Git! ¿Qué hago?" Esta guía te dice exactamente qué comando ejecutar según QUÉ has hecho mal y DÓNDE está el error. Siempre de más fácil a más difícil.
 
@@ -25,7 +25,7 @@
 - Elegir el comando correcto para deshacer cada tipo de error
 - Entender por qué cuanto más se propaga, más difícil es solucionarlo
 
-## 6.1. La Regla de Oro
+## 6.1. La regla de oro
 
 > ⚠️ **Cuanto más tarde en darte cuenta del error y más se propague hacia arriba, más difícil es solucionarlo.**
 
@@ -49,7 +49,7 @@ flowchart TD
 
 > 💡 **¿Por qué?** Porque cada paso propaga el error a mas personas y sistemas. En el nivel 1, solo tu sabes que has hecho algo mal. En el nivel 6, todo el equipo y los clientes ven tu error.
 
-## 6.2. Diagrama de Decision
+## 6.2. Diagrama de decisión
 
 ¿Que hacer segun donde este el error?
 
@@ -77,7 +77,7 @@ flowchart TD
     style M fill:#4CAF50,color:#fff
 ```
 
-## 6.3. Niveles de Dificultad
+## 6.3. Niveles de dificultad
 
 | Nivel | Nivel de fallo | Donde esta el error | Herramienta | Dificultad |
 |-------|----------------|---------------------|-------------|------------|
@@ -91,7 +91,7 @@ flowchart TD
 
 > 💡 **Consejo:** Si descubres el error en el **nivel 1-3** (trabajo local), la solucion es facil y segura. Si llegas al **nivel 4-7** (compartido), necesitas `git revert` y paciencia.
 
-## 6.4. Escenario 1: Mensaje de commit mal
+## 6.4. Escenario 1: mensaje de commit mal
 
 **Nivel de fallo:** Minimo 💩
 
@@ -113,7 +113,7 @@ gitGraph
 
 > 💡 **Si ya lo subiste:** `git push --force-with-lease` (solo si no hay otros trabajando en esa rama).
 
-## 6.5. Escenario 2: Commit con contenido mal
+## 6.5. Escenario 2: commit con contenido mal
 
 **Nivel de fallo:** Bajo 💩💩
 
@@ -141,7 +141,7 @@ gitGraph
     commit id: "C: commit correcto"
 ```
 
-## 6.6. Escenario 3: Etiqueta mal creada (local)
+## 6.6. Escenario 3: etiqueta mal creada (local)
 
 **Nivel de fallo:** Minimo 💩
 
@@ -163,7 +163,7 @@ gitGraph
     commit tag: "v1.0.0"
 ```
 
-## 6.7. Escenario 4: Trabajaste en rama equivocada
+## 6.7. Escenario 4: trabajaste en rama equivocada
 
 **Nivel de fallo:** Bajo 💩💩
 
@@ -199,7 +199,7 @@ gitGraph
 
 > 💡 **Si los commits ya estan en `main`:** Usa `git cherry-pick <hash>` en la rama correcta, luego `git reset --hard HEAD~N` en `main` para quitarlos.
 
-## 6.8. Escenario 5: Etiqueta mal creada (remota)
+## 6.8. Escenario 5: etiqueta mal creada (remota)
 
 **Nivel de fallo:** Medio 💩💩💩
 
@@ -221,7 +221,7 @@ git tag -a v1.0.0 -m "Version 1.0.0"
 git push origin v1.0.0
 ```
 
-## 6.9. Escenario 6: Fusion por error (local)
+## 6.9. Escenario 6: fusión por error (local)
 
 **Nivel de fallo:** Medio 💩💩💩
 
@@ -238,7 +238,7 @@ git reset --hard HEAD~1
 
 > ⚠️ **Cuidado:** Si usaste `git merge --no-ff`, `HEAD~1` es el commit de merge. Si fue fast-forward, necesitas identificar el hash anterior con `git log --oneline`.
 
-## 6.10. Escenario 7: Push con datos equivocados
+## 6.10. Escenario 7: push con datos equivocados
 
 **Nivel de fallo:** Alto 💩💩💩💩
 
@@ -260,7 +260,7 @@ git revert <hash-del-commit>
 git push
 ```
 
-## 6.11. Escenario 8: Fusion por error (remota)
+## 6.11. Escenario 8: fusión por error (remota)
 
 **Nivel de fallo:** Muy alto 💩💩💩💩💩
 

@@ -1,5 +1,5 @@
-- [5. Herramientas y Recursos](#5-herramientas-y-recursos)
-  - [5.1. Clientes Gráficos (GUI)](#51-clientes-gráficos-gui)
+- [5. Herramientas y recursos](#5-herramientas-y-recursos)
+  - [5.1. Clientes gráficos (GUI)](#51-clientes-gráficos-gui)
     - [5.1.1. GitKraken](#511-gitkraken)
     - [5.1.2. GitHub Desktop](#512-github-desktop)
     - [5.1.3. Sourcetree](#513-sourcetree)
@@ -8,25 +8,25 @@
   - [5.2. Extensiones VS Code para Git](#52-extensiones-vs-code-para-git)
     - [5.2.1. GitLens](#521-gitlens)
     - [5.2.2. Git Graph](#522-git-graph)
-    - [5.2.3. Otras Extensiones Útiles](#523-otras-extensiones-útiles)
+    - [5.2.3. Otras extensiones útiles](#523-otras-extensiones-útiles)
   - [5.3. GitHub CLI](#53-github-cli)
     - [5.3.1. Instalación](#531-instalación)
-    - [5.3.2. Comandos Principales](#532-comandos-principales)
-    - [5.3.3. Ejemplo Flujo Completo](#533-ejemplo-flujo-completo)
-  - [5.4. Recursos de Aprendizaje](#54-recursos-de-aprendizaje)
-    - [5.4.1. Tutoriales Interactivos](#541-tutoriales-interactivos)
-    - [5.4.2. Documentación Oficial](#542-documentación-oficial)
-    - [5.4.3. Cheat Sheets](#543-cheat-sheets)
-    - [5.4.4. Juegos y Gamificación](#544-juegos-y-gamificación)
-  - [5.5. Configuración Avanzada](#55-configuración-avanzada)
-  - [5.6. Errores Comunes y Soluciones](#56-errores-comunes-y-soluciones)
-    - [5.6.1. Errores Típicos](#561-errores-típicos)
-    - [5.6.2. Recuperación de Errores](#562-recuperación-de-errores)
-    - [5.6.3. Comandos de Emergencia](#563-comandos-de-emergencia)
-  - [5.7. Personalizar la Terminal: Oh My Posh y Nerd Fonts](#57-personalizar-la-terminal-oh-my-posh-y-nerd-fonts)
+    - [5.3.2. Comandos principales](#532-comandos-principales)
+    - [5.3.3. Ejemplo de flujo completo](#533-ejemplo-de-flujo-completo)
+  - [5.4. Recursos de aprendizaje](#54-recursos-de-aprendizaje)
+    - [5.4.1. Tutoriales interactivos](#541-tutoriales-interactivos)
+    - [5.4.2. Documentación oficial](#542-documentación-oficial)
+    - [5.4.3. Cheat sheets](#543-cheat-sheets)
+    - [5.4.4. Juegos y gamificación](#544-juegos-y-gamificación)
+  - [5.5. Configuración avanzada](#55-configuración-avanzada)
+  - [5.6. Errores comunes y soluciones](#56-errores-comunes-y-soluciones)
+    - [5.6.1. Errores típicos](#561-errores-típicos)
+    - [5.6.2. Recuperación de errores](#562-recuperación-de-errores)
+    - [5.6.3. Comandos de emergencia](#563-comandos-de-emergencia)
+  - [5.7. Personalizar la terminal: Oh My Posh y Nerd Fonts](#57-personalizar-la-terminal-oh-my-posh-y-nerd-fonts)
 
 
-# 5. Herramientas y Recursos
+# 5. Herramientas y recursos
 
 > 💡 **Punto de partida:** ¿Te imaginas construir un edificio sin herramientas? Podrías, pero tardarías una eternidad. Las herramientas de Git son como tener una grúa, un soldador y un robot: cada una hace un trabajo específico mucho más rápido.
 
@@ -64,7 +64,7 @@ En el Punto 04 vimos Pull Requests, Forks, Code Review y GitHub Actions. Ahora v
 
 > 💡 **Consejo:** Con VS Code + GitLens + GitHub CLI tienes las herramientas profesionales más usadas en la industria. No necesitas más para empezar.
 
-## 5.1. Clientes Gráficos (GUI)
+## 5.1. Clientes gráficos (GUI)
 
 Los clientes gráficos facilitan el uso de Git para quienes prefieren interfaces visuales.
 
@@ -196,7 +196,7 @@ graph TB
     style A fill:#2196F3,color:#fff
 ```
 
-### 5.2.3. Otras Extensiones Útiles
+### 5.2.3. Otras extensiones útiles
 
 | Extensión | Función |
 |-----------|---------|
@@ -232,7 +232,7 @@ sudo dnf install gh
 pacman -S github-cli
 ```
 
-### 5.3.2. Comandos Principales
+### 5.3.2. Comandos principales
 
 ```bash
 # Autenticarse
@@ -301,7 +301,7 @@ gh repo clone [repo]          # Clonar repo
 gh repo fork [repo]           # Fork repo
 ```
 
-### 5.3.3. Ejemplo Flujo Completo
+### 5.3.3. Ejemplo de flujo completo
 
 ```bash
 # Clonar repo
@@ -374,9 +374,9 @@ mindmap
       gh search code
 ```
 
-## 5.4. Recursos de Aprendizaje
+## 5.4. Recursos de aprendizaje
 
-### 5.4.1. Tutoriales Interactivos
+### 5.4.1. Tutoriales interactivos
 
 | Recurso | Descripción | Nivel |
 |---------|-------------|-------|
@@ -385,7 +385,7 @@ mindmap
 | [GitKatas](https://github.com/praqma-training/git-katas) | Ejercicios prácticos | Todos |
 | [GitHub Learning Lab](https://lab.github.com) | Cursos de GitHub | Principiante |
 
-### 5.4.2. Documentación Oficial
+### 5.4.2. Documentación oficial
 
 | Recurso | Descripción |
 |---------|-------------|
@@ -394,7 +394,7 @@ mindmap
 | [GitHub Docs](https://docs.github.com) | Documentación GitHub |
 | [GitLab Docs](https://docs.gitlab.com) | Documentación GitLab |
 
-### 5.4.3. Cheat Sheets
+### 5.4.3. Cheat sheets
 
 | Recurso | Descripción |
 |---------|-------------|
@@ -402,7 +402,7 @@ mindmap
 | [Git Cheatsheet](https://ndpsoftware.com/git-cheatsheet.html) | Visual interactivo |
 | [Git Command Explorer](https://git-cheatsheet.com) | Búsqueda por comando |
 
-### 5.4.4. Juegos y Gamificación
+### 5.4.4. Juegos y gamificación
 
 | Recurso | Descripción |
 |---------|-------------|
@@ -410,7 +410,7 @@ mindmap
 | [Git Tower Game](https://www.git-tower.com/learn/git/commands/game) | Juego de comandos |
 | [Learning Git with Jupyter](https://github.com/jupyterlab/jupyterlab-git) | Git en Jupyter |
 
-## 5.5. Configuración Avanzada
+## 5.5. Configuración avanzada
 
 > 💡 **Solo lo esencial:** Estos son los ajustes más útiles. No necesitas memorizarlos todos — usa esta sección como referencia rápida.
 
@@ -433,9 +433,9 @@ git config --global core.editor "code --wait"
 
 > 📝 **Nota:** Los alias son como atajos de teclado: en lugar de escribir `git status`, puedes escribir `git st`. Útiles cuando escribes muchos comandos al día.
 
-## 5.6. Errores Comunes y Soluciones
+## 5.6. Errores comunes y soluciones
 
-### 5.6.1. Errores Típicos
+### 5.6.1. Errores típicos
 
 | Error | Causa | Solución |
 |-------|-------|----------|
@@ -447,7 +447,7 @@ git config --global core.editor "code --wait"
 | "merge conflict" | Dos personas modificaron lo mismo | Resolver conflictos |
 | "detached HEAD" | Checkout a commit, no rama | `git checkout rama` |
 
-### 5.6.2. Recuperación de Errores
+### 5.6.2. Recuperación de errores
 
 ```bash
 # Recuperar cambios después de reset --hard
@@ -468,7 +468,7 @@ git reset --soft HEAD~1
 git log --all --full-history -- archivo.txt
 ```
 
-### 5.6.3. Comandos de Emergencia
+### 5.6.3. Comandos de emergencia
 
 ```bash
 # Ver todo el historial (incluido resets)
@@ -540,7 +540,7 @@ En la **UD04: Diseño Orientado a Objetos: Diagrama de Clases** usarás Git para
 | Configuración avanzada | Personalizar tu entorno para modelado |
 | Errores comunes | Recuperar versiones de diagramas borrados |
 
-## Ejercicio Rápido: Configurar tu Estación de Desarrollo
+## Ejercicio rápido: configurar tu estación de desarrollo
 
 > 📝 **Escenario:** Vas a montar tu entorno de desarrollo completo para trabajar en `cafeteria-web`. Instalarás las herramientas y configurarás VS Code.
 
@@ -583,7 +583,7 @@ En la **UD04: Diseño Orientado a Objetos: Diagrama de Clases** usarás Git para
 
 > 💡 **Consejo:** Si `gh auth status` muestra "Logged in", todo está configurado correctamente. Ya puedes usar GitHub desde la terminal sin abrir el navegador.
 
-## 5.7. Personalizar la Terminal: Oh My Posh y Nerd Fonts
+## 5.7. Personalizar la terminal: Oh My Posh y Nerd Fonts
 
 **Oh My Posh** es un motor de temas para la terminal que muestra iconos, colores e información útil como la rama de Git actual, el directorio, el estado de los archivos, etc.
 
@@ -595,7 +595,7 @@ Para que los iconos se vean correctamente necesitas una **fuente Nerd Font**. La
 # Instalar Oh My Posh con scoop
 scoop install oh-my-posh
 
-# Instalar una Nerd Font (por ejemplo, FiraCode)
+# Instalar una nerd font (por ejemplo, firacode)
 scoop install FiraCode-NF
 ```
 
@@ -605,7 +605,7 @@ scoop install FiraCode-NF
 # Instalar Oh My Posh con brew
 brew install oh-my-posh
 
-# Instalar una Nerd Font
+# Instalar una nerd font
 brew install --cask font-fira-code-nerd-font
 ```
 
@@ -615,8 +615,8 @@ brew install --cask font-fira-code-nerd-font
 # Descargar e instalar Oh My Posh
 curl -s https://ohmyposh.dev/install.sh | bash
 
-# Descargar una Nerd Font desde https://www.nerdfonts.com/font-downloads
-# Elige la fuente que prefieras (FiraCode, JetBrainsMono, Cascadia Code, etc.)
+# Descargar una nerd font desde https://www.nerdfonts.com/font-downloads
+# Elige la fuente que prefieras (firacode, jetbrainsmono, cascadia Code, etc.)
 mkdir -p ~/.local/share/fonts
 cd ~/.local/share/fonts
 curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/latest/FiraCode.zip

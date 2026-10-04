@@ -1,21 +1,21 @@
-## Práctica 1: Fundamentos de Git en Entorno Local (Sin Ramas)
+## Práctica 1: fundamentos de Git en entorno local (sin ramas)
 
-- [Práctica 1: Fundamentos de Git en Entorno Local (Sin Ramas)](#práctica-1-fundamentos-de-git-en-entorno-local-sin-ramas)
-  - [Conceptos Clave a Introducir y Reforzar:](#conceptos-clave-a-introducir-y-reforzar)
-  - [Fase 1: Inicialización y Primer Commit](#fase-1-inicialización-y-primer-commit)
-  - [Fase 2: Diferencias entre Áreas y Creación de Tags](#fase-2-diferencias-entre-áreas-y-creación-de-tags)
-  - [Fase 3: Identificación de Autores y Descarte de Cambios (Errores Menores)](#fase-3-identificación-de-autores-y-descarte-de-cambios-errores-menores)
-  - [Fase 4: Deshacer Commits (Borrando y Preservando Cambios)](#fase-4-deshacer-commits-borrando-y-preservando-cambios)
-  - [Fase 5: Recuperación y Revertir](#fase-5-recuperación-y-revertir)
-  - [Reflexión Final (Importancia de Git Local)](#reflexión-final-importancia-de-git-local)
+- [Práctica 1: fundamentos de Git en entorno local (sin ramas)](#práctica-1-fundamentos-de-git-en-entorno-local-sin-ramas)
+  - [Conceptos clave a introducir y reforzar:](#conceptos-clave-a-introducir-y-reforzar)
+  - [Fase 1: inicialización y primer commit](#fase-1-inicialización-y-primer-commit)
+  - [Fase 2: diferencias entre áreas y creación de tags](#fase-2-diferencias-entre-áreas-y-creación-de-tags)
+  - [Fase 3: identificación de autores y descarte de cambios (errores menores)](#fase-3-identificación-de-autores-y-descarte-de-cambios-errores-menores)
+  - [Fase 4: deshacer commits (borrando y preservando cambios)](#fase-4-deshacer-commits-borrando-y-preservando-cambios)
+  - [Fase 5: recuperación y revertir](#fase-5-recuperación-y-revertir)
+  - [Reflexión final (importancia de Git local)](#reflexión-final-importancia-de-git-local)
 
 
-### Conceptos Clave a Introducir y Reforzar:
+### Conceptos clave a introducir y reforzar:
 1.  **Directorio de Trabajo (*Working Directory*):** Donde se modifican los archivos directamente.
 2.  **Área de Preparación (*Staging Area* o Índice):** Zona intermedia donde se seleccionan los cambios exactos que se incluirán en la próxima "instantánea" (commit).
 3.  **Repositorio Git (*Git Directory*):** Donde se almacenan los metadatos y el historial completo de las instantáneas confirmadas (commits).
 
-### Fase 1: Inicialización y Primer Commit
+### Fase 1: inicialización y primer commit
 
 | **Paso** | **Descripción y Comandos**                                                                                                                                                                | **Concepto de Git**                                                                        |
 | :------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- |
@@ -29,7 +29,7 @@
 | **1.8**  | **Realiza la primera confirmación** (commit): `git commit -m "feat: Estructura base del proyecto"`                                                                                        | Toma la instantánea del Área de preparación y la guarda permanentemente en el Repositorio. |
 | **1.9**  | **Revisa el historial** con `git log --oneline`.                                                                                                                                          | Muestra la instantánea confirmada.                                                         |
 
-### Fase 2: Diferencias entre Áreas y Creación de Tags
+### Fase 2: diferencias entre áreas y creación de tags
 
 | **Paso** | **Descripción y Comandos**                                                                              | **Concepto de Git**                                                         |
 | :------- | :------------------------------------------------------------------------------------------------------ | :-------------------------------------------------------------------------- |
@@ -42,7 +42,7 @@
 | **2.7**  | **Muestra el detalle** de la etiqueta: `git show v1.0-estable`                                          | Visualiza los metadatos y cambios asociados a esa versión.                  |
 | **2.8**  | **Visualiza el historial** con formato gráfico (simulando un árbol lineal): `git log --oneline --graph` | Observa la historia de confirmaciones.                                      |
 
-### Fase 3: Identificación de Autores y Descarte de Cambios (Errores Menores)
+### Fase 3: identificación de autores y descarte de cambios (errores menores)
 
 **Importancia de Git a nivel local:** Incluso trabajando individualmente, Git permite rastrear *quién* (tú, en este caso) y *cuándo* se introdujo cada línea de código, lo cual es invaluable para la depuración.
 
@@ -57,7 +57,7 @@
 | **3.7**  | **Desprepara los cambios** (saca del staging): `git restore --staged info.txt`                                                | Mueve el archivo del Área de preparación de vuelta al Directorio de trabajo, **manteniendo los cambios**.         |
 | **3.8**  | **Confirma la despreparación:** `git status`. El archivo `info.txt` debería estar modificado, pero sin preparar.              |                                                                                                                   |
 
-### Fase 4: Deshacer Commits (Borrando y Preservando Cambios)
+### Fase 4: deshacer commits (borrando y preservando cambios)
 
 | **Paso** | **Descripción y Comandos**                                                                                                                                                              | **Concepto de Git**                                                                                                                                                                                                         |
 | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -70,7 +70,7 @@
 | **4.7**  | **Deshace el último commit y borra los cambios de forma permanente:** `git reset --hard HEAD~1`                                                                                         | **Deshacer commit (Hard):** Mueve el puntero `HEAD` hacia atrás, *eliminando* el commit y *limpiando* el Área de preparación y el Directorio de trabajo. **¡Esto borra las líneas de código introducidas por ese commit!**. |
 | **4.8**  | **Verifica el historial** y el contenido de `info.txt`. Las líneas de código introducidas en 4.6 deben haber desaparecido.                                                              |                                                                                                                                                                                                                             |
 
-### Fase 5: Recuperación y Revertir
+### Fase 5: recuperación y revertir
 
 | **Paso** | **Descripción y Comandos**                                                                                                                                                         | **Concepto de Git**                                                                                                                                                                          |
 | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -81,7 +81,7 @@
 | **5.5**  | **Deshace este commit de forma segura:** `git revert HEAD`                                                                                                                         | **Revertir:** Crea una *nueva* confirmación que anula los efectos del commit especificado, **manteniendo ambos commits en la historia**. Ideal para cambios que ya se consideran "públicos". |
 | **5.6**  | **Verifica el historial:** `git log --oneline`. Verás el commit original y el nuevo commit de reversión, ambos coexisten.                                                          |                                                                                                                                                                                              |
 
-### Reflexión Final (Importancia de Git Local)
+### Reflexión final (importancia de Git local)
 
 El uso de un **Sistema de Control de Versiones (VCS)**, como Git, es una herramienta valiosa. Incluso en un trabajo mantenido por una sola persona (trabajo individual) sin ramas, los beneficios son enormes:
 

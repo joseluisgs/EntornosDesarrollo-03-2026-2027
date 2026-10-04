@@ -1,6 +1,6 @@
-# Práctica de Git: Proyecto Colaborativo con Git y GitHub
+# Práctica de Git: proyecto colaborativo con Git y GitHub
 
-### **Práctica en Pareja: Desarrollo Colaborativo de un Generador de Citas Inspiradoras (`quote-generator`)**
+### **Práctica en pareja: desarrollo colaborativo de un generador de citas inspiradoras (`quote-generator`)**
 
 **Objetivo:** Desarrollar en pareja una aplicación simple para generar citas inspiradoras. Esta práctica se centrará en la **colaboración mediante repositorios remotos en GitHub**, la gestión de **líneas de desarrollo (ramas)**, la **resolución de conflictos**, la integración de cambios mediante **fusión (`merge`) y reorganización (`rebase`)**, y la comunicación a través de **Pull Requests (solicitudes de integración)**.
 

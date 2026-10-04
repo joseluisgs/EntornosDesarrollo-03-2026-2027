@@ -1,19 +1,19 @@
-- [Práctica 1: Test de Conocimientos](#práctica-1-test-de-conocimientos)
-  - [Bloque 1: Fundamentos de Git (Preguntas 1-8)](#bloque-1-fundamentos-de-git-preguntas-1-8)
-  - [Bloque 2: Comandos Git Esenciales (Preguntas 9-18)](#bloque-2-comandos-git-esenciales-preguntas-9-18)
-  - [Bloque 3: Ramas y Fusiones (Preguntas 19-26)](#bloque-3-ramas-y-fusiones-preguntas-19-26)
-  - [Bloque 4: Repositorios Remotos y GitHub (Preguntas 27-34)](#bloque-4-repositorios-remotos-y-github-preguntas-27-34)
-  - [Bloque 5: Colaboración (PR, Fork, Code Review) (Preguntas 35-42)](#bloque-5-colaboración-pr-fork-code-review-preguntas-35-42)
-  - [Bloque 6: Herramientas y CLI (Preguntas 43-50)](#bloque-6-herramientas-y-cli-preguntas-43-50)
+- [Práctica 1: test de conocimientos](#práctica-1-test-de-conocimientos)
+  - [Bloque 1: fundamentos de Git (preguntas 1-8)](#bloque-1-fundamentos-de-git-preguntas-1-8)
+  - [Bloque 2: comandos Git esenciales (preguntas 9-18)](#bloque-2-comandos-git-esenciales-preguntas-9-18)
+  - [Bloque 3: ramas y fusiones (preguntas 19-26)](#bloque-3-ramas-y-fusiones-preguntas-19-26)
+  - [Bloque 4: repositorios remotos y GitHub (preguntas 27-34)](#bloque-4-repositorios-remotos-y-github-preguntas-27-34)
+  - [Bloque 5: colaboración (PR, fork, Code review) (preguntas 35-42)](#bloque-5-colaboración-pr-fork-code-review-preguntas-35-42)
+  - [Bloque 6: herramientas y CLI (preguntas 43-50)](#bloque-6-herramientas-y-cli-preguntas-43-50)
 
 
-# Práctica 1: Test de Conocimientos
+# Práctica 1: test de conocimientos
 
 **Instrucciones:** Lee atentamente cada pregunta y selecciona la opción que consideres correcta.
 
 ---
 
-### Bloque 1: Fundamentos de Git (Preguntas 1-8)
+### Bloque 1: fundamentos de Git (preguntas 1-8)
 
 1.  **¿Qué es Git?**
     a) Una plataforma de alojamiento de proyectos en la nube.
@@ -65,7 +65,7 @@
 
 ---
 
-### Bloque 2: Comandos Git Esenciales (Preguntas 9-18)
+### Bloque 2: comandos Git esenciales (preguntas 9-18)
 
 9.  **¿Qué realiza el comando `git init`?**
     a) Clona un repositorio remoto en la máquina local.
@@ -129,7 +129,7 @@
 
 ---
 
-### Bloque 3: Ramas y Fusiones (Preguntas 19-26)
+### Bloque 3: ramas y fusiones (preguntas 19-26)
 
 19. **¿Qué es una rama (branch) en Git?**
     a) Una copia completa del repositorio.
@@ -181,7 +181,7 @@
 
 ---
 
-### Bloque 4: Repositorios Remotos y GitHub (Preguntas 27-34)
+### Bloque 4: repositorios remotos y GitHub (preguntas 27-34)
 
 27. **¿Qué es GitHub?**
     a) Un sistema de control de versiones distribuido.
@@ -233,7 +233,7 @@
 
 ---
 
-### Bloque 5: Colaboración (PR, Fork, Code Review) (Preguntas 35-42)
+### Bloque 5: colaboración (PR, fork, Code review) (preguntas 35-42)
 
 35. **¿Qué es el "Code Review" (revisión de código)?**
     a) Un proceso donde los desarrolladores examinan el código de otros antes de fusionarlo.
@@ -285,7 +285,7 @@
 
 ---
 
-### Bloque 6: Herramientas y CLI (Preguntas 43-50)
+### Bloque 6: herramientas y CLI (preguntas 43-50)
 
 43. **¿Qué herramienta gráfica de Git es la más recomendada para principiantes?**
     a) Sourcetree

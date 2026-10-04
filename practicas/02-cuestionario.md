@@ -1,7 +1,7 @@
-- [Práctica 2: Cuestionario de Razonamiento](#práctica-2-cuestionario-de-razonamiento)
+- [Práctica 2: cuestionario de razonamiento](#práctica-2-cuestionario-de-razonamiento)
 
 
-# Práctica 2: Cuestionario de Razonamiento
+# Práctica 2: cuestionario de razonamiento
 
 **Instrucciones:** Responde a cada pregunta explicando tu razonamiento y basándote en la información proporcionada.
 

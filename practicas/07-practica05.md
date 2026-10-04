@@ -1,10 +1,10 @@
-# Práctica de Git: Control de Versiones Avanzado
+# Práctica de Git: control de versiones avanzado
 
-- [Práctica de Git: Control de Versiones Avanzado](#práctica-de-git-control-de-versiones-avanzado)
-    - [**Práctica Individual: Desarrollo del Gestor de Tareas (`task-manager`)**](#práctica-individual-desarrollo-del-gestor-de-tareas-task-manager)
+- [Práctica de Git: control de versiones avanzado](#práctica-de-git-control-de-versiones-avanzado)
+    - [**Práctica individual: desarrollo del gestor de tareas (`task-manager`)**](#práctica-individual-desarrollo-del-gestor-de-tareas-task-manager)
 
 
-### **Práctica Individual: Desarrollo del Gestor de Tareas (`task-manager`)**
+### **Práctica individual: desarrollo del gestor de tareas (`task-manager`)**
 
 **Objetivo:** Desarrollar de forma individual una aplicación básica de gestión de tareas (`task-manager`) utilizando Git para el control de versiones. Durante el proceso, deberás aplicar los principios del control de versiones, gestionar distintas líneas de desarrollo, entender las diferencias y usos de la integración de cambios (fusión y reorganización), seleccionar cambios específicos y corregir errores comunes, todo en tu repositorio local.
 

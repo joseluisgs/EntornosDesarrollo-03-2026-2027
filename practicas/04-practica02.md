@@ -1,23 +1,23 @@
-## Práctica 2: Ramificación Local, Integración y Manipulación del Historial
+## Práctica 2: ramificación local, integración y manipulación del historial
 
-- [Práctica 2: Ramificación Local, Integración y Manipulación del Historial](#práctica-2-ramificación-local-integración-y-manipulación-del-historial)
-  - [Conceptos Clave a Introducir y Reforzar:](#conceptos-clave-a-introducir-y-reforzar)
-  - [Fase 1: Creación de Ramas y Desarrollo Divergente](#fase-1-creación-de-ramas-y-desarrollo-divergente)
-  - [Fase 2: Integración (Merge) y Resolución de Conflictos](#fase-2-integración-merge-y-resolución-de-conflictos)
-  - [Fase 3: Reorganización (Rebase) para un Historial Lineal](#fase-3-reorganización-rebase-para-un-historial-lineal)
-  - [Fase 4: Seleccionar Commits Específicos (Cherry Pick)](#fase-4-seleccionar-commits-específicos-cherry-pick)
-  - [Fase 5: Equivocaciones y Solución (Commit a la Rama Incorrecta)](#fase-5-equivocaciones-y-solución-commit-a-la-rama-incorrecta)
-  - [Reflexión Final: Importancia de las Ramas](#reflexión-final-importancia-de-las-ramas)
+- [Práctica 2: ramificación local, integración y manipulación del historial](#práctica-2-ramificación-local-integración-y-manipulación-del-historial)
+  - [Conceptos clave a introducir y reforzar:](#conceptos-clave-a-introducir-y-reforzar)
+  - [Fase 1: creación de ramas y desarrollo divergente](#fase-1-creación-de-ramas-y-desarrollo-divergente)
+  - [Fase 2: integración (merge) y resolución de conflictos](#fase-2-integración-merge-y-resolución-de-conflictos)
+  - [Fase 3: reorganización (rebase) para un historial lineal](#fase-3-reorganización-rebase-para-un-historial-lineal)
+  - [Fase 4: seleccionar commits específicos (cherry pick)](#fase-4-seleccionar-commits-específicos-cherry-pick)
+  - [Fase 5: equivocaciones y solución (commit a la rama incorrecta)](#fase-5-equivocaciones-y-solución-commit-a-la-rama-incorrecta)
+  - [Reflexión final: importancia de las ramas](#reflexión-final-importancia-de-las-ramas)
 
 
-### Conceptos Clave a Introducir y Reforzar:
+### Conceptos clave a introducir y reforzar:
 
 1.  **Ramificación (*Branching*):** Permite trabajar en distintas versiones de un proyecto a la vez sin afectar la línea principal. Las ramas representan líneas de desarrollo independientes.
 2.  **Integración (*Merge*):** Une dos conjuntos de cambios sobre un fichero o conjunto de ficheros en una revisión unificada.
 3.  **Reorganización (*Rebase*):** Permite reescribir la historia, moviendo commits de una rama a la punta de otra para conseguir un historial más lineal.
 4.  **Cherry Pick:** Aplica una confirmación específica (commit) de una rama a otra, sin fusionar la rama completa.
 
-### Fase 1: Creación de Ramas y Desarrollo Divergente
+### Fase 1: creación de ramas y desarrollo divergente
 
 | **Paso** | **Descripción y Comandos**                                                                                                                                                                   | **Concepto de Git**                                                                                                                                                                          |
 | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -29,7 +29,7 @@
 | **1.6**  | **En la rama `master`:** Crea el archivo `index.html` con un título (ej: "Página principal"). Confirma los cambios: `git add .` y `git commit -m "feat: Añadida página de inicio."`                        | La historia de ambas ramas ha divergido, ya que tienen commits diferentes después del punto común.                                                                                           |
 | **1.7**  | **Visualiza el historial** incluyendo todas las ramas: `git log --oneline --graph --all`                                                                                                     | Observa los dos caminos de desarrollo paralelos.                                                                                                                                             |
 
-### Fase 2: Integración (Merge) y Resolución de Conflictos
+### Fase 2: integración (merge) y resolución de conflictos
 
 | **Paso** | **Descripción y Comandos**                                                                                                                                                                                          | **Concepto de Git**                                                                                                                                          |
 | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -45,7 +45,7 @@
 | **2.10** | **Visualiza el historial** (`git log --oneline --graph`).                                                                                                                                                           | Observa cómo el historial se entrelaza, mostrando una estructura no lineal con el commit de fusión.                                                          |
 | **2.11** | **Elimina la rama** `feature/login` (ya fusionada): `git branch -d feature/login`                                                                                                                                   | Las ramas fusionadas se pueden eliminar con `git branch -d`.                                                                                                 |
 
-### Fase 3: Reorganización (Rebase) para un Historial Lineal
+### Fase 3: reorganización (rebase) para un historial lineal
 
 | **Paso** | **Descripción y Comandos**                                                                                                                    | **Concepto de Git**                                                                                                                                                  |
 | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -59,7 +59,7 @@
 | **3.8**  | **Vuelve a `master` y fusiona:** `git checkout master` y `git merge feature/style`                                                            | Gracias al *rebase* previo, la fusión debería ser un "avance rápido" (*fast-forward merge*), manteniendo la historia lineal sin crear un commit de fusión explícito. |
 | **3.9**  | **Elimina la rama** `feature/style`: `git branch -d feature/style`                                                                            |                                                                                                                                                                      |
 
-### Fase 4: Seleccionar Commits Específicos (Cherry Pick)
+### Fase 4: seleccionar commits específicos (cherry pick)
 
 | **Paso** | **Descripción y Comandos**                                                                                                                                         | **Concepto de Git**                                                                                                                                  |
 | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -72,7 +72,7 @@
 | **4.7**  | **Visualiza el historial** (`git log --oneline --graph`).                                                                                                          | Observa que el commit de "Función A" ahora existe en `master`, pero el commit de "Función B (experimental)" solo existe en `feature/util`.           |
 | **4.8**  | **Elimina la rama** `feature/util` (si ya no la necesitas): `git branch -D feature/util`                                                                           | Usamos `-D` (mayúscula) para forzar la eliminación, ya que el Commit 2 aún no ha sido fusionado.                                                     |
 
-### Fase 5: Equivocaciones y Solución (Commit a la Rama Incorrecta)
+### Fase 5: equivocaciones y solución (commit a la rama incorrecta)
 
 | **Paso** | **Descripción y Comandos**                                                                                                                                                                             | **Concepto de Git**                                                                                                                                               |
 | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -86,7 +86,7 @@
 | **5.8**  | **Verifica el historial** (`git log --oneline --graph`).                                                                                                                                               | El commit de corrección de error ahora solo debe existir en la rama `feature/bug-fix`, y `master` debe estar limpio.                                              |
 | **5.9**  | **Continúa el desarrollo:** Si el arreglo en `feature/bug-fix` es final, vuelve a `master` e integra los cambios: `git checkout master` y `git merge feature/bug-fix`.                                 | La rama principal ya está corregida y la historia es coherente.                                                                                                   |
 
-### Reflexión Final: Importancia de las Ramas
+### Reflexión final: importancia de las ramas
 
 El uso de ramas permite a los desarrolladores:
 

@@ -1,4 +1,4 @@
-# Entornos de Desarrollo - 03 - Sistema de Control de Versiones
+# Entornos de desarrollo - 03 - sistema de control de versiones
 
 UD03. Sistema de Control de Versiones. 1DAW. Curso 2026-2027.
 
@@ -24,7 +24,7 @@ UD03. Sistema de Control de Versiones. 1DAW. Curso 2026-2027.
 - [Git Remoto, GitHub y Colaboración](https://youtu.be/u0qmU2CK61I)
 - [Lista de Reproducción](https://www.youtube.com/playlist?list=PLIaRVRNDWeMA)
 
-## Resultados de Aprendizaje y Criterios de Evaluación
+## Resultados de aprendizaje y criterios de evaluación
 
 - RA4: Optimiza código empleando las herramientas disponibles en el entorno de desarrollo..
 

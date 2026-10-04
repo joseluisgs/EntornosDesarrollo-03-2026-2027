@@ -1,28 +1,28 @@
 - [4. Colaboración](#4-colaboración)
-  - [4.1. Pull Requests (PR)](#41-pull-requests-pr)
-    - [4.1.1. Flujo de una Pull Request](#411-flujo-de-una-pull-request)
+  - [4.1. Pull requests (PR)](#41-pull-requests-pr)
+    - [4.1.1. Flujo de una pull request](#411-flujo-de-una-pull-request)
     - [4.1.2. Componentes de una PR](#412-componentes-de-una-pr)
-    - [4.1.3. Crear una PR desde Terminal](#413-crear-una-pr-desde-terminal)
-    - [4.1.4. Buenas Prácticas para PRs](#414-buenas-prácticas-para-prs)
-  - [4.2. Fork (Bifurcación)](#42-fork-bifurcación)
-    - [4.2.1. Flujo de Trabajo con Fork](#421-flujo-de-trabajo-con-fork)
-    - [4.2.2. Configurar Fork](#422-configurar-fork)
-    - [4.2.3. Mantener Fork Actualizado](#423-mantener-fork-actualizado)
-    - [4.2.4. Flujo Completo: Dos Usuarios Colaborando](#424-flujo-completo-dos-usuarios-colaborando-ejemplo-práctico)
-  - [4.3. Code Review (Revisión de Código)](#43-code-review-revisión-de-código)
-    - [4.3.1. Beneficios del Code Review](#431-beneficios-del-code-review)
-    - [4.3.2. Proceso de Revisión](#432-proceso-de-revisión)
-    - [4.3.3. Comentarios en Revisiones](#433-comentarios-en-revisiones)
-    - [4.3.4. Ser un Buen Revisor](#434-ser-un-buen-revisor)
-    - [4.3.5. Ser un Buen Autor](#435-ser-un-buen-autor)
+    - [4.1.3. Crear una PR desde terminal](#413-crear-una-pr-desde-terminal)
+    - [4.1.4. Buenas prácticas para PRs](#414-buenas-prácticas-para-prs)
+  - [4.2. Fork (bifurcación)](#42-fork-bifurcación)
+    - [4.2.1. Flujo de trabajo con fork](#421-flujo-de-trabajo-con-fork)
+    - [4.2.2. Configurar fork](#422-configurar-fork)
+    - [4.2.3. Mantener fork actualizado](#423-mantener-fork-actualizado)
+    - [4.2.4. Flujo completo: dos usuarios colaborando](#424-flujo-completo-dos-usuarios-colaborando)
+  - [4.3. Code review (revisión de código)](#43-code-review-revisión-de-código)
+    - [4.3.1. Beneficios del Code review](#431-beneficios-del-code-review)
+    - [4.3.2. Proceso de revisión](#432-proceso-de-revisión)
+    - [4.3.3. Comentarios en revisiones](#433-comentarios-en-revisiones)
+    - [4.3.4. Ser un buen revisor](#434-ser-un-buen-revisor)
+    - [4.3.5. Ser un buen autor](#435-ser-un-buen-autor)
   - [4.4. GitHub Actions (CI/CD)](#44-github-actions-cicd)
     - [4.4.1. Comandos para GitHub CLI](#441-comandos-para-github-cli)
-  - [4.5. Issues y Projects](#45-issues-y-projects)
+  - [4.5. Issues y projects](#45-issues-y-projects)
     - [4.5.1. Issues](#451-issues)
     - [4.5.2. Projects](#452-projects)
-  - [4.6. Convenciones de Mensajes](#46-convenciones-de-mensajes)
-    - [4.6.1. Formato Convencional](#461-formato-convencional)
-    - [4.6.2. Tipos Comunes](#462-tipos-comunes)
+  - [4.6. Convenciones de mensajes](#46-convenciones-de-mensajes)
+    - [4.6.1. Formato convencional](#461-formato-convencional)
+    - [4.6.2. Tipos comunes](#462-tipos-comunes)
     - [4.6.3. Ejemplos](#463-ejemplos)
 
 
@@ -48,7 +48,7 @@ En el Punto 03 vimos GitHub y los repositorios remotos: cómo subir código, clo
 
 El trabajo en equipo en Git requiere procesos claros de comunicación, revisión de código y gestión de contribuciones.
 
-## 4.1. Pull Requests (PR)
+## 4.1. Pull requests (PR)
 
 Una **Pull Request** es una herramienta de comunicación fundamental en el desarrollo colaborativo. Se utiliza para proponer cambios, explicar el trabajo y solicitar revisión antes de fusionar.
 
@@ -79,7 +79,7 @@ Una **Pull Request** es una herramienta de comunicación fundamental en el desar
 | **Dependencia** | Necesitas que alguien más revise tu código; no puedes avanzar solo |
 | **Rituales innecesarios** | En equipos pequeños, a veces se abusa del proceso para cambios triviales |
 
-### 4.1.1. Flujo de una Pull Request
+### 4.1.1. Flujo de una pull request
 
 ```mermaid
 graph TB
@@ -124,7 +124,7 @@ gitGraph
 | **Revisiones** | Comentarios de revisores | "LGTM", "Cambia esto..." |
 | **Checks** | Tests automatizados | ✅ CI passing |
 
-### 4.1.3. Crear una PR desde Terminal
+### 4.1.3. Crear una PR desde terminal
 
 ```bash
 # 1. Crear y cambiar a nueva rama
@@ -142,7 +142,7 @@ git push -u origin feature/nuevo-login
 gh pr create --title "feat: login" --body "Implementación..."
 ```
 
-### 4.1.4. Buenas Prácticas para PRs
+### 4.1.4. Buenas prácticas para PRs
 
 > 💡 **Metáfora: Las buenas prácticas como "protocolo de un restaurante"**
 > Imagina que trabajas en un restaurante. Antes de servir un plato, revisas que los ingredientes estén frescos (revisión independiente), preparas solo lo necesario para un comensal (PR pequeña), pones el nombre correcto en la carta (título descriptivo), y anotas cada paso de la receta (commits claros). Si saltas alguno de estos pasos, el plato puede salir mal. Con las PRs pasa igual: **seguir un protocolo claro evita errores costosos**.
@@ -200,7 +200,7 @@ gh pr create --title "feat: login" --body "Implementación..."
 
 📌 **Ejemplo real:** En Telefónica, las reglas de branch protection son obligatorias en todos los proyectos. Sin PR aprobado y tests pasados, el merge es imposible.
 
-## 4.2. Fork (Bifurcación)
+## 4.2. Fork (bifurcación)
 
 Un **Fork** consiste en crear una copia de un repositorio existente en tu propia cuenta de GitHub.
 
@@ -231,7 +231,7 @@ Un **Fork** consiste en crear una copia de un repositorio existente en tu propia
 | **Mantenimiento** | Tienes que cuidar dos repositorios: tu fork y el original |
 | **Conflictos de merge** | Si el original avanza mucho, puedes tener muchos conflictos al sincronizar |
 
-### 4.2.1. Flujo de Trabajo con Fork
+### 4.2.1. Flujo de trabajo con fork
 
 ```mermaid
 graph TD
@@ -265,7 +265,7 @@ gitGraph
 
 > 📝 **Nota:** En el diagrama se ve cómo el repositorio original (`upstream`) avanza con sus propios commits, mientras que tu fork (`fork`) crea su propio historial. Cuando tu contribución está lista, se propone una PR para fusionar tu trabajo en el original.
 
-### 4.2.2. Configurar Fork
+### 4.2.2. Configurar fork
 
 ```bash
 # 1. Clonar tu fork
@@ -282,7 +282,7 @@ git remote -v
 # upstream  https://github.com/original/repo.git (push)
 ```
 
-### 4.2.3. Mantener Fork Actualizado
+### 4.2.3. Mantener fork actualizado
 
 > 💡 **Metáfora: El upstream como "la fuente original del agua"**
 > Imagina que tu fork es un estanque alimentado por una fuente de montaña (el repositorio original). Si la fuente sigue manando agua limpia pero tu estanque no recibe nada, pronto tendrás agua estancada y sucia. **Mantener el fork actualizado es como abrir la compuerta para que el agua fresca de la fuente entre en tu estanque**. Si no lo haces regularmente, tu copia se queda "pocha" y cuando quieras contribuir, tendrás mil conflictos.
@@ -332,7 +332,7 @@ gitGraph
 
 > 💡 **Truco:** Programa un recordatorio semanal para sincronizar tu fork. Es como regar las plantas: si lo haces regularmente, todo crece mejor.
 
-### 4.2.4. Flujo Completo: Dos Usuarios Colaborando (Ejemplo Práctico)
+### 4.2.4. Flujo completo: dos usuarios colaborando (ejemplo práctico)
 
 Vamos a ver **todos los comandos** del flujo completo de colaboración entre dos desarrolladores: **Ana** (contribuidora) y **Carlos** (mantenedor del repositorio original).
 
@@ -340,7 +340,7 @@ Vamos a ver **todos los comandos** del flujo completo de colaboración entre dos
 
 ---
 
-#### Paso 1: Ana — Configuración Inicial
+#### Paso 1: Ana — configuración inicial
 
 ```bash
 # 1. Autenticarse en GitHub CLI
@@ -362,7 +362,7 @@ git remote -v
 # upstream  https://github.com/carlos/proyecto-web.git (push)
 ```
 
-#### Paso 2: Ana — Crear Rama y Hacer Cambios
+#### Paso 2: Ana — crear rama y hacer cambios
 
 ```bash
 # 1. Asegurarse de estar en main actualizado
@@ -392,7 +392,7 @@ git commit -m "fix(auth): corregir validación de password vacío
 git push -u origin fix/corregir-login
 ```
 
-#### Paso 3: Ana — Crear Pull Request
+#### Paso 3: Ana — crear pull request
 
 ```bash
 # 1. Crear PR directamente desde consola
@@ -419,7 +419,7 @@ gh pr view
 # Reviewers: @carlos
 ```
 
-#### Paso 4: Carlos — Recibir Notificación y Revisar
+#### Paso 4: Carlos — recibir notificación y revisar
 
 ```bash
 # 1. Carlos ve las PRs pendientes
@@ -456,7 +456,7 @@ gh pr checks 87
 gh pr view 87 --web
 ```
 
-#### Paso 5: Carlos — Aprobar o Solicitar Cambios
+#### Paso 5: Carlos — aprobar o solicitar cambios
 
 ```bash
 # OPCIÓN A: Aprobar la PR
@@ -472,7 +472,7 @@ git push origin fix/corregir-login
 # La PR se actualiza automáticamente con el nuevo commit
 ```
 
-#### Paso 6: Carlos — Fusionar la PR
+#### Paso 6: Carlos — fusionar la PR
 
 ```bash
 # 1. Fusionar la PR (después de aprobar)
@@ -501,7 +501,7 @@ gitGraph
     commit id: "Squash: un solo commit"
 ```
 
-#### Paso 7: Ana — Sincronizar su Fork
+#### Paso 7: Ana — sincronizar su fork
 
 ```bash
 # 1. Volver a main
@@ -556,7 +556,7 @@ gitGraph
 
 ---
 
-#### Resumen Visual del Flujo
+#### Resumen visual del flujo
 
 ```mermaid
 graph TD
@@ -597,7 +597,7 @@ graph TD
 > - **Fork**: `origin` = tu copia, `upstream` = original. Necesitas sincronizar.
 > - **Mismo repo**: Solo `origin`. Creas rama, push y PR directamente.
 
-## 4.3. Code Review (Revisión de Código)
+## 4.3. Code review (revisión de código)
 
 La revisión de código es una práctica donde otros desarrolladores examinan tu código antes de fusionarlo.
 
@@ -638,7 +638,7 @@ La revisión de código es una práctica donde otros desarrolladores examinan tu
 >
 > 5. **Demorar la revisión**: Un PR que lleva 3 días esperando revisión frustra al autor y puede causar conflictos. Revisa en un plazo razonable.
 
-### 4.3.2. Proceso de Revisión
+### 4.3.2. Proceso de revisión
 
 ```mermaid
 graph LR
@@ -656,7 +656,7 @@ graph LR
     style G fill:#4CAF50,color:#fff
 ```
 
-### 4.3.3. Comentarios en Revisiones
+### 4.3.3. Comentarios en revisiones
 
 | Tipo | Símbolo | Significado |
 |------|---------|-------------|
@@ -666,7 +666,7 @@ graph LR
 | **Nitpick** | 📝 | Detalle menor, opcional |
 | **Approval** | ✅ | Aprobado |
 
-### 4.3.4. Ser un Buen Revisor
+### 4.3.4. Ser un buen revisor
 
 - **Ser constructivo**: Enfocado en el código, no en la persona
 - **Explicar el "por qué"**: No solo qué cambiar, sino por qué
@@ -674,7 +674,7 @@ graph LR
 - **Aprobar rápidamente**: Si está bien, no demorar
 - **Separar opiniones**: Estilo vs. funcionalidad
 
-### 4.3.5. Ser un Buen Autor
+### 4.3.5. Ser un buen autor
 
 - **Pequeñas PRs**: Más fáciles de revisar
 - **Descripción clara**: Explicar qué y por qué
@@ -682,7 +682,7 @@ graph LR
 - **Responder**: No tomar críticas como personales
 - **Auto-revisar**: Revisa antes de enviar
 
-### 4.3.6. CODEOWNERS: Revisores Automáticos
+### 4.3.6. CODEOWNERS: revisores automáticos
 
 > 💡 **Metáfora:** CODEOWNERS es como un **sistema de asignación automática**. Cuando alguien toca un archivo, Git sabe automáticamente quién es el "dueño" y le pide revisión.
 
@@ -788,7 +788,7 @@ flowchart TD
     style K fill:#f44336,color:#fff
 ```
 
-## 4.5. Issues y Projects
+## 4.5. Issues y projects
 
 > 💡 **Metáfora: Issues como "la lista de la compra del proyecto"**
 > Imagina que vas al supermercado. Si no llevas lista, te olvidas de cosas, compras de más y vuelves con la bolsa medio vacía. Pero si llevas una **lista de la compra** bien organizada — *"leche, pan, huevos, tomates"* — sabes exactamente qué necesitas, qué ya tienes y qué te falta. **Las Issues son la lista de la compra de tu proyecto**: cada bug es un artículo, cada nueva funcionalidad es otro, y el tablero de Projects es la lista organizada por secciones (dairy, panadería, verduras...).
@@ -840,7 +840,7 @@ gh issue view [issue-number]
 | **Difícil de priorizar** | Sin un proceso claro, todas parecen urgentes |
 | **No sustituyen la comunicación** | Algunos problemas se resuelven mejor hablando directamente |
 
-### 4.5.2. Vincular Issues con PRs
+### 4.5.2. Vincular issues con PRs
 
 Una de las funciones más útiles de GitHub es **cerrar automáticamente una Issue** cuando se mergea una PR que la resuelve. Para ello, usa palabras clave en la descripción de la PR o en el mensaje de commit:
 
@@ -932,7 +932,7 @@ gh project item-add [project-number] --url [issue-url]
 
 📌 **Ejemplo real:** En equipos de desarrollo de Telefónica, cada sprint se gestiona con GitHub Projects. Las Issues se mueven automáticamente a "Done" cuando el PR asociado se mergea.
 
-## 4.6. Convenciones de Mensajes
+## 4.6. Convenciones de mensajes
 
 > 💡 **Metáfora: Conventional Commits como "etiquetas en las cajas de una tienda"**
 > Imagina que vas a un supermercado y todas las cajas son idénticas, sin etiquetas. No sabes cuál contiene leche, cuál contiene cereales y cuál contiene detergentes. Tendrías que abrir cada caja para saber qué hay dentro. **¡Un caos!** Ahora imagina que cada caja tiene una etiqueta clara: 🥛 "Leche", 🥣 "Cereales", 🧴 "Detergente". **Los convencional commits son esas etiquetas**: cada commit lleva una etiqueta que indica qué tipo de cambio es (`feat`, `fix`, `docs`...), para que al mirar el historial sepas exactamente qué hace cada commit sin tener que leer el código completo.
@@ -945,7 +945,7 @@ docs(readme): update installation guide
 ```
 Esto permite generar changelogs automáticos y saber en qué versión se introdujo cada cambio.
 
-### 4.6.1. Formato Convencional
+### 4.6.1. Formato convencional
 
 ```
 <tipo>(<ámbito>): <descripción>
@@ -969,7 +969,7 @@ graph TD
     style F fill:#607D8B,color:#fff
 ```
 
-### 4.6.2. Tipos Comunes
+### 4.6.2. Tipos comunes
 
 | Tipo | Descripción | Ejemplo |
 |------|-------------|---------|
@@ -1024,7 +1024,7 @@ git commit -m "docs(api): add endpoint documentation"
 >
 > 4. **Descripciones en inglés malo**: Si el equipo habla español, usa español. Pero si es open source, el inglés es estándar.
 
-## 4.7. Resumen de Colaboración
+## 4.7. Resumen de colaboración
 
 ```bash
 # Pull Request
@@ -1059,7 +1059,7 @@ gh run list               # Ver workflows
 
 > 💡 **¿Qué viene después?** En la **UD05: Herramientas de Desarrollo** aprenderás a usar clientes gráficos de Git, extensiones de VS Code, terminales especializadas y otras herramientas que potenciarán tu productividad como desarrollador.
 
-## Ejercicio Rápido: La Cafetería Colaborativa
+## Ejercicio rápido: la cafetería colaborativa
 
 > 📝 **Escenario:** Tienes el repositorio `cafeteria-web` en GitHub. Tu compañero quiere añadir una nueva sección de "Bebidas del día" y tú quieres corregir un error en el menú. Usaréis el flujo completo de colaboración.
 
