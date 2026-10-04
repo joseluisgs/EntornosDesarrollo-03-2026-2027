@@ -293,7 +293,6 @@ gh gist create archivo.cs     # Crear gist desde archivo
 # Configuración
 gh alias set prs 'pr list --state open'  # Crear alias personalizado
 gh config set editor code                 # Configurar editor por defecto
-```
 
 # Repository
 gh repo view                  # Ver repo
