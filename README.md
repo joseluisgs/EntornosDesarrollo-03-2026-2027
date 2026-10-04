@@ -6,13 +6,13 @@ UD03. Sistema de Control de Versiones. 1DAW. Curso 2026-2027.
 
 ## Contenidos
 
-1. [Git Inicial](./01-git-inicial.md)
-2. [Git Avanzado](./02-git-avanzado.md)
-3. [Git Remoto](./03-git-remoto.md)
+1. [Git inicial](./01-git-inicial.md)
+2. [Git avanzado](./02-git-avanzado.md)
+3. [Git remoto](./03-git-remoto.md)
 4. [Colaboración](./04-colaboracion.md)
-5. [Herramientas y Recursos](./05-herramientas.md)
-6. [Guía de Emergencia Git](./06-guia-emergencia.md)
-7. [Resumen y Conclusiones](./07-resumen.md)
+5. [Herramientas y recursos](./05-herramientas.md)
+6. [Guía de emergencia Git](./06-guia-emergencia.md)
+7. [Resumen y conclusiones](./07-resumen.md)
 
 ## Tutorial
 - [Tutorial de Git y GitHub](https://github.com/joseluisgs/git-tutorial)
@@ -20,9 +20,9 @@ UD03. Sistema de Control de Versiones. 1DAW. Curso 2026-2027.
 ## Contenido en YouTube
 
 - [Resumen](https://youtu.be/WzaN-hiQn7w)
-- [Git Inicial y manejo de ramas](https://youtu.be/TlLp23Iv2rw)
-- [Git Remoto, GitHub y Colaboración](https://youtu.be/u0qmU2CK61I)
-- [Lista de Reproducción](https://www.youtube.com/playlist?list=PLIaRVRNDWeMA)
+- [Git inicial y manejo de ramas](https://youtu.be/TlLp23Iv2rw)
+- [Git remoto, GitHub y colaboración](https://youtu.be/u0qmU2CK61I)
+- [Lista de reproducción](https://www.youtube.com/playlist?list=PLIaRVRNDWeMA)
 
 ## Resultados de Aprendizaje y Criterios de Evaluación
 
