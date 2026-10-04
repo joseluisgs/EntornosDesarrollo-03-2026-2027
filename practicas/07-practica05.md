@@ -1,12 +1,14 @@
-# Práctica de Git: control de versiones avanzado
-
 - [Práctica de Git: control de versiones avanzado](#práctica-de-git-control-de-versiones-avanzado)
     - [**Práctica individual: desarrollo del gestor de tareas (`task-manager`)**](#práctica-individual-desarrollo-del-gestor-de-tareas-task-manager)
 
 
+# Práctica de Git: control de versiones avanzado
+
+> 💡 **Punto de partida:** El control de versiones deja de ser «hacer git commit» cuando tu proyecto crece. Hoy construyes el tuyo con ramas de verdad.
+
 ### **Práctica individual: desarrollo del gestor de tareas (`task-manager`)**
 
-**Objetivo:** Desarrollar de forma individual una aplicación básica de gestión de tareas (`task-manager`) utilizando Git para el control de versiones. Durante el proceso, deberás aplicar los principios del control de versiones, gestionar distintas líneas de desarrollo, entender las diferencias y usos de la integración de cambios (fusión y reorganización), seleccionar cambios específicos y corregir errores comunes, todo en tu repositorio local.
+**Objetivos de aprendizaje:** Desarrollar de forma individual una aplicación básica de gestión de tareas (`task-manager`) utilizando Git para el control de versiones. Durante el proceso, deberás aplicar los principios del control de versiones, gestionar distintas líneas de desarrollo, entender las diferencias y usos de la integración de cambios (fusión y reorganización), seleccionar cambios específicos y corregir errores comunes, todo en tu repositorio local.
 
 **Instrucciones Generales:**
 
@@ -15,7 +17,6 @@
 *   **Lee cuidadosamente cada instrucción antes de ejecutarla y piensa qué acción de Git es la más adecuada.**
 *   Para visualizar el historial y comprender el impacto de tus acciones, usa frecuentemente: `git log --oneline --graph --all`
 
----
 
 **Fase 1: Preparación Inicial y Control Básico de Versiones**
 
@@ -79,7 +80,6 @@
     *   Enmienda el último commit: `git commit --amend -m "feat: Añadir descripción al README y versión inicial v1.0.0"`
     *   Visualiza el historial: `git log --oneline` (deberías ver 2 commits)
 
----
 
 **Fase 2: Líneas de Desarrollo Paralelas, Fusión vs. Reorganización, y Resolución de Conflictos**
 
@@ -186,7 +186,6 @@
     *   Visualiza: `git log --oneline --graph --all` (historial lineal)
     *   Elimina: `git branch -d feature/rebase-path`
 
----
 
 **Fase 3: Selección de Commits Específicos y Recuperación de Errores Avanzada**
 
@@ -225,7 +224,6 @@
     *   Revierte: `git revert HEAD`
     *   Visualiza: `git log --oneline` (se ve el commit de revert)
 
----
 
 **Fase 4: Finalización y Reflexión**
 
@@ -237,7 +235,6 @@
     *   `git log --oneline --graph --all`
     *   Reflexiona: ¿Cuándo usarías merge vs rebase en un proyecto real?
 
----
 
 ## Qué entregar
 

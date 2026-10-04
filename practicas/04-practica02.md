@@ -1,5 +1,3 @@
-## Práctica 2: ramificación local, integración y manipulación del historial
-
 - [Práctica 2: ramificación local, integración y manipulación del historial](#práctica-2-ramificación-local-integración-y-manipulación-del-historial)
   - [Conceptos clave a introducir y reforzar:](#conceptos-clave-a-introducir-y-reforzar)
   - [Fase 1: creación de ramas y desarrollo divergente](#fase-1-creación-de-ramas-y-desarrollo-divergente)
@@ -9,6 +7,15 @@
   - [Fase 5: equivocaciones y solución (commit a la rama incorrecta)](#fase-5-equivocaciones-y-solución-commit-a-la-rama-incorrecta)
   - [Reflexión final: importancia de las ramas](#reflexión-final-importancia-de-las-ramas)
 
+
+# Práctica 2: ramificación local, integración y manipulación del historial
+
+> 💡 **Punto de partida:** Las ramas son universos paralelos de tu proyecto. Hoy aprenderás a viajar entre ellos sin romper nada.
+
+**Objetivos de aprendizaje:**
+- Crear, fusionar y limpiar ramas con criterio
+- Resolver conflictos de integración
+- Reorganizar el historial con rebase y cherry-pick
 
 ### Conceptos clave a introducir y reforzar:
 

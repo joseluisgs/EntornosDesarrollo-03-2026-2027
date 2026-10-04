@@ -1,15 +1,21 @@
-
-## Práctica 4: flujo de trabajo colaborativo con pull requests
-
 - [Práctica 4: flujo de trabajo colaborativo con pull requests](#práctica-4-flujo-de-trabajo-colaborativo-con-pull-requests)
   - [Roles iniciales y preparación](#roles-iniciales-y-preparación)
-  - [Fase 1: configuración inicial del proyecto (Alumno A)](#fase-1-configuración-inicial-del-proyecto-alumno-a)
-  - [Fase 2: primera contribución y pull request (Alumno B)](#fase-2-primera-contribución-y-pull-request-alumno-b)
-  - [Fase 3: solicitud de cambios y actualización del PR (MP: Alumno A; Colaborador: Alumno B)](#fase-3-solicitud-de-cambios-y-actualización-del-pr-mp-alumno-a-colaborador-alumno-b)
-  - [Fase 4: segunda contribución y cambio de roles (Alumno A)](#fase-4-segunda-contribución-y-cambio-de-roles-alumno-a)
+  - [Fase 1: configuración inicial del proyecto (alumno A)](#fase-1-configuración-inicial-del-proyecto-alumno-a)
+  - [Fase 2: primera contribución y pull request (alumno B)](#fase-2-primera-contribución-y-pull-request-alumno-b)
+  - [Fase 3: solicitud de cambios y actualización del PR (MP: alumno A; colaborador: alumno B)](#fase-3-solicitud-de-cambios-y-actualización-del-pr-mp-alumno-a-colaborador-alumno-b)
+  - [Fase 4: segunda contribución y cambio de roles (alumno A)](#fase-4-segunda-contribución-y-cambio-de-roles-alumno-a)
   - [Reflexión final sobre la colaboración remota](#reflexión-final-sobre-la-colaboración-remota)
   - [Qué entregar](#qué-entregar)
 
+
+# Práctica 4: flujo de trabajo colaborativo con pull requests
+
+> 💡 **Punto de partida:** Programar en equipo es coordinarse por escrito. Hoy simularás el flujo real de una pull request entre dos personas.
+
+**Objetivos de aprendizaje:**
+- Practicar el flujo completo de una pull request
+- Repasar roles de mantenedor y colaborador
+- Experimentar la revisión y fusión de código
 
 ### Roles iniciales y preparación
 
@@ -20,13 +26,13 @@
 
 **Importancia del Remoto y PRs:** GitHub, al ser una plataforma de alojamiento de repositorios Git, facilita enormemente la **colaboración** y la **revisión de código**. Un Pull Request (PR) es una herramienta de comunicación esencial que permite a un desarrollador proponer sus cambios y solicitar una revisión antes de que el código se fusione con una rama principal.
 
-### Fase 1: configuración inicial del proyecto (Alumno A)
+### Fase 1: configuración inicial del proyecto (alumno A)
 
 1.  **Inicio del Proyecto Local (Alumno A):** Inicializa un repositorio Git local (`git init`).
 2.  **Estructura Base (Alumno A):** Crea `index.html` (estructura básica, ej: `"<h1>Proyecto Colaborativo</h1>"`) y `data.txt` (ej: "Datos iniciales").
 3.  **Primer Commit y Push:** Añade y confirma los archivos. Luego, crea un nuevo repositorio en GitHub (sin inicializar con README) y **sube la rama principal** a este remoto (`git push origin master/main`).
 
-### Fase 2: primera contribución y pull request (Alumno B)
+### Fase 2: primera contribución y pull request (alumno B)
 
 | Acción                     | Rol      | Comandos de Git/Acción Web                                                                                                           | Concepto Reforzado                                                 |
 | :------------------------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------- |
@@ -37,7 +43,7 @@
 | **2.5 Commit y Push**      | Alumno B | `git add .` y `git commit -m "feat: Añadida la primera cita."`. Luego, `git push -u origin feature/cita-inicial` (la `-u` vincula la rama local con la remota para futuros `push` sin especificar origen). | Sube la **rama nueva** a su repositorio remoto (el Fork).          |
 | **2.6 Crear PR**           | Alumno B | En la interfaz web de GitHub (en su Fork), crea un **Pull Request** proponiendo fusionar `feature/cita-inicial` a `master` de **A**. Alternativa CLI: `gh pr create --base master --head feature/cita-inicial --title "feat: añadir cita inicial" --body "Añade una cita inspiradora"`. | Propone la integración de sus cambios al proyecto principal.       |
 
-### Fase 3: solicitud de cambios y actualización del PR (MP: Alumno A; Colaborador: Alumno B)
+### Fase 3: solicitud de cambios y actualización del PR (MP: alumno A; colaborador: alumno B)
 
 **ESCENARIO CLAVE (Actualización de un PR no aceptado):** El Alumno A (Mantenedor) revisa el PR y lo encuentra aceptable, pero solicita que se añada una segunda línea al archivo `data.txt` con el autor de la cita, o **el PR no será fusionado**.
 
@@ -53,7 +59,7 @@
 
 **¡CAMBIO DE ROLES!** El Alumno B ahora asume el rol de **Mantenedor Principal** (dueño del repositorio original `origin` en GitHub) y el Alumno A se convierte en **Colaborador**.
 
-### Fase 4: segunda contribución y cambio de roles (Alumno A)
+### Fase 4: segunda contribución y cambio de roles (alumno A)
 
 | Acción                            | Rol      | Comandos de Git/Acción Web                                                                                                                                                                                                | Concepto Reforzado                                                   |
 | :-------------------------------- | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------- |

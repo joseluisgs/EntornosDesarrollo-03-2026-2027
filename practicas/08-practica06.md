@@ -1,8 +1,15 @@
+- [Práctica de Git: proyecto colaborativo con Git y GitHub](#práctica-de-git-proyecto-colaborativo-con-git-y-github)
+  - [**Práctica en pareja: desarrollo colaborativo de un generador de citas inspiradoras (`quote-generator`)**](#práctica-en-pareja-desarrollo-colaborativo-de-un-generador-de-citas-inspiradoras-quote-generator)
+  - [Qué entregar](#qué-entregar)
+
+
 # Práctica de Git: proyecto colaborativo con Git y GitHub
+
+> 💡 **Punto de partida:** ¿Sabrías colaborar en un repositorio sin pisaros el trabajo? Hoy, en pareja, montáis un proyecto real en GitHub.
 
 ### **Práctica en pareja: desarrollo colaborativo de un generador de citas inspiradoras (`quote-generator`)**
 
-**Objetivo:** Desarrollar en pareja una aplicación simple para generar citas inspiradoras. Esta práctica se centrará en la **colaboración mediante repositorios remotos en GitHub**, la gestión de **líneas de desarrollo (ramas)**, la **resolución de conflictos**, la integración de cambios mediante **fusión (`merge`) y reorganización (`rebase`)**, y la comunicación a través de **Pull Requests (solicitudes de integración)**.
+**Objetivos de aprendizaje:** Desarrollar en pareja una aplicación simple para generar citas inspiradoras. Esta práctica se centrará en la **colaboración mediante repositorios remotos en GitHub**, la gestión de **líneas de desarrollo (ramas)**, la **resolución de conflictos**, la integración de cambios mediante **fusión (`merge`) y reorganización (`rebase`)**, y la comunicación a través de **Pull Requests (solicitudes de integración)**.
 
 **Roles y Rotación:**
 
@@ -231,9 +238,6 @@
     *   Discutan la importancia de **resolver los conflictos** a tiempo y de forma colaborativa. ¿Cómo les ayudó la herramienta de resolución de conflictos?.
     *   Reflexionen sobre los **"peligros de reorganizar" commits que ya se han "publicado"** (enviado a un repositorio remoto) y por qué **`git revert` es la opción preferida** en esos casos. Git generalmente solo añade información, lo que hace que sea difícil borrar datos de forma irreversible una vez confirmados.
     *   Comenten cómo la rotación de roles les ayudó a entender las diferentes perspectivas y responsabilidades en un proyecto colaborativo.
-
----
-
 ## Qué entregar
 
 - [ ] URL del repositorio del Alumno A en GitHub

@@ -1,5 +1,3 @@
-## Práctica 1: fundamentos de Git en entorno local (sin ramas)
-
 - [Práctica 1: fundamentos de Git en entorno local (sin ramas)](#práctica-1-fundamentos-de-git-en-entorno-local-sin-ramas)
   - [Conceptos clave a introducir y reforzar:](#conceptos-clave-a-introducir-y-reforzar)
   - [Fase 1: inicialización y primer commit](#fase-1-inicialización-y-primer-commit)
@@ -9,6 +7,15 @@
   - [Fase 5: recuperación y revertir](#fase-5-recuperación-y-revertir)
   - [Reflexión final (importancia de Git local)](#reflexión-final-importancia-de-git-local)
 
+
+# Práctica 1: fundamentos de Git en entorno local (sin ramas)
+
+> 💡 **Punto de partida:** Lo más peligroso de Git no es perder el trabajo: es no saber qué has hecho. Hoy practicas el flujo local a fondo.
+
+**Objetivos de aprendizaje:**
+- Dominar el ciclo add → commit → historial
+- Trabajar con etiquetas y zonas temporales
+- Recuperarte de errores comunes en local
 
 ### Conceptos clave a introducir y reforzar:
 1.  **Directorio de Trabajo (*Working Directory*):** Donde se modifican los archivos directamente.

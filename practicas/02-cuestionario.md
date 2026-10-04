@@ -3,9 +3,15 @@
 
 # Práctica 2: cuestionario de razonamiento
 
+> 💡 **Punto de partida:** Working directory, staging y repositorio: ¿de verdad sabes dónde está tu cambio en cada momento?
+
+**Objetivos de aprendizaje:**
+- Diferenciar las tres zonas de trabajo en Git
+- Explicar cuándo usar cada comando básico
+- Razonar sobre errores comunes de principiante
+
 **Instrucciones:** Responde a cada pregunta explicando tu razonamiento y basándote en la información proporcionada.
 
----
 
 1.  **Diferencia entre Working Directory, Staging Area y Repositorio.**
     Un compañero dice que "git add y git commit hacen lo mismo: guardan cambios". Explica por qué está equivocado describiendo las tres zonas de Git (Working Directory, Staging Area, Repositorio) y qué hace cada comando en cada zona. Usa una analogía que un compañero de 17 años pueda entender.

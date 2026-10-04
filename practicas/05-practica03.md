@@ -1,6 +1,3 @@
-
-## Práctica 3: sincronización, ramificación y control de errores con repositorios remotos
-
 - [Práctica 3: sincronización, ramificación y control de errores con repositorios remotos](#práctica-3-sincronización-ramificación-y-control-de-errores-con-repositorios-remotos)
   - [Conceptos clave a introducir y reforzar:](#conceptos-clave-a-introducir-y-reforzar)
   - [Fase 1: creación del repositorio remoto y primera conexión](#fase-1-creación-del-repositorio-remoto-y-primera-conexión)
@@ -10,6 +7,15 @@
   - [Fase 5: limpieza de ramas remotas](#fase-5-limpieza-de-ramas-remotas)
   - [Importancia de añadir el repositorio remoto](#importancia-de-añadir-el-repositorio-remoto)
 
+
+# Práctica 3: sincronización, ramificación y control de errores con repositorios remotos
+
+> 💡 **Punto de partida:** ¿Y si tu compañero sube cambios justo cuando tú tenías el trabajo a medias? Hoy toca el Git remoto.
+
+**Objetivos de aprendizaje:**
+- Conectar un repositorio local con GitHub
+- Sincronizar cambios con fetch, pull y push
+- Gestionar ramas remotas y etiquetas
 
 ### Conceptos clave a introducir y reforzar:
 

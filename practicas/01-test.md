@@ -9,9 +9,15 @@
 
 # Práctica 1: test de conocimientos
 
+> 💡 **Punto de partida:** ¿Has borrado algún archivo por accidente y has deseado poder volver atrás en el tiempo? Git es exactamente eso: una máquina del tiempo para tu código.
+
+**Objetivos de aprendizaje:**
+- Repasar los fundamentos de Git local
+- Distinguir working directory, staging y repositorio
+- Prepararte para las prácticas con ramas
+
 **Instrucciones:** Lee atentamente cada pregunta y selecciona la opción que consideres correcta.
 
----
 
 ### Bloque 1: fundamentos de Git (preguntas 1-8)
 
@@ -63,7 +69,6 @@
     c) Un identificador único de 40 caracteres que Git genera para cada commit.
     d) Un tipo de archivo que Git ignora automáticamente.
 
----
 
 ### Bloque 2: comandos Git esenciales (preguntas 9-18)
 
@@ -127,7 +132,6 @@
     c) `git reset` es para ramas; `git revert` es para commits.
     d) `git revert` borra archivos; `git reset` solo modifica el historial.
 
----
 
 ### Bloque 3: ramas y fusiones (preguntas 19-26)
 
@@ -179,7 +183,6 @@
     c) `git branch --delete <nombre>`
     d) `git branch --remove <nombre>`
 
----
 
 ### Bloque 4: repositorios remotos y GitHub (preguntas 27-34)
 
@@ -231,7 +234,6 @@
     c) `git remote show`
     d) `git remote status`
 
----
 
 ### Bloque 5: colaboración (PR, fork, Code review) (preguntas 35-42)
 
@@ -283,7 +285,6 @@
     c) Una PR que solo el autor puede ver.
     d) Una PR automática creada por GitHub Actions.
 
----
 
 ### Bloque 6: herramientas y CLI (preguntas 43-50)
 
