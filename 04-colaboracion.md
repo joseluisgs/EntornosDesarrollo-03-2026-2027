@@ -126,6 +126,8 @@ gitGraph
 
 ### 4.1.3. Crear una PR desde terminal
 
+No necesitas el navegador para proponer una fusión: con GitHub CLI creas la pull request en un par de comandos. Este script recorre el circuito completo desde tu rama local hasta la PR publicada.
+
 ```bash
 # 1. Crear y cambiar a nueva rama
 git checkout -b feature/nuevo-login
@@ -267,6 +269,8 @@ gitGraph
 
 ### 4.2.2. Configurar fork
 
+Tras hacer el fork hay que enlazar tu copia con el repositorio original (upstream) para poder traerte sus novedades. Estos dos comandos dejan la topología de remotos lista para trabajar en equipo.
+
 ```bash
 # 1. Clonar tu fork
 git clone https://github.com/tu-usuario/fork.git
@@ -342,6 +346,8 @@ Vamos a ver **todos los comandos** del flujo completo de colaboración entre dos
 
 #### Paso 1: Ana — configuración inicial
 
+Antes de tocar código, Ana autentica GitHub CLI para poder crear ramas y pull requests desde la terminal. Verifica siempre la autenticación: el problema más común con gh es una sesión caducada.
+
 ```bash
 # 1. Autenticarse en GitHub CLI
 gh auth login
@@ -363,6 +369,8 @@ git remote -v
 ```
 
 #### Paso 2: Ana — crear rama y hacer cambios
+
+Ana parte de una main al día con el proyecto original y crea su rama de corrección. Fíjate en que primero actualiza su fork desde upstream: nunca se trabaja sobre una copia desactualizada.
 
 ```bash
 # 1. Asegurarse de estar en main actualizado
@@ -394,6 +402,8 @@ git push -u origin fix/corregir-login
 
 #### Paso 3: Ana — crear pull request
 
+Con los cambios commiteados en su rama, Ana abre la pull request desde la terminal con gh pr create. Un título en formato convencional y un cuerpo que explique el porqué hacen que la revisión sea muchísimo más fácil.
+
 ```bash
 # 1. Crear PR directamente desde consola
 gh pr create \
@@ -420,6 +430,8 @@ gh pr view
 ```
 
 #### Paso 4: Carlos — recibir notificación y revisar
+
+Ahora toca el turno de Carlos: lista las PRs pendientes, revisa los cambios en línea y deja comentarios. En un equipo, revisar el código de los demás es tan importante como escribir el tuyo.
 
 ```bash
 # 1. Carlos ve las PRs pendientes
@@ -458,6 +470,8 @@ gh pr view 87 --web
 
 #### Paso 5: Carlos — aprobar o solicitar cambios
 
+La revisión termina con un veredicto: aprobar la pull request o solicitar cambios explicando el motivo. Fíjate en que --request-changes siempre lleva un detalle concreto: pedir cambios sin decir qué es amablemente inútil.
+
 ```bash
 # OPCIÓN A: Aprobar la PR
 gh pr review 87 --approve --body "¡Buen fix! La validación está correcta."
@@ -473,6 +487,8 @@ git push origin fix/corregir-login
 ```
 
 #### Paso 6: Carlos — fusionar la PR
+
+Con la pull request aprobada, Carlos la fusiona; aquí usamos --squash para condensar todos los commits de la rama en uno solo sobre main. Después verifica el estado para confirmar que el merge se completó.
 
 ```bash
 # 1. Fusionar la PR (después de aprobar)
@@ -502,6 +518,8 @@ gitGraph
 ```
 
 #### Paso 7: Ana — sincronizar su fork
+
+La pull request ya está en el proyecto original, así que Ana actualiza su copia local y su fork para seguir trabajando desde la última versión. Este paso cierra el ciclo de colaboración; olvidarlo es la causa de los famosos conflictos del futuro.
 
 ```bash
 # 1. Volver a main
@@ -743,6 +761,8 @@ jobs:
 
 ### 4.4.1. Comandos para GitHub CLI
 
+GitHub CLI no sirve solo para pull requests: también gestiona workflows, issues y releases desde la terminal. Estos son los comandos útiles de Actions para monitorizar tus flujos de integración continua.
+
 ```bash
 # Instalar GitHub CLI
 # https://cli.github.com/
@@ -947,6 +967,8 @@ Esto permite generar changelogs automáticos y saber en qué versión se introdu
 
 ### 4.6.1. Formato convencional
 
+Los mensajes de commit siguen un patrón que permite generar notas de versión automáticas y filtrar el historial por tipo de cambio. Memoriza la estructura: tipo, ámbito entre paréntesis y descripción en imperativo.
+
 ```
 <tipo>(<ámbito>): <descripción>
 
@@ -982,6 +1004,8 @@ graph TD
 | **chore** | Tareas de mantenimiento | `chore: update deps` |
 
 ### 4.6.3. Ejemplos
+
+Nada como comparar mensajes malos con buenos para pillar el estilo: de un fix suelto a un mensaje que cuenta qué se arregla y por qué. Usa este bloque como patrón cuando redactes los commits de la práctica.
 
 ```bash
 # ❌ Malos mensajes
@@ -1025,6 +1049,8 @@ git commit -m "docs(api): add endpoint documentation"
 > 4. **Descripciones en inglés malo**: Si el equipo habla español, usa español. Pero si es open source, el inglés es estándar.
 
 ## 4.7. Resumen de colaboración
+
+Este bloque resume el flujo completo de colaboración con pull requests en pocos comandos: rama, push, PR, revisión y sincronización. Repásalo antes de empezar la práctica en equipo.
 
 ```bash
 # Pull Request

@@ -212,6 +212,8 @@ graph TB
 
 ### 5.3.1. Instalación
 
+GitHub CLI se instala en Windows con tu gestor de paquetes favorito, y en macOS y Linux desde homebrew o el repositorio oficial. Verifica la instalación con gh --version antes de continuar.
+
 ```bash
 # Windows (scoop)
 scoop install gh
@@ -233,6 +235,8 @@ pacman -S github-cli
 ```
 
 ### 5.3.2. Comandos principales
+
+Estos son los comandos que usarás a diario con gh: autenticarte y gestionar pull requests e issues sin salir de la terminal. Empieza por gh auth login: sin sesión, ninguno de los demás funcionará.
 
 ```bash
 # Autenticarse
@@ -301,6 +305,8 @@ gh repo fork [repo]           # Fork repo
 ```
 
 ### 5.3.3. Ejemplo de flujo completo
+
+Vamos a unirlo todo en un flujo real: clonar con gh, crear rama, commitear, subir y abrir la pull request en un par de comandos. Prueba este guion completo en un repositorio de práctica para consolidar el circuito.
 
 ```bash
 # Clonar repo
@@ -448,6 +454,8 @@ git config --global core.editor "code --wait"
 
 ### 5.6.2. Recuperación de errores
 
+Cuando algo sale mal (un reset --hard precipitado, un archivo eliminado sin querer), Git guarda pistas para recuperarlo casi todo. Estos comandos son los primeros auxilios: busca en el reflog el estado anterior y restaura desde ahí.
+
 ```bash
 # Recuperar cambios después de reset --hard
 git reflog                    # Ver historial
@@ -468,6 +476,8 @@ git log --all --full-history -- archivo.txt
 ```
 
 ### 5.6.3. Comandos de emergencia
+
+Esta es la caja de herramientas de última instancia: recorrer todo el historial incluidos los resets, buscar un commit por su mensaje o rastrear objetos sueltos con git fsck. Léelos con calma; cuando los necesites de verdad, te alegrarás de conocerlos.
 
 ```bash
 # Ver todo el historial (incluido resets)

@@ -561,6 +561,8 @@ gitGraph
 
 ### 3.5.1. Crear y subir tags
 
+Para que una etiqueta sea útil a todo el equipo hay que subirla expresamente al remoto, ya que no viaja con el git push normal. Estos comandos muestran el ciclo completo: crear, verificar y publicar el tag.
+
 ```bash
 # Ver tags existentes
 git tag
@@ -656,6 +658,8 @@ flowchart TD
 
 ### 3.6.1. Generar clave SSH
 
+Una clave SSH identifica tu ordenador ante GitHub sin escribir la contraseña en cada operación; generarla lleva un minuto. Responde a las preguntas del asistente con Enter si no quieres passphrase, aunque lo más seguro es ponerle una.
+
 ```bash
 # Generar nueva clave SSH
 ssh-keygen -t ed25519 -C "tu.email@ejemplo.com"
@@ -729,6 +733,8 @@ sequenceDiagram
 4. Pegar clave y guardar
 
 ### 3.6.3. Usar SSH en lugar de HTTPS
+
+Si ya tienes la clave creada, basta con cambiar la URL del remoto para que Git deje de pedirte usuario y contraseña. Comprueba con git remote -v que la URL quedó actualizada antes de volver a trabajar.
 
 ```bash
 # Ver URL actual del remoto
@@ -804,6 +810,8 @@ indent_size = 2
 
 ## 3.7. Resumen de comandos remotos
 
+Este bloque recoge de un vistazo todos los comandos para trabajar con repositorios remotos: verlos, añadirlos, sincronizarlos y subir ramas y etiquetas. Tenlo a mano mientras hagas la práctica de GitHub.
+
 ```bash
 # Ver remotos
 git remote -v
@@ -843,6 +851,8 @@ git remote prune origin
 ```
 
 ## 3.8. Workflow remoto completo
+
+Vamos a encadenar todo lo aprendido en el flujo real de trabajo con un equipo: clonar, crear rama, hacer cambios, subirlos y proponer la fusión. Sigue el script paso a paso en un repositorio de prueba y te quedará el circuito completo en la cabeza.
 
 ```bash
 # 1. Clonar repositorio
@@ -941,6 +951,8 @@ graph LR
 
 ### 3.9.2. Estructura de un proyecto para GitHub Pages
 
+GitHub Pages es gratuito y publica directamente desde el repositorio, pero espera cierta estructura: un index.html obligatorio en la raíz. Este es el esqueleto mínimo que conviene mantener para una web estática.
+
 ```
 mi-proyecto/
 ├── index.html          # Página principal (obligatoria)
@@ -953,6 +965,8 @@ mi-proyecto/
 > ⚠️ **Importante:** GitHub Pages solo sirve archivos **estáticos** (HTML, CSS, JS). No ejecuta C#, Python ni bases de datos. Para proyectos .NET, usa Azure o Docker.
 
 ### 3.9.3. Desplegar desde una rama
+
+Otra opción de Pages es dedicar una rama (gh-pages) al sitio publicado, separando así el código fuente de la web. Estos comandos crean esa rama y suben los ficheros del sitio.
 
 ```bash
 # Crear rama gh-pages

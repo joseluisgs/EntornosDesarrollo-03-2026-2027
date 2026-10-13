@@ -112,6 +112,8 @@ gitGraph
 
 ### 2.1.2. Comandos de ramas
 
+Gestionar ramas se resume en estas operaciones: listarlas, crearlas, cambiar entre ellas y borrarlas. Practica cada una en un repositorio de prueba hasta que el flujo te salga sin pensar.
+
 ```bash
 # Listar todas las ramas locales
 git branch
@@ -359,6 +361,8 @@ Aquí Git **sí crea un commit de merge** (commit type: REVERSE) porque ambos r�
 
 ### 2.2.2. Comandos de merge
 
+Cuando una rama terminada hay que incorporarla a la principal, el comando es git merge; aquí están sus variantes habituales. Fíjate en la regla de oro: siempre fusionas sobre la rama destino, así que primero te cambias a ella y después fusionas.
+
 ```bash
 # Fusionar una rama en la actual
 git merge nombre-rama
@@ -534,6 +538,8 @@ gitGraph
 
 ### 2.3.1. Comandos de rebase
 
+El rebase replanta los commits de tu rama encima de los últimos de la principal para mantener una historia lineal. El modo interactivo (-i) es el más potente: te permite editar, reordenar o combinar commits antes de aplicarlos.
+
 ```bash
 # Rebase de la rama actual sobre main
 git rebase main
@@ -660,6 +666,8 @@ graph TD
 > - **Merge** para ramas compartidas
 
 ### 2.3.4. Ejemplo rebase práctico
+
+Vamos a ver el rebase de principio a fin en un caso real: una rama de feature que se ha quedado rezagada respecto a main. Sigue los pasos en tu terminal y observa cómo el historial queda lineal al final.
 
 ```bash
 # 1. Estás en feature, main tiene nuevos commits
@@ -846,6 +854,8 @@ public class ServicioLogin
 > 💡 **Truco:** Usa un IDE como Rider o VS Code que tiene herramientas visuales para resolver conflictos. Muestra ambos lados y puedes elegir "aceptar actual", "aceptar entrante" o "aceptar ambos".
 
 ### 2.4.2. Herramientas de resolución
+
+Cuando el merge se complica, Git te ofrece salidas: abrir un editor visual con git mergetool o abortar la fusión entera y volver a empezar con --abort. Conocer estas dos opciones te quita el miedo a los conflictos.
 
 ```bash
 # Usar mergetool
@@ -1077,6 +1087,8 @@ gitGraph
 
 ### 2.6.3. Comandos GitFlow
 
+Si tu equipo adopta la metodología GitFlow, estos son los comandos que traducen cada fase del flujo (develop, feature, release, hotfix) a ramas reales. Guárdalos a mano porque en proyectos con entrega continua se repiten en cada ciclo.
+
 ```bash
 # Iniciar develop
 git checkout -b develop main
@@ -1158,6 +1170,8 @@ git push -u origin main
 | No probar antes de merge | Bugs en producción | Tests automatizados |
 
 ## 2.9. Resumen de comandos avanzados
+
+Aquí tienes todos los comandos avanzados del tema en un único bloque, ordenados por flujo: ramas, merge, rebase y deshacer. Úsalo como referencia rápida durante la práctica en lugar de buscarlos uno a uno.
 
 ```bash
 # Ramas

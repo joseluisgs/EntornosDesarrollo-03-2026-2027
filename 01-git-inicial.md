@@ -245,6 +245,8 @@ git --version
 
 #### Linux (Debian/Ubuntu)
 
+Si trabajas con Ubuntu o Debian, el gestor de paquetes es apt: primero actualizas los índices y después instalas Git. Verás el sudo porque instalar software del sistema requiere permisos de administrador.
+
 ```bash
 # Actualizar índices de paquetes
 sudo apt update
@@ -259,12 +261,16 @@ git --version
 
 #### Linux (Fedora)
 
+En Fedora el gestor de paquetes es dnf en lugar de apt; el proceso es idéntico, solo cambia el comando. Comprueba siempre la versión al final para confirmar que la instalación salió bien.
+
 ```bash
 sudo dnf install git
 git --version
 ```
 
 #### Linux (Arch Linux)
+
+En Arch Linux se usa pacman, el gestor minimalista de la distribución. Como en el resto de sistemas, terminamos verificando la versión instalada antes de dar nada por hecho.
 
 ```bash
 pacman -S git
@@ -294,6 +300,8 @@ git --version
 Una vez instalado Git, lo primero es configurar tu identidad. Esta información aparecerá en cada commit que hagas.
 
 #### Comandos de configuración
+
+Estos comandos configuran Git en tu equipo de una vez por todas: tu nombre y correo (obligatorios, van firmados en cada commit) y la rama por defecto al crear repositorios. Es el primer paso antes de trabajar con Git en serio.
 
 ```bash
 # Configurar nombre y email (obligatorio)
@@ -337,6 +345,8 @@ Cuando ejecutas `git config`, Git guarda la configuración en un archivo llamado
 > 💡 **Consejo:** Puedes editar este archivo directamente con tu editor favorito en lugar de usar comandos `git config`. Es especialmente útil para configuraciones avanzadas como alias y colores.
 
 #### Ejemplo de `.gitconfig` del profesor
+
+Así queda el fichero ~/.gitconfig resultante de aplicar la configuración anterior: todas tus opciones de Git viven en este único fichero de texto, que puedes copiar a otro ordenador para replicar tu entorno al completo.
 
 ```gitconfig
 [user]
@@ -407,6 +417,8 @@ flowchart TD
 
 ### 1.4.3. Creación y clonación de repositorios
 
+Aquí tienes los dos puntos de partida de cualquier proyecto con Git: crear un repositorio nuevo con git init en una carpeta vacía, o descargar uno ya existente con git clone. Copia los comandos en tu terminal y observa la salida que produce cada uno.
+
 ```bash
 # Inicializar un nuevo repositorio
 mkdir mi-proyecto
@@ -471,6 +483,8 @@ git clone --depth 1 repositorio
 **Pros de `git clone`:**
 ### 1.4.4. Gestión de cambios
 
+El día a día de Git gira en torno al estado de tus archivos, y estos comandos te dejan ver en cuál estás: git status te dice qué has modificado, qué tienes preparado y qué está limpio. Úsalos sin parar: mirar el estado antes de cada commit es un hábito que te salvará más de un susto.
+
 ```bash
 # Ver estado del repositorio
 git status
@@ -515,6 +529,8 @@ gitGraph
 
 ### 1.4.5. Commit
 
+Un commit es una instantánea guardada con un mensaje que explica el porqué del cambio; estos son los comandos para crearlos. Recuerda que el mensaje es para tu compañero (y para tu yo del futuro), no para la máquina.
+
 ```bash
 # Commit con mensaje
 git commit -m "Añadida funcionalidad de login"
@@ -558,6 +574,8 @@ gitGraph
 
 ### 1.4.6. Diff
 
+Antes de confirmar un cambio conviene ver exactamente qué has tocado, y para eso está git diff: muestra línea a línea las diferencias respecto a la última instantánea. Fíjate en la diferencia entre diff (cambios sin preparar) y diff --staged (lo que estás a punto de commitear).
+
 ```bash
 # Ver cambios NO preparados
 git diff
@@ -591,6 +609,8 @@ gitGraph
 > ⚠️ **Error común:** Olvidar que `git diff` solo muestra cambios NO preparados. Para ver los cambios preparados, usa `git diff --staged`.
 
 ### 1.4.7. Historial
+
+Con estos comandos recorres el historial del repositorio: desde la vista completa de git log hasta la versión resumida con --oneline, que es la que usarás normalmente en proyectos con cientos de commits.
 
 ```bash
 # Ver historial completo
@@ -760,6 +780,8 @@ flowchart TD
 
 #### 1.4.8.1. git restore: deshacer cambios en working tree
 
+Si has tocado un archivo y quieres volver al estado del último commit sin más historia, este es tu comando. Es la forma rápida de deshacer, así que ten claro que borra tus modificaciones locales.
+
 ```bash
 # Deshacer cambios en un archivo (volver al último commit)
 git restore archivo.txt
@@ -806,6 +828,8 @@ graph LR
 > ⚠️ **Error común:** Usar `git restore .` sin querer → pierdes todos tus cambios locales. Siempre revisa qué hay sin commit antes de ejecutarlo.
 
 #### 1.4.8.2. git revert: crear commit que deshace
+
+Cuando un cambio ya está compartido (un merge malo, por ejemplo), la historia no se borra: se añade un commit nuevo que invierte el anterior. Es la forma segura de deshacer trabajando en equipo.
 
 ```bash
 # Revertir el último commit (crea nuevo commit)
@@ -919,6 +943,8 @@ git reset --hard HEAD~1
 
 #### 1.4.8.4. Trucos: eliminar el último commit
 
+Te has dado cuenta de que el último commit no debía existir; estas son las dos vías para eliminarlo. Elige --soft si quieres conservar el trabajo para rehacerlo mejor, y --hard solo si de verdad quieres tirarlo.
+
 ```bash
 # OPCIÓN 1: Conservar los cambios en staging (recomendado)
 git reset --soft HEAD~1
@@ -941,6 +967,8 @@ git revert HEAD
 
 #### 1.4.8.5. git reflog: tu salvavidas
 
+Incluso tras un reset o un rebase desastroso, Git recuerda dónde ha estado tu HEAD: el reflog es ese registro de emergencia. Aprende a usarlo y prácticamente nada se pierde de forma definitiva.
+
 ```bash
 # Ver todo el historial de HEAD (incluye resets)
 git reflog
@@ -958,6 +986,8 @@ git reset --hard [commit-hash]
 > 💡 **Truco profesional:** `git reflog` guarda todos los movimientos de HEAD, incluso después de un `reset --hard`. Úsalo para recuperar commits "perdidos".
 
 #### 1.4.8.6. git commit --amend: modificar el último commit
+
+Olvidaste un archivo o te equivocaste en el mensaje del último commit: --amend lo reescribe como si fuera el mismo. Úsalo solo con commits que no hayas subido todavía, porque si ya están compartidos reescribir la historia dará problemas al equipo.
 
 ```bash
 # Cambiar el mensaje del último commit
@@ -1035,6 +1065,8 @@ git rebase -i HEAD~3
 ```
 
 ### 1.4.9. Eliminar archivos
+
+Borrar un archivo con el Explorador no basta en Git: hay que registrarlo también en el repositorio, y estos son los comandos para hacerlo. Fíjate en --cached, que sirve para dejar de versionar un archivo sin quitárolo del disco (muy útil para ficheros generados).
 
 ```bash
 # Eliminar archivo del repositorio Y del disco
@@ -1138,6 +1170,8 @@ flowchart TD
 
 ### 1.4.11. Etiquetado (tags)
 
+Las etiquetas marcan puntos importantes de la historia, normalmente versiones de release como v1.0 o v2.1. Aquí ves cómo crearlas y cómo subirlas al remoto para que todo el equipo pueda referenciarlas.
+
 ```bash
 # Ver etiquetas existentes
 git tag
@@ -1195,6 +1229,8 @@ gitGraph
 
 ## 1.5. Guardar cambios temporales
 
+Estás a medio hacer algo y necesitas cambiar de rama sin dejar el trabajo colgado: para eso está git stash, que guarda tus cambios pendientes en una pila y deja el árbol limpio. Piensa en el bolsillo del bata de laboratorio: es temporal, y hay que sacarlo después.
+
 ```bash
 # Guardar cambios actuales (sin hacer commit)
 git stash
@@ -1250,6 +1286,8 @@ sequenceDiagram
 > 💡 **`git stash pop`** aplica y elimina. **`git stash apply`** aplica pero conserva. Usa `pop` en el día a día, `apply` si necesitas el stash en varias ramas.
 
 ## 1.6. Resumen de comandos básicos
+
+Este bloque concentra en una sola pantalla el flujo que vas a repetir cientos de veces: ver el estado, preparar cambios, guardarlos y mirar el historial. Úsalo como chuleta durante la práctica en lugar de buscar cada comando por su cuenta.
 
 ```bash
 # Flujo básico
