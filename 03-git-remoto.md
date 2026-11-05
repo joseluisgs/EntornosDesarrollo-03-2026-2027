@@ -3,6 +3,7 @@
     - [3.1.1. Alternativas a GitHub](#311-alternativas-a-github)
     - [3.1.2. Comparativa de plataformas](#312-comparativa-de-plataformas)
   - [3.2. Arquitectura remota](#32-arquitectura-remota)
+    - [3.2.1. Diagrama de arquitectura](#321-diagrama-de-arquitectura)
   - [3.3. Trabajar con remotos](#33-trabajar-con-remotos)
     - [3.3.1. git remote](#331-git-remote)
     - [3.3.2. git push](#332-git-push)
@@ -23,8 +24,13 @@
     - [3.6.3. Usar SSH en lugar de HTTPS](#363-usar-ssh-en-lugar-de-https)
     - [3.6.4. Ventajas y desventajas: SSH vs HTTPS](#364-ventajas-y-desventajas-ssh-vs-https)
     - [3.6.5. Errores comunes con SSH](#365-errores-comunes-con-ssh)
-  - [3.7. Workflow remoto completo](#37-workflow-remoto-completo)
-  - [3.8. GitHub Pages](#38-github-pages)
+    - [3.6.6. .editorconfig: consistencia en equipo](#366-editorconfig-consistencia-en-equipo)
+  - [3.8. Workflow remoto completo](#38-workflow-remoto-completo)
+  - [3.9. GitHub Pages](#39-github-pages)
+    - [3.9.1. Configurar GitHub Pages](#391-configurar-github-pages)
+    - [3.9.2. Estructura de un proyecto para GitHub Pages](#392-estructura-de-un-proyecto-para-github-pages)
+    - [3.9.3. Desplegar desde una rama](#393-desplegar-desde-una-rama)
+    - [3.9.4. Desplegar con GitHub Actions (automático)](#394-desplegar-con-github-actions-automático)
 
 
 # 3. Git remoto
