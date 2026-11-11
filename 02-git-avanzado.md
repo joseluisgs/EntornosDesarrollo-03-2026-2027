@@ -479,6 +479,8 @@ El **rebase** reaplica los commits de tu rama sobre otra base, creando un histor
 > 💡 **Metáfora: Viaje en el tiempo**
 > El rebase es como viajar al pasado. Imagina que estás construyendo una casa (tu rama `feature`) y quieres que las paredes estén perfectamente alineadas con el plano más reciente de la ciudad (`main`). En lugar de construir un puente (merge), retrocedes en el tiempo, te mueves al último punto del plano de la ciudad y vuelves a construir tu casa desde ahí. El resultado es una casa perfectamente alineada, pero el plano antiguo de tu casa ya no existe — se reescribió la historia.
 
+**Antes del rebase**, `feature` parte de `base` y `main` avanza por su lado: los dos historiales han divergido.
+
 ```mermaid
 gitGraph
     commit id: "init"
@@ -490,11 +492,23 @@ gitGraph
     checkout main
     commit id: "main fix"
     commit id: "main feat"
+```
+
+Al ejecutar `git rebase main`, Git vuelve a la divergencia, sitúa `feature` sobre el último commit de `main` y **recrea** sus commits encima. El resultado queda así:
+
+```mermaid
+gitGraph
+    commit id: "init"
+    commit id: "base"
+    commit id: "main fix"
+    commit id: "main feat"
+    branch feature
     checkout feature
-    rebase main
     commit id: "feat 1 (rebaseado)"
     commit id: "feat 2 (rebaseado)"
 ```
+
+> 📝 **Nota:** Los commits `feat 1` y `feat 2` originales desaparecen del historial; solo sobreviven sus copias rebaseadas, con hashes nuevos. Por eso se dice que el rebase **reescribe la historia**.
 
 ### Merge vs rebase: comparación visual
 
@@ -520,16 +534,11 @@ gitGraph
 ```mermaid
 gitGraph
     commit id: "init"
+    commit id: "C"
     branch feature
     checkout feature
-    commit id: "A"
-    commit id: "B"
-    checkout main
-    commit id: "C"
-    checkout feature
-    rebase main
-    commit id: "A'"
-    commit id: "B'"
+    commit id: "A'" tag: "copia de A"
+    commit id: "B'" tag: "copia de B"
     commit id: "D"
     checkout main
     merge feature id: "merge" type: REVERSE
