@@ -1,15 +1,17 @@
 - [4. Colaboración](#4-colaboración)
   - [4.1. Pull requests (PR)](#41-pull-requests-pr)
     - [4.1.1. Flujo de una pull request](#411-flujo-de-una-pull-request)
-    - [4.1.2. Componentes de una PR](#412-componentes-de-una-pr)
-    - [4.1.3. Crear una PR desde terminal](#413-crear-una-pr-desde-terminal)
-    - [4.1.4. Buenas prácticas para PRs](#414-buenas-prácticas-para-prs)
-    - [4.1.5. Branch Protection Rules](#415-branch-protection-rules)
+    - [4.1.2. ¿Cómo hacer tu PR?](#412-cómo-hacer-tu-pr)
+    - [4.1.3. Componentes de una PR](#413-componentes-de-una-pr)
+    - [4.1.4. Cómo se negocia el PR y la revisión](#414-cómo-se-negocia-el-pr-y-la-revisión)
+    - [4.1.5. Crear una PR desde terminal](#415-crear-una-pr-desde-terminal)
+    - [4.1.6. Buenas prácticas para PRs](#416-buenas-prácticas-para-prs)
+    - [4.1.7. Branch Protection Rules](#417-branch-protection-rules)
+    - [4.1.8. Flujo completo: dos usuarios colaborando (ejemplo práctico)](#418-flujo-completo-dos-usuarios-colaborando-ejemplo-práctico)
   - [4.2. Fork (bifurcación)](#42-fork-bifurcación)
     - [4.2.1. Flujo de trabajo con fork](#421-flujo-de-trabajo-con-fork)
     - [4.2.2. Configurar fork](#422-configurar-fork)
     - [4.2.3. Mantener fork actualizado](#423-mantener-fork-actualizado)
-    - [4.2.4. Flujo completo: dos usuarios colaborando (ejemplo práctico)](#424-flujo-completo-dos-usuarios-colaborando-ejemplo-práctico)
   - [4.3. Code review (revisión de código)](#43-code-review-revisión-de-código)
     - [4.3.1. Beneficios del Code review](#431-beneficios-del-code-review)
     - [4.3.2. Proceso de revisión](#432-proceso-de-revisión)
@@ -51,6 +53,8 @@ En el Punto 03 vimos GitHub y los repositorios remotos: cómo subir código, clo
 
 El trabajo en equipo en Git requiere procesos claros de comunicación, revisión de código y gestión de contribuciones.
 
+Este punto empieza por la **Pull Request**, que es el flujo completo de colaboración: ese recorrido **ya incluye el fork** (el primer paso cuando el repositorio no es tuyo) y la **revisión de código**. En los apartados siguientes **detallamos**, uno a uno, todos los elementos que aparecen en ese flujo, así que no se pierde el hilo: primero el todo, después cada detalle.
+
 ## 4.1. Pull requests (PR)
 
 Una **Pull Request** es una herramienta de comunicación fundamental en el desarrollo colaborativo. Se utiliza para proponer cambios, explicar el trabajo y solicitar revisión antes de fusionar.
@@ -84,22 +88,39 @@ Una **Pull Request** es una herramienta de comunicación fundamental en el desar
 
 ### 4.1.1. Flujo de una pull request
 
+Antes de dibujar el circuito, resolvamos la duda que rompe la mayoría de los ejemplos que encuentras por ahí: **¿por dónde se empieza?** Depende de quién sea el dueño del repositorio.
+
+| Situación | ¿Puedes hacer `push` directo? | Primer paso |
+|---|---|---|
+| **Tu repositorio** o uno donde ya eres colaborador | Sí | Crear rama |
+| **Repositorio ajeno** (open source, repo de un compañero, proyecto de clase) | **No** | **Fork** |
+
+> ⚠️ **Advertencia:** Si intentas hacer `push` a un repositorio del que no eres propietario, Git te responde con `Permission denied` o GitHub te avisa de que la rama está protegida. En un proyecto ajeno **el fork no es opcional: es el paso 1**. Por eso, en los tutoriales bien explicados, el primer botón que pulsas siempre es **Fork** y nunca «New branch».
+
+📌 **Ejemplo real:** Para corregir una errata en la documentación de React no puedes tocar el repositorio de Meta. Primero haces un **fork** (copia completa en tu cuenta), trabajas en tu copia y desde ahí envías la Pull Request al proyecto original; los mantenedores la revisan y deciden si la fusionan.
+
+El circuito completo, empezando por donde hay que empezar:
+
 ```mermaid
 graph TB
-    A[Crear rama feature] --> B[Hacer commits]
-    B --> C[Push a remoto]
-    C --> D[Abrir PR en GitHub]
-    D --> E[Revisión de código]
-    E --> F{Merge?}
-    F -->|Sí| G[Fusionar en main]
-    F -->|No| H[Corregir cambios]
-    H --> E
-    
-    style A fill:#2196F3,color:#fff
-    style D fill:#FF9800,color:#fff
-    style E fill:#9C27B0,color:#fff
-    style G fill:#4CAF50,color:#fff
+    A[1. Fork del repositorio ajeno] --> B[2. Clonar tu fork en local]
+    B --> C[3. Crear rama feature]
+    C --> D[4. Hacer commits]
+    D --> E[5. Push a tu fork]
+    E --> F[6. Abrir la PR en GitHub]
+    F --> G[7. Revisión de código]
+    G --> H{¿La aprueba el propietario?}
+    H -->|Sí| I[Fusionar en main]
+    H -->|No| J[Corregir y volver a push]
+    J --> G
+    style A fill:#FF9800,color:#fff
+    style F fill:#9C27B0,color:#fff
+    style G fill:#2196F3,color:#fff
+    style I fill:#4CAF50,color:#fff
+    style J fill:#f44336,color:#fff
 ```
+
+> 📝 **Nota:** Si el repositorio **ya es tuyo** o eres colaborador, los pasos 1 y 2 no existen: empiezas directamente en el paso 3. El fork es solo el peaje que pagas cuando contribuyes a un proyecto de otro. Lo vemos en detalle en el apartado [4.2. Fork (bifurcación)](#42-fork-bifurcación).
 
 **Flujo visual con gitGraph:**
 
@@ -117,7 +138,157 @@ gitGraph
 
 > 📝 **Nota:** En el diagrama anterior puedes ver cómo la rama `feature/login` se crea desde `main`, se trabaja en ella con varios commits, y finalmente se fusiona de vuelta a `main` mediante una PR.
 
-### 4.1.2. Componentes de una PR
+### 4.1.2. ¿Cómo hacer tu PR?
+
+Vamos a recorrer el circuito completo de principio a fin, tal como lo harías en un proyecto real donde **todavía no eres colaborador**. Son ocho pasos y están en orden: si te saltas el paso 1, el resto no funcionará.
+
+**Paso 1 — Haz el fork del repositorio original**
+
+Abre el repositorio al que quieres contribuir y pulsa el botón **Fork** de la esquina superior derecha. Es el paso que casi todos los tutoriales se saltan y el que marca la diferencia entre «tengo permisos» y «no los tengo».
+
+![Botón Fork en GitHub](/images/pr_fork.jpg)
+
+GitHub te preguntará dónde crear la copia; acepta el nombre por defecto y pulsa **Create fork**:
+
+![Crear un nuevo fork](/images/pr_fork_boton.png)
+
+Ya tienes una copia completa del proyecto, con todo su historial, en **tu** cuenta. El original queda intacto:
+
+![Fork creado en la cuenta](/images/pr_fork_creado.png)
+
+**Paso 2 — Clona tu fork en local**
+
+Ahora baja esa copia a tu equipo. Pulsa el botón **Code** y copia la URL HTTPS:
+
+![Botón Code para clonar](/images/pr_clone_boton.jpg)
+
+Abre la terminal y ejecuta el comando de clonación:
+
+```bash
+git clone [DIRECCIÓN HTTPS]
+```
+
+![Clonación del repositorio en terminal](/images/pr_clone_terminal.png)
+
+Entras en la carpeta recién creada, donde ya tienes tu copia de trabajo:
+
+```bash
+cd [NOMBRE DEL REPOSITORIO]
+```
+
+**Paso 3 — Crea una rama para tu cambio**
+
+Nunca trabajes directamente sobre `main`: crea una rama con un nombre que describa lo que vas a hacer («breve y que refleje el trabajo», como dice el tutorial original).
+
+```bash
+git checkout -b [Nombre de la Rama]
+```
+
+![Creación de la rama con git checkout -b](/images/pr_rama.png)
+
+**Paso 4 — Haz los cambios y confírmalos**
+
+Edita los archivos que quieras corregir. Cuando termines, comprueba qué has tocado:
+
+```bash
+git status
+```
+
+![Estado del repositorio con git status](/images/pr_status.png)
+
+Añade los cambios a la zona de preparación:
+
+```bash
+git add .
+```
+
+![Añadir cambios con git add](/images/pr_add.png)
+
+Y confírmalos con un mensaje que explique **qué** y **por qué**:
+
+```bash
+git commit -m "Corregida la errata del apartado 3"
+```
+
+![Confirmar cambios con git commit](/images/pr_commit.png)
+
+**Paso 5 — Sube los cambios a tu fork**
+
+Primero verifica cómo se llama el remoto (por defecto es `origin`):
+
+```bash
+git remote
+```
+
+![Consultar el nombre del repositorio remoto](/images/pr_remote.png)
+
+Ahora sube tu rama a **tu** fork de GitHub:
+
+```bash
+git push origin [Nombre de la Rama]
+```
+
+![Subir la rama con git push](/images/pr_push.png)
+
+**Paso 6 — Crea la pull request**
+
+Vuelve a la página de tu fork en GitHub: aparecerá un aviso amarillo con el botón **Compare & pull request**. Pulsa ahí.
+
+![Botón Pull request en GitHub](/images/pr_boton_pullrequest.jpg)
+
+Rellena el formulario con un título claro y una descripción donde expliques al propietario qué has cambiado y por qué (puedes referenciar incidencias con `#`). Cuando esté listo, pulsa **Create pull request**:
+
+![Formulario de creación de la pull request](/images/pr_formulario.png)
+
+> 💡 **Consejo:** Este es el momento de **negociar**: el texto que escribes aquí es tu carta de presentación. Un PR sin descripción obliga al revisor a adivinar, y los adivinados se rechazan. En el apartado 4.1.4 vemos cómo se lleva esa conversación.
+
+**Paso 7 — Sincroniza tu fork con el repositorio original**
+
+> ⚠️ **Advertencia:** Hazlo **antes de abrir cada pull request**, no solo al final. Tu fork es una foto del original en un momento dado; si el original avanza mientras tú trabajas, tu PR llegará desactualizada y provocará conflictos. Es el error número uno de los primeros contributiones.
+
+Primero comprueba en qué rama estás:
+
+```bash
+git branch
+```
+
+Cambia a la rama principal:
+
+```bash
+git checkout main
+```
+
+Añade el repositorio **original** como remoto `upstream` (aquí sí, con la URL del proyecto del que partiaste):
+
+```bash
+git remote add upstream [HTTPS DEL REPOSITORIO ORIGINAL]
+```
+
+![Añadir el repositorio original como upstream](/images/pr_fetch_upstream.png)
+
+Descarga los cambios del original y fusiona los tuyos:
+
+```bash
+git fetch upstream
+git merge upstream/main
+```
+
+**Paso 8 — Limpia las ramas ya fusionadas**
+
+Cuando tu propuesta esté aceptada, la rama cumple su misión y se elimina, primero en local y luego en GitHub:
+
+```bash
+git branch -d [Nombre de la Rama]
+git push origin --delete [Nombre de la Rama]
+```
+
+![Eliminar la rama ya fusionada](/images/pr_borrar_rama.png)
+
+> 💡 **Truco:** El propio `git push` te devuelve en el mensaje la URL directa para abrir la PR (`Create a pull request for 'cambios' on GitHub by visiting: ...`). Si no quieres volver al navegador a buscar el botón, úsala.
+
+### 4.1.3. Componentes de una PR
+
+Una vez abierta, toda pull request tiene las mismas piezas. Reconocerlas te ayuda a leer las de otros y a redactar bien las tuyas:
 
 | Elemento | Descripción | Ejemplo |
 |----------|-------------|---------|
@@ -127,27 +298,133 @@ gitGraph
 | **Revisiones** | Comentarios de revisores | "LGTM", "Cambia esto..." |
 | **Checks** | Tests automatizados | ✅ CI passing |
 
-### 4.1.3. Crear una PR desde terminal
+### 4.1.4. Cómo se negocia el PR y la revisión
 
-No necesitas el navegador para proponer una fusión: con GitHub CLI creas la pull request en un par de comandos. Este script recorre el circuito completo desde tu rama local hasta la PR publicada.
+Abrir la pull request **no es el final del trabajo: es el principio de la conversación**. A partir de ese momento, el propietario del repositorio y tú pasáis a negociar el cambio hasta que ambos quedáis satisfechos o la propuesta se retira.
+
+**La conversación empieza antes de enviarla**
+
+El mismo botón **Compare & pull request** te lleva a un formulario donde escribes al propietario lo que propones:
+
+![Botón Compare and pull request](/images/pr_compare_pull.png)
+
+Ese primer mensaje es tu argumentario: explica qué cambias, por qué y qué debe revisar. Si el propietario no entiende tu propuesta en 30 segundos, la negociación ya va mal:
+
+![Formulario con el comentario al propietario](/images/pr_formulario_create.png)
+
+**El propietario recibe tu propuesta**
+
+En el otro extremo, quien mantiene el repositorio ve tu pull request pendiente, con todos los archivos cambiados y tus comentarios:
+
+![Pull request recibida por el propietario](/images/pr_recibido.png)
+
+**Las dos salidas posibles**
+
+Desde esa pantalla solo hay dos decisiones: **aprobar y fusionar** tu cambio, o **cerrar** la pull request sin aceptarla:
+
+![Aprobar y fusionar o cerrar la pull request](/images/pr_aprobar_cerrar.png)
+
+> 📝 **Nota:** Aprobar no siempre significa fusionar al instante: el propietario puede esperar a que pasen los tests automáticos, a que haya una segunda revisión o a que se alinee con el calendario del proyecto. **Cerrar** tampoco es un insulto: a veces la propuesta no encaja con la hoja de ruta.
+
+**Quien verifica, responde de lo que acepta**
+
+> ⚠️ **Advertencia — la aprobación es una responsabilidad, no un pulgar arriba:** Aprobar una pull request **no es dar el visto bueno por amabilidad**. Es hacerte cargo de algo que va a entrar en `main` y que a partir de ahí usarán todos. Si el cambio rompe los tests, introduce un fallo o deja conflictos sin resolver, **la responsabilidad es de quien lo fusionó, no solo de quien lo escribió**. Por eso revisar bien un PR es tan importante como escribir el código: el revisor es el guardián de la integridad del código.
+
+La tentación de pulsar *Approve* sin leer es alta (el PR parece «solo cinco líneas»), pero ahí es exactamente donde se cuelan los desastres. Comprueba siempre esto **antes de aceptar**:
+
+| Comprobación | Por qué es fundamental |
+|---|---|
+| **Que no hay conflictos de merge** | Si `main` avanzó mientras se preparaba el PR, fusionar a ciegas deja el código en un estado que **nadie ha probado**, ni el autor ni tú |
+| **Que los tests pasan** | Un PR que rompe la suite deja el proyecto **sin red de seguridad** para los cambios siguientes |
+| **Que el código hace lo que promete** | Si el título dice «corrige el login» pero el diff toca también la base de datos, se pregunta antes de aceptar, nunca se asume |
+| **Que no se pierde nada existente** | Revisa especialmente los **borrados**: un archivo eliminado «por error» rompe funcionalidades completas que nadie notará hasta producción |
+| **Que el cambio trae sus tests** | Un cambio sin tests es un cambio que dentro de tres meses nadie se atreverá a tocar |
+
+> 💡 **Consejo:** Si GitHub te muestra *«This branch has conflicts»*, **no fuerces el merge**. Pide al autor que sincronice su rama con `main` y resuelva los conflictos él: quien conoce los cambios es quien debe decidir cómo se combinan. Un `--force` aquí es la vía rápida al historial roto.
+
+📌 **Ejemplo real:** En los equipos profesionales la regla es sencilla: **si fusionas, te haces cargo**. Por eso los proyectos serios exigen al menos una revisión ajena y los tests en verde antes de permitir el *merge*. La integridad del código es responsabilidad compartida de quien propone **y** de quien acepta — y es exactamente por esto por lo que una buena revisión vale más que un *lgtm* apresurado.
+
+**El ciclo de negociación**
+
+Entre esas dos salidas está la negociación de verdad, que es un ida y vuelta:
+
+```mermaid
+graph LR
+    A[Autor propone la PR] --> B[Revisor comenta el código]
+    B --> C{¿Pide cambios?}
+    C -->|Sí| D[El autor corrige y hace push]
+    D --> B
+    C -->|No, aprueba| E[Fusionar en main]
+    F[Cerrar sin fusionar] -.->|alternativa| E
+    style A fill:#2196F3,color:#fff
+    style B fill:#9C27B0,color:#fff
+    style D fill:#FF9800,color:#fff
+    style E fill:#4CAF50,color:#fff
+    style F fill:#f44336,color:#fff
+```
+
+En la práctica, la negociación se concreta en estas acciones:
+
+| Acción | Quién la hace | Qué significa |
+|---|---|---|
+| **Comentario en una línea** | Revisor | «Aquí haría esto otro» — propuesta concreta sobre un punto exacto |
+| **Solicitar cambios** | Revisor | «No lo fusiono hasta que corrijas esto» |
+| **Aprobar** | Revisor | «De acuerdo, listo para fusionar» |
+| **Nuevos commits** | Autor | Sube las correcciones a la **misma** PR; no hace falta abrir otra |
+| **Cerrar** | Cualquiera de los dos | La propuesta se retira sin fusionar |
+
+> 💡 **Consejo:** **No abras una pull request nueva** cada vez que el revisor pide cambios. Basta con corregir, hacer `git push` y la PR se actualiza sola con la conversación intacta. Abrir otra PR enfría el hilo y hace perder el contexto al revisor.
+
+**Cómo se negocia bien**
+
+- **Responde a cada comentario**, incluso si es solo un «ya está corregido, gracias». Un PR mudo deja al revisor sin saber si has visto sus indicaciones.
+- **No lo tomes como un ataque personal.** El revisor critica el código, no a ti: su objetivo es que el proyecto salga mejor. En un PR mal llevado se pierde la amistad; en un PR bien llevado se gana un colega.
+- **Si no entiendes una indicación, pregúntala** en el mismo hilo. Adivinar suele llevar a la segunda ronda de cambios.
+- **Sube cambios pequeños y comentados**, no un mega-commit que lo cambia todo sin explicar por qué.
+
+📌 **Ejemplo real:** En los proyectos de código abierto, la negociación de una PR puede durar días y acumular decenas de comentarios. No es raro que un cambio de 10 líneas lleve cinco rondas de revisiones; eso no es burocracia, es calidad.
+
+> 💡 **Analogía:** Es como entregar un trabajo al profesor: le entregas el borrador (la PR), él te devuelve el examen con anotaciones en los márgenes (los comentarios), tú corriges y lo reentregas. Hasta que no está bien, no se da por bueno. La nota final es el *merge*.
+
+**Si la cierran sin aceptarla**
+
+> 📝 **Nota:** El tutorial original lo dice con franqueza: *«no debes preocuparte si tus pull requests son rechazadas. Los encargados de los proyectos dedican mucho tiempo a mejorarlos y saben mucho más sobre sus proyectos que nosotros»*. Lee el motivo, guarda lo aprendido y vuelve a intentarlo con otra propuesta. Incluso una PR cerrada deja tu nombre en el historial del proyecto.
+
+**Cuando se fusiona: cierra el ciclo**
+
+Si aprueban y fusionan tu propuesta, recibirás un correo de confirmación. Entonces ya solo queda sincronizar tu fork para seguir trabajando desde la última versión; GitHub lo permite también desde su propia interfaz:
+
+![Sincronizar el fork desde GitHub](/images/pr_sincronizar_github.png)
+
+### 4.1.5. Crear una PR desde terminal
+
+No necesitas el navegador para proponer una fusión: con GitHub CLI recorres **todo el circuito desde el fork hasta la PR publicada** sin salir de la terminal. El orden es el mismo que en el tutorial gráfico: **fork → clone → rama → commit → push → pull request**. No te saltes ni el primero ni el segundo: sin tu propia copia, no hay nada que subir.
 
 ```bash
-# 1. Crear y cambiar a nueva rama
+# 1. FORK: crear tu copia del repositorio en tu cuenta
+gh repo fork owner/repo
+
+# 2. CLONE: bajar TU fork a tu equipo
+git clone https://github.com/TU-USUARIO/repo.git
+cd repo
+
+# 3. RAMA: crear la rama para el cambio
 git checkout -b feature/nuevo-login
 
-# 2. Hacer cambios y commits
+# 4. COMMIT: hacer los cambios y confirmarlos
 git add .
 git commit -m "feat: añadir función de login"
 
-# 3. Subir al remoto
+# 5. PUSH: subir la rama a TU fork
 git push -u origin feature/nuevo-login
 
-# 4. Ir a GitHub y crear PR manualmente
-# O usar GitHub CLI:
+# 6. PULL REQUEST: abrirla desde la terminal
 gh pr create --title "feat: login" --body "Implementación..."
 ```
 
-### 4.1.4. Buenas prácticas para PRs
+> ⚠️ **Advertencia:** El paso 5 sube a **tu fork** (`origin` es tu copia), no al repositorio original. Si saltas los pasos 1 y 2 y haces `push` al proyecto de otro, Git te lo rechaza con `Permission denied`: primero el fork, siempre.
+
+### 4.1.6. Buenas prácticas para PRs
 
 > 💡 **Metáfora: Las buenas prácticas como "protocolo de un restaurante"**
 > Imagina que trabajas en un restaurante. Antes de servir un plato, revisas que los ingredientes estén frescos (revisión independiente), preparas solo lo necesario para un comensal (PR pequeña), pones el nombre correcto en la carta (título descriptivo), y anotas cada paso de la receta (commits claros). Si saltas alguno de estos pasos, el plato puede salir mal. Con las PRs pasa igual: **seguir un protocolo claro evita errores costosos**.
@@ -186,7 +463,7 @@ gh pr create --title "feat: login" --body "Implementación..."
 > - [ ] He documentado mi código
 > ```
 
-### 4.1.5. Branch Protection Rules
+### 4.1.7. Branch Protection Rules
 
 > 💡 **Metáfora:** Branch protection es como poner un **semáforo en la entrada de main**. Nadie puede entrar directamente — tiene que pasar por el control de calidad (PR, revisiones, tests).
 
@@ -205,147 +482,11 @@ gh pr create --title "feat: login" --body "Implementación..."
 
 📌 **Ejemplo real:** En Telefónica, las reglas de branch protection son obligatorias en todos los proyectos. Sin PR aprobado y tests pasados, el merge es imposible.
 
-## 4.2. Fork (bifurcación)
+### 4.1.8. Flujo completo: dos usuarios colaborando (ejemplo práctico)
 
-Un **Fork** consiste en crear una copia de un repositorio existente en tu propia cuenta de GitHub.
+Has visto cada pieza por separado: el flujo, cómo hacer tu PR, cómo se negocia la revisión y cómo se protege la rama. Ahora vamos a montarlas todas en un solo recorrido de principio a fin, con **Ana** (contribuidora) y **Carlos** (mantenedor del repositorio original), usando `gh` CLI para todo el circuito.
 
-> **💡 Analogía:** Fork es como fotocopiar un libro entero. El libro original sigue intacto, tú tienes tu propia copia.
-
-> 💡 **Metáfora ampliada: El Fork como "fotocopiar el libro de la biblioteca para anotar en tu copia sin ensuciar el original"**
-> Imagina que vas a la biblioteca y encuentras un libro que te encanta, pero quieres hacer anotaciones en los márgenes. No puedes escribir en el libro original porque no es tuyo y otros lo necesitan. Así que **sac photocopiadora y haces una copia completa**. Ahora tienes tu propio libro donde puedes subrayar, anotar, tachar y mejorar sin tocar el original. Cuando termines, puedes proponer a la biblioteca que incluya tus mejoras en el libro original. **Eso es un Fork**: tu copia personal donde puedes trabajar libremente.
-
-📌 **Ejemplo real:** Cuando un desarrollador quiere contribuir a Linux o a React, primero hace un fork del repositorio. Trabaja en su copia, y cuando tiene algo listo, envía una Pull Request al proyecto original para que lo revisen.
-
-**Ventajas del Fork:**
-
-| Ventaja | Descripción |
-|---------|-------------|
-| **Libertad total** | Puedes modificar cualquier cosa sin afectar al original |
-| **Sin permisos** | No necesitas ser colaborador del proyecto para contribuir |
-| **Experimentación** | Puedes probar ideas locas sin riesgo |
-| **Contribución open source** | Es el flujo estándar para contribuir a proyectos públicos |
-| **Historial propio** | Tu fork tiene su propio historial de commits |
-
-**Inconvenientes del Fork:**
-
-| Inconveniente | Descripción |
-|---------------|-------------|
-| **Desactualización** | Si no sincronizas, tu fork se queda atrás respecto al original |
-| **Complejidad** | Hay más pasos que con una rama: fork, clone, upstream, PR... |
-| **Confusión de remotos** | Puedes confundir `origin` (tu fork) con `upstream` (el original) |
-| **Mantenimiento** | Tienes que cuidar dos repositorios: tu fork y el original |
-| **Conflictos de merge** | Si el original avanza mucho, puedes tener muchos conflictos al sincronizar |
-
-### 4.2.1. Flujo de trabajo con fork
-
-```mermaid
-graph TD
-    A[Repositorio Original] -->|Fork| B[Tu Fork en GitHub]
-    B -->|Clone| C[Tu PC]
-    C -->|Push| B
-    B -->|Pull Request| A
-    
-    style A fill:#f44336,color:#fff
-    style B fill:#FF9800,color:#fff
-    style C fill:#4CAF50,color:#fff
-```
-
-**Flujo visual con gitGraph:**
-
-```mermaid
-gitGraph
-    commit id: "init original" tag: "original"
-    branch upstream
-    checkout upstream
-    commit id: "new feature in original"
-    commit id: "bugfix in original"
-    branch fork
-    checkout fork
-    commit id: "my fork clone"
-    commit id: "add my contribution"
-    commit id: "fix my code"
-    checkout upstream
-    merge fork id: "merge PR from fork" tag: "v2.0.0"
-```
-
-> 📝 **Nota:** En el diagrama se ve cómo el repositorio original (`upstream`) avanza con sus propios commits, mientras que tu fork (`fork`) crea su propio historial. Cuando tu contribución está lista, se propone una PR para fusionar tu trabajo en el original.
-
-### 4.2.2. Configurar fork
-
-Tras hacer el fork hay que enlazar tu copia con el repositorio original (upstream) para poder traerte sus novedades. Estos dos comandos dejan la topología de remotos lista para trabajar en equipo.
-
-```bash
-# 1. Clonar tu fork
-git clone https://github.com/tu-usuario/fork.git
-
-# 2. Añadir remoto original (upstream)
-git remote add upstream https://github.com/original/repo.git
-
-# 3. Ver remotos configurados
-git remote -v
-# origin    https://github.com/tu-usuario/fork.git (fetch)
-# origin    https://github.com/tu-usuario/fork.git (push)
-# upstream  https://github.com/original/repo.git (fetch)
-# upstream  https://github.com/original/repo.git (push)
-```
-
-### 4.2.3. Mantener fork actualizado
-
-> 💡 **Metáfora: El upstream como "la fuente original del agua"**
-> Imagina que tu fork es un estanque alimentado por una fuente de montaña (el repositorio original). Si la fuente sigue manando agua limpia pero tu estanque no recibe nada, pronto tendrás agua estancada y sucia. **Mantener el fork actualizado es como abrir la compuerta para que el agua fresca de la fuente entre en tu estanque**. Si no lo haces regularmente, tu copia se queda "pocha" y cuando quieras contribuir, tendrás mil conflictos.
-
-```bash
-# Traer cambios del original (sin fusionar aún)
-git fetch upstream
-
-# Fusionar a tu main
-git checkout main
-git merge upstream/main
-
-# Subir a tu fork
-git push origin main
-
-# Flujo completo recomendado
-git checkout main
-git fetch upstream
-git merge upstream/main
-git push origin main
-```
-
-**Flujo visual del fork actualizado:**
-
-```mermaid
-gitGraph
-    commit id: "A main"
-    branch upstream
-    checkout upstream
-    commit id: "B upstream"
-    commit id: "C upstream"
-    checkout main
-    commit id: "fetch upstream"
-    commit id: "merge upstream/main"
-    commit id: "push origin main"
-```
-
-> ⚠️ **Errores comunes al mantener el fork actualizado:**
->
-> 1. **Olvidarse de sincronizar**: Si no ejecutas `git fetch upstream` regularmente, tu fork se queda atrás y al enviar una PR tendrás conflictos enormes.
->
-> 2. **Trabajar directamente en `main`**: Si modificas `main` en tu fork y luego intentas sincronizar con `upstream/main`, tendrás conflictos. **Siempre trabaja en ramas feature**, nunca en `main` directamente.
->
-> 3. **Confundir `origin` con `upstream`**: `origin` es TU fork, `upstream` es el ORIGINAL. Si ejecutas `git pull upstream main` pensando que es tu fork, sobrescribirás tu copia con los cambios del original.
->
-> 4. **No hacer push después de sincronizar**: Si haces `git merge upstream/main` pero olvidas `git push origin main`, tu fork en GitHub no se actualiza. El cambio solo queda en tu PC.
-
-> 💡 **Truco:** Programa un recordatorio semanal para sincronizar tu fork. Es como regar las plantas: si lo haces regularmente, todo crece mejor.
-
-### 4.2.4. Flujo completo: dos usuarios colaborando (ejemplo práctico)
-
-Vamos a ver **todos los comandos** del flujo completo de colaboración entre dos desarrolladores: **Ana** (contribuidora) y **Carlos** (mantenedor del repositorio original).
-
-> 💡 **Escenario:** Carlos tiene un repositorio `proyecto-web`. Ana quiere contribuir corrigiendo un bug. Usa `gh` CLI para todo.
-
----
+> 💡 **Escenario:** Carlos tiene un repositorio `proyecto-web`. Ana quiere contribuir corrigiendo un bug.
 
 #### Paso 1: Ana — configuración inicial
 
@@ -575,8 +716,6 @@ gitGraph
     commit id: "B: sync fork"
 ```
 
----
-
 #### Resumen visual del flujo
 
 ```mermaid
@@ -618,6 +757,142 @@ graph TD
 > - **Fork**: `origin` = tu copia, `upstream` = original. Necesitas sincronizar.
 > - **Mismo repo**: Solo `origin`. Creas rama, push y PR directamente.
 
+## 4.2. Fork (bifurcación)
+
+Un **Fork** consiste en crear una copia de un repositorio existente en tu propia cuenta de GitHub.
+
+> **💡 Analogía:** Fork es como fotocopiar un libro entero. El libro original sigue intacto, tú tienes tu propia copia.
+
+> 💡 **Metáfora ampliada: El Fork como "fotocopiar el libro de la biblioteca para anotar en tu copia sin ensuciar el original"**
+> Imagina que vas a la biblioteca y encuentras un libro que te encanta, pero quieres hacer anotaciones en los márgenes. No puedes escribir en el libro original porque no es tuyo y otros lo necesitan. Así que **sac photocopiadora y haces una copia completa**. Ahora tienes tu propio libro donde puedes subrayar, anotar, tachar y mejorar sin tocar el original. Cuando termines, puedes proponer a la biblioteca que incluya tus mejoras en el libro original. **Eso es un Fork**: tu copia personal donde puedes trabajar libremente.
+
+📌 **Ejemplo real:** Cuando un desarrollador quiere contribuir a Linux o a React, primero hace un fork del repositorio. Trabaja en su copia, y cuando tiene algo listo, envía una Pull Request al proyecto original para que lo revisen.
+
+**Ventajas del Fork:**
+
+| Ventaja | Descripción |
+|---------|-------------|
+| **Libertad total** | Puedes modificar cualquier cosa sin afectar al original |
+| **Sin permisos** | No necesitas ser colaborador del proyecto para contribuir |
+| **Experimentación** | Puedes probar ideas locas sin riesgo |
+| **Contribución open source** | Es el flujo estándar para contribuir a proyectos públicos |
+| **Historial propio** | Tu fork tiene su propio historial de commits |
+
+**Inconvenientes del Fork:**
+
+| Inconveniente | Descripción |
+|---------------|-------------|
+| **Desactualización** | Si no sincronizas, tu fork se queda atrás respecto al original |
+| **Complejidad** | Hay más pasos que con una rama: fork, clone, upstream, PR... |
+| **Confusión de remotos** | Puedes confundir `origin` (tu fork) con `upstream` (el original) |
+| **Mantenimiento** | Tienes que cuidar dos repositorios: tu fork y el original |
+| **Conflictos de merge** | Si el original avanza mucho, puedes tener muchos conflictos al sincronizar |
+
+### 4.2.1. Flujo de trabajo con fork
+
+El fork tiene su propio ciclo de vida: se crea, se clona, se le suben cambios y se mantiene al día con el original. Estos seis pasos son los del diagrama; los tres primeros ya los diste en el [apartado 4.1.2](#412-cómo-hacer-tu-pr) y los últimos tres se explican en [4.2.3](#423-mantener-fork-actualizado).
+
+```mermaid
+graph TD
+    A[Repositorio Original] -->|1. Fork| B[Tu Fork en GitHub]
+    B -->|2. Clone| C[Tu PC en local]
+    C -->|3. Push| B
+    A -->|4. Fetch upstream| C
+    C -->|5. Merge upstream/main| C
+    C -->|6. Push origin| B
+    
+    style A fill:#f44336,color:#fff
+    style B fill:#FF9800,color:#fff
+    style C fill:#4CAF50,color:#fff
+```
+
+**Flujo visual con gitGraph:**
+
+```mermaid
+gitGraph
+    commit id: "init original" tag: "original"
+    branch upstream
+    checkout upstream
+    commit id: "novedad en el original"
+    commit id: "corrección en el original"
+    branch fork
+    checkout fork
+    commit id: "clon de mi fork"
+    commit id: "mi contribución"
+    commit id: "otra corrección en mi copia"
+```
+
+> 📝 **Nota:** En el diagrama se ve cómo el repositorio original (`upstream`) avanza con sus propios commits, mientras que tu fork crea su propio historial a partir del punto en que lo bifurcaste. **El fork por sí solo no toca nada del original**: cuando tu contribución esté lista, el paso siguiente es proponerla, y eso ya es Pull Request — lo vimos en el [apartado 4.1](#41-pull-requests-pr).
+
+### 4.2.2. Configurar fork
+
+Tras hacer el fork hay que enlazar tu copia con el repositorio original (upstream) para poder traerte sus novedades. Estos dos comandos dejan la topología de remotos lista para trabajar en equipo.
+
+```bash
+# 1. Clonar tu fork
+git clone https://github.com/tu-usuario/fork.git
+
+# 2. Añadir remoto original (upstream)
+git remote add upstream https://github.com/original/repo.git
+
+# 3. Ver remotos configurados
+git remote -v
+# origin    https://github.com/tu-usuario/fork.git (fetch)
+# origin    https://github.com/tu-usuario/fork.git (push)
+# upstream  https://github.com/original/repo.git (fetch)
+# upstream  https://github.com/original/repo.git (push)
+```
+
+### 4.2.3. Mantener fork actualizado
+
+> 💡 **Metáfora: El upstream como "la fuente original del agua"**
+> Imagina que tu fork es un estanque alimentado por una fuente de montaña (el repositorio original). Si la fuente sigue manando agua limpia pero tu estanque no recibe nada, pronto tendrás agua estancada y sucia. **Mantener el fork actualizado es como abrir la compuerta para que el agua fresca de la fuente entre en tu estanque**. Si no lo haces regularmente, tu copia se queda "pocha" y cuando quieras contribuir, tendrás mil conflictos.
+
+```bash
+# Traer cambios del original (sin fusionar aún)
+git fetch upstream
+
+# Fusionar a tu main
+git checkout main
+git merge upstream/main
+
+# Subir a tu fork
+git push origin main
+
+# Flujo completo recomendado
+git checkout main
+git fetch upstream
+git merge upstream/main
+git push origin main
+```
+
+**Flujo visual del fork actualizado:**
+
+```mermaid
+gitGraph
+    commit id: "A main"
+    branch upstream
+    checkout upstream
+    commit id: "B upstream"
+    commit id: "C upstream"
+    checkout main
+    commit id: "fetch upstream"
+    commit id: "merge upstream/main"
+    commit id: "push origin main"
+```
+
+> ⚠️ **Errores comunes al mantener el fork actualizado:**
+>
+> 1. **Olvidarse de sincronizar**: Si no ejecutas `git fetch upstream` regularmente, tu fork se queda atrás y al enviar una PR tendrás conflictos enormes.
+>
+> 2. **Trabajar directamente en `main`**: Si modificas `main` en tu fork y luego intentas sincronizar con `upstream/main`, tendrás conflictos. **Siempre trabaja en ramas feature**, nunca en `main` directamente.
+>
+> 3. **Confundir `origin` con `upstream`**: `origin` es TU fork, `upstream` es el ORIGINAL. Si ejecutas `git pull upstream main` pensando que es tu fork, sobrescribirás tu copia con los cambios del original.
+>
+> 4. **No hacer push después de sincronizar**: Si haces `git merge upstream/main` pero olvidas `git push origin main`, tu fork en GitHub no se actualiza. El cambio solo queda en tu PC.
+
+> 💡 **Truco:** Programa un recordatorio semanal para sincronizar tu fork. Es como regar las plantas: si lo haces regularmente, todo crece mejor.
+
 ## 4.3. Code review (revisión de código)
 
 La revisión de código es una práctica donde otros desarrolladores examinan tu código antes de fusionarlo.
@@ -626,6 +901,10 @@ La revisión de código es una práctica donde otros desarrolladores examinan tu
 > Imagina que eres escritor y acabas de terminar una novela. Antes de que salga a la venta, un editor (o varios) leen el manuscrito, buscan errores de coherencia, sugieren mejorar diálogos, señalan párrafos confusos y verifican que la gramática sea correcta. **El code review es exactamente eso**: otro desarrollador lee tu código como si fuera un manuscrito, busca bugs, sugiere mejoras y verifica que cumple los estándares del equipo. No es una crítica personal, es una colaboración para que el producto final sea mejor.
 
 📌 **Ejemplo real:** En empresas como Google o Microsoft, todo código pasa por code review antes de integrarse. Un desarrollador senior revisa el código del junior, comenta en líneas específicas y pide cambios si es necesario. Es como un profesor que corrige un examen: señala los errores, explica por qué están mal y te ayuda a mejorar.
+
+### 4.3.1. Beneficios del Code review
+
+Vistos los conceptos, pasemos a lo concreto: qué gana el equipo con la revisión y qué le cuesta. Después veremos cómo llevarla a la práctica.
 
 **Ventajas del Code Review:**
 
