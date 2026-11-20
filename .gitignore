@@ -3,5 +3,17 @@
 upload.sh
 *.pdf
 !chuletas/*.pdf
+!presentaciones/ud03-sistema-control-versiones-claro.pdf
+!presentaciones/ud03-sistema-control-versiones-oscuro.pdf
 /multimedia/*.mp4
 /evaluacion/
+
+# Node y Slidev
+node_modules/
+.slidev/
+dist/
+*.local
+.npm/
+
+# Instrucciones locales de agentes
+AGENTS.md
