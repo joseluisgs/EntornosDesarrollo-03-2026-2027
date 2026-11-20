@@ -883,6 +883,28 @@ En la **UD04: Diseño Orientado a Objetos: Diagrama de Clases** usarás Git para
 
 Para que los iconos se vean correctamente necesitas una **fuente Nerd Font**. Las Nerd Fonts son fuentes programadas con miles de iconos extra (git, Docker, flechas, carpetas, etc.) que Oh My Posh usa para decorar la terminal.
 
+**Así se queda tu terminal**
+
+Antes de tocar nada, el prompt de PowerShell es una línea seca con la ruta:
+
+```text
+PS C:\Users\ana\proyecto-web>
+```
+
+Después de instalar Oh My Posh y elegir tema, esa misma terminal queda así —con la ruta, el estado de Git, los cambios pendientes, la versión de Node y la hora en una sola línea:
+
+![Terminal completa con el tema de Oh My Posh aplicado, mostrando rama, cambios y versión de Node](/images/ohmyposh_terminal.png)
+
+Y así se ve el prompt de cerca; fíjate en el icono de la rama y en los indicadores `↑1 +2 ~1` (un commit por subir, dos añadidos, uno sin confirmar):
+
+![Prompt de Oh My Posh con la ruta, la rama de Git y la hora](/images/ohmyposh_prompt.png)
+
+Y no hay un solo estilo: cada tema cambia por completo el aspecto. Este es el mismo prompt con el tema *PowerLevel10k Modern*:
+
+![Prompt de Oh My Posh con el tema PowerLevel10k Modern](/images/ohmyposh_tema.png)
+
+> 📝 **Nota:** El prompt se actualiza solo. Si haces `git add`, verás el contador cambiar en cuanto vuelvas a pulsar Enter; si cambias de rama, cambia el nombre. Esa es la diferencia entre una terminal decorada y una terminal que te informa.
+
 **Instalación en Windows:**
 
 ```bash
