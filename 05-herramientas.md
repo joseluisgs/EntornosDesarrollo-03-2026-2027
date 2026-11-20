@@ -4,7 +4,8 @@
     - [5.1.2. GitHub Desktop](#512-github-desktop)
     - [5.1.3. Sourcetree](#513-sourcetree)
     - [5.1.4. VS Code + Git](#514-vs-code--git)
-    - [5.1.5. Comparativa de GUIs](#515-comparativa-de-guis)
+    - [5.1.5. JetBrains Rider](#515-jetbrains-rider)
+    - [5.1.6. Comparativa de GUIs](#516-comparativa-de-guis)
   - [5.2. Extensiones VS Code para Git](#52-extensiones-vs-code-para-git)
     - [5.2.1. GitLens](#521-gitlens)
     - [5.2.2. Git Graph](#522-git-graph)
@@ -39,7 +40,7 @@ En el Punto 04 vimos Pull Requests, Forks, Code Review y GitHub Actions. Ahora v
 
 **Objetivos de aprendizaje:**
 
-- Conocer los clientes gráficos más populares (GitKraken, GitHub Desktop, Sourcetree)
+- Conocer los clientes gráficos y los IDE con Git integrado (GitKraken, GitHub Desktop, Sourcetree, VS Code, Rider)
 - Instalar y usar extensiones de VS Code para Git
 - Dominar GitHub CLI para automatizar tareas
 - Resolver errores comunes de forma rápida
@@ -78,6 +79,83 @@ Los clientes gráficos facilitan el uso de Git para quienes prefieren interfaces
 | **Integración** | GitHub, GitLab, Bitbucket, Enterprise |
 
 > 💡 **Ideal para:** Principiantes que quieren entender visualmente cómo funciona Git.
+
+**Las tres zonas de la ventana**
+
+GitKraken organiza su interfaz en tres zonas principales. Identificarlas es el primer paso para moverte con soltura: todo lo demás está conectado a ellas.
+
+![Ventana de GitKraken Desktop con el Left Panel, el Commit Graph y el Commit Panel](/images/gk_interface.png)
+
+| Zona | Qué contiene |
+|------|-------------|
+| **Left Panel** (izquierda) | Ramas locales y remotas, pull requests, issues, tags y stashes |
+| **Commit Graph** (centro) | El historial visual: cada commit es una fila y las columnas son ramas |
+| **Commit Panel** (derecha) | Archivos cambiados, staging y mensaje de commit |
+| **Toolbar** (arriba) | Undo, Redo, Pull, Push, Branch, Stash y Pop |
+| **Status Bar** (abajo) | Resumen, plan y selector de zoom (de 80 % a 300 %) |
+
+El **Left Panel** se puede ocultar, redimensionar o plegar por secciones, y tiene un cuadro de filtro (`Ctrl/Cmd + Alt + F`) para encontrar una rama escribiendo solo una parte de su nombre:
+
+![Left Panel de GitKraken con ramas y pull requests, redimensionando y plegando secciones](/images/gk_left_panel.gif)
+
+**El Commit Panel: de los cambios al commit**
+
+Esta es la zona donde trabajas a diario. Tiene tres secciones, en el orden en que las usas: primero los archivos **sin preparar** (*Unstaged*), después los **preparados** (*Staged*) y por último el **mensaje de commit**, que se divide en resumen y descripción:
+
+![Commit Panel de GitKraken con el grafo, los cambios de archivo y los metadatos](/images/gk_commit_panel.png)
+
+Los archivos llevan un color según lo que les haya pasado; aprendértelos ahorra tiempo:
+
+![Iconos con código de color para cambios de archivo: modificado, añadido, eliminado y renombrado](/images/gk_colores.png)
+
+**El Commit Graph y sus columnas**
+
+Cada fila del grafo es un commit, el más reciente arriba, y las líneas muestran las fusiones. La leyenda te dice qué es cada elemento:
+
+![Leyenda de elementos del grafo de GitKraken: commit, merge, WIP, ramas y stash](/images/gk_leyenda_grafo.png)
+
+Puedes reordenar las columnas arrastrando sus cabeceras:
+
+![Columnas de GitKraken (rama, grafo y mensaje) con las cabeceras destacadas para reordenar](/images/gk_columnas.png)
+
+Y activar o desactivar columnas adicionales como autor, fecha o SHA desde el menú contextual o el icono de engranaje:
+
+![Menú de configuración de columnas de GitKraken con las opciones disponibles](/images/gk_columnas_config.png)
+
+Si trabajas con varios repositorios a la vez, cada uno vive en su pestaña y las de un mismo repositorio con sus *worktrees* se agrupan juntas:
+
+![Barra de pestañas de GitKraken con un grupo de worktrees del mismo repositorio](/images/gk_tabs.png)
+
+**Tu primer flujo completo en GitKraken**
+
+Con la interfaz clara, el circuito básico de Git se recorre en siete pasos:
+
+1. **Clonar**: `File > Clone Repo`, pega la URL y pulsa *Clone the repo!*.
+2. **Crear rama**: clic derecho sobre cualquier commit del grafo y *Create branch here*.
+
+![Clic derecho sobre la rama main en GitKraken para crear una nueva rama](/images/gk_crear_rama.png)
+
+3. **Modificar un archivo**: puedes abrirlo directamente desde el Commit Panel.
+
+![Clic en el nombre de un archivo del Commit Panel de GitKraken para editarlo](/images/gk_abrir_archivo.png)
+
+4. **Preparar los cambios**: pulsa el nodo `//WIP` para ver lo pendiente y el botón verde *Stage All Changes*.
+
+![Cambios sin preparar del nodo WIP en GitKraken](/images/gk_staging.png)
+
+5. **Commit**: escribe el mensaje y pulsa `Ctrl/Cmd + Intro`.
+
+6. **Push**: botón *Push* de la barra de herramientas.
+
+7. **Merge**: cuando la rama esté lista, arrastra tu rama sobre la de destino y elige la fusión.
+
+![Grafo de GitKraken mostrando la rama develop un commit por delante de main](/images/gk_graph_commit.png)
+
+![Arrastrando la rama develop sobre main en GitKraken para fusionarlas](/images/gk_merge_arrastrar.png)
+
+> 📝 **Nota:** Si la fusión tiene conflictos, GitKraken abre su propia **Merge Tool**, donde eliges las líneas de cada lado y confirmas la resolución.
+
+> 💡 **Truco:** Casi todas las acciones del menú contextual del grafo están también en la **paleta de comandos** (`Ctrl/Cmd + P`): si no encuentras un botón, búscalo ahí por nombre.
 
 ### 5.1.2. GitHub Desktop
 
@@ -118,6 +196,30 @@ Los clientes gráficos facilitan el uso de Git para quienes prefieren interfaces
 | **Timeline view** | Historial de cambios por archivo |
 | **Blame annotations** | Click derecho → "Open Timeline" o extensión GitLens |
 
+**El panel Source Control**
+
+Con `Ctrl+Shift+G` se abre el panel lateral con todos tus cambios. Al seleccionar un archivo se abre a su lado el editor de diferencias, donde puedes preparar hasta líneas sueltas:
+
+![Vista Source Control de VS Code con los cambios preparados y una comparación lado a lado en el editor de diferencias](/images/vscode_source_control.png)
+
+**Empezar un repositorio desde cero**
+
+Si abres una carpeta que aún no es un repositorio, el propio panel te ofrece el botón para crearlo; también puedes lanzar `Git: Initialize Repository` desde la paleta de comandos (`Ctrl+Shift+P`):
+
+![Botón Initialize Repository en la vista Source Control de VS Code](/images/vscode_init_repo.png)
+
+**Resolver conflictos sin salir del editor**
+
+Cuando Git no puede combinar los cambios, VS Code marca los conflictos con sus marcadores (`<<<<<<<`, `=======`, `>>>>>>>`) y ofrece acciones sobre cada uno: *Accept Current Change*, *Accept Incoming Change* y *Accept Both Changes*.
+
+![Marcadores de conflicto en línea con los cambios actual e entrante en VS Code](/images/vscode_conflicto.png)
+
+Para conflictos más enredados está el **editor de fusión de tres vías**: entrante a la izquierda, actual a la derecha y el resultado abajo, donde escribes la versión final antes de pulsar *Complete Merge*:
+
+![Editor de fusión de tres vías de VS Code con los paneles entrante, actual y resultado](/images/vscode_merge_editor.png)
+
+> ⚠️ **Advertencia:** Aceptar ambos lados no garantiza que el código funcione; suele dejar duplicados. Revisa siempre el resultado antes de confirmar.
+
 **Comandos desde la terminal integrada (Ctrl+`):**
 
 ```bash
@@ -136,7 +238,88 @@ git stash push -m "WIP: refactorizando"
 
 > 🔗 **Conexión:** Las extensiones GitLens y Git Graph (que verás en la sección 5.2) amplían enormemente las capacidades Git de VS Code.
 
-### 5.1.5. Comparativa de GUIs
+### 5.1.5. JetBrains Rider
+
+| Característica | Descripción |
+|----------------|-------------|
+| **Plataforma** | Windows, Mac, Linux |
+| **Licencia** | Gratis para estudiantes y docentes; suscripción para empresas |
+| **Puntos fuertes** | IDE completo de JetBrains con Git integrado de serie |
+| **Integración** | GitHub, GitLab, Bitbucket |
+
+> 💡 **Nota:** Es el IDE principal del curso. No necesitas instalar nada aparte: desde crear el repositorio hasta resolver conflictos, todo ocurre dentro de la misma ventana.
+
+**Crear un proyecto con Git desde cero**
+
+En el asistente de nuevo proyecto basta con marcar la casilla **Create Git repository** para que Rider cree el repositorio junto con la solución:
+
+![Diálogo de nueva solución en Rider con la casilla Create Git repository marcada](/images/rider_proyecto_git.png)
+
+Al crearlo, Rider detecta Git automáticamente y te avisa de los tres accesos que usarás a diario:
+
+![Notificación de integración Git en Rider con el widget VCS, la ventana Commit y la ventana Git](/images/rider_integracion_git.png)
+
+| Acceso | Atajo | Para qué |
+|--------|-------|----------|
+| **Widget VCS** | barra superior | Ver la rama actual y operar con ella |
+| **Ventana Commit** | `Ctrl+K` | Revisar cambios y confirmarlos |
+| **Ventana Git** | `Alt+9` | Ver el log, el historial y las ramas |
+
+**Añadir archivos y hacer commit**
+
+Cuando creas un archivo, Rider te pregunta si quieres añadirlo al seguimiento; desde entonces, indexa solo los cambios que hagas:
+
+![Diálogo para añadir un archivo nuevo a Git en Rider](/images/rider_add_file.png)
+
+Los archivos modificados aparecen en azul y los nuevos en verde, tanto en el explorador como en las pestañas del editor:
+
+![Cambios visibles en el editor y en el explorador de Rider](/images/rider_cambios_editor.png)
+
+Los tienes todos en la ventana **Commit**, donde marcas los que van en el commit y escribes el mensaje:
+
+![Lista de cambios con el archivo recién creado en la ventana Commit de Rider](/images/rider_changes_list.png)
+
+![Mensaje de commit escrito en la ventana Commit de Rider](/images/rider_commit.png)
+
+**Ramas y push**
+
+Para crear una rama, pulsa el nombre de la rama actual en el widget VCS y elige **New Branch**:
+
+![Menú de ramas del widget VCS en Rider](/images/rider_menu_ramas.png)
+
+![Diálogo de nueva rama en Rider con la opción de cambiar a ella](/images/rider_nueva_rama.png)
+
+Cuando quieras subir los commits, `Ctrl+Shift+K` abre el diálogo de push, donde revisas exactamente qué se va a enviar:
+
+![Diálogo Push Commits de Rider mostrando los commits a subir](/images/rider_push.png)
+
+**Fusionar y resolver conflictos**
+
+Desde el widget VCS eliges fusionar una rama en la actual:
+
+![Opción Merge into main en el menú del widget VCS de Rider](/images/rider_merge.png)
+
+Si hay conflicto, Rider te pregunta qué hacer: conservar lo tuyo, lo de la otra rama o resolverlo a mano:
+
+![Diálogo de conflictos de Rider con las opciones Accept Yours, Accept Theirs y Merge](/images/rider_conflictos.png)
+
+Al elegir **Merge** se abre su editor de tres paneles: los cambios de cada rama a los lados y, en el centro, el resultado que tú vas editando:
+
+![Editor de resolución de conflictos de Rider con los paneles de cambios y el resultado central](/images/rider_resolucion.png)
+
+**Consultar el historial**
+
+La ventana Git (`Alt+9`) muestra el log de todas las ramas, desde donde puedes revertir commits o hacer cherry-pick:
+
+![Pestaña Log de la ventana Git de Rider con el historial de commits](/images/rider_log.png)
+
+Y con clic derecho sobre cualquier archivo puedes ver qué commits lo han tocado:
+
+![Historial de un archivo en Rider con todos los commits que lo modificaron](/images/rider_historial.png)
+
+> 📌 **Ejemplo real:** Rider es el IDE que usarás en el ciclo, y su integración con Git es idéntica a la de IntelliJ IDEA: lo que aprendas aquí te vale igualmente para Java o Python en otros módulos.
+
+### 5.1.6. Comparativa de GUIs
 
 | Herramienta | Facilidad | Features | Integración | Precio |
 |-------------|-----------|----------|-------------|--------|
@@ -144,6 +327,7 @@ git stash push -m "WIP: refactorizando"
 | GitHub Desktop | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Gratis |
 | Sourcetree | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | Gratis |
 | VS Code + Git | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | Gratis |
+| JetBrains Rider | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Gratis (educativo) |
 
 ```mermaid
 flowchart TD
@@ -152,16 +336,19 @@ flowchart TD
     A -->|Solo GitHub, simple| C[GitHub Desktop]
     A -->|Gratis + potente| D[Sourcetree]
     A -->|Ya usas VS Code| E[VS Code + GitLens]
+    A -->|IDE completo del curso| J[JetBrains Rider]
 
     B --> F[Gratis para uso personal]
     C --> G[Solo Windows/Mac]
     D --> H[Integra con Jira]
     E --> I[Ligero y extensible]
+    J --> K[Git integrado de serie]
 
     style B fill:#9C27B0,color:#fff
     style C fill:#2196F3,color:#fff
     style D fill:#FF9800,color:#fff
     style E fill:#4CAF50,color:#fff
+    style J fill:#f44336,color:#fff
 ```
 
 ## 5.2. Extensiones VS Code para Git
