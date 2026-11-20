@@ -166,6 +166,50 @@ Con la interfaz clara, el circuito básico de Git se recorre en siete pasos:
 | **Puntos fuertes** | Integración nativa GitHub, simple |
 | **Limitaciones** | Solo GitHub, menos features |
 
+**Configurar tu cuenta**
+
+Tras instalarlo, añades tu cuenta de GitHub desde *File > Options* (en Windows) o *GitHub Desktop > Settings* (en Mac), en la pestaña *Accounts*:
+
+![Panel Accounts de GitHub Desktop con los botones para iniciar sesión en GitHub](/images/ghd_cuentas.png)
+
+**El menú File: todo empieza ahí**
+
+De este menú salen las tres formas de empezar: crear un repositorio nuevo, añadir uno que ya tienes en local o clonar uno desde GitHub:
+
+![Menú File de GitHub Desktop con las acciones de repositorio](/images/ghd_menu_archivo.png)
+
+**Elegir rama y revisar los cambios**
+
+La barra de herramientas muestra la rama actual y desde su desplegable cambias o creas ramas:
+
+![Desplegable de rama actual de GitHub Desktop con la rama my-feature resaltada](/images/ghd_ramas.png)
+
+Los cambios aparecen en la pestaña *Changes*, donde marcas qué archivos entran en el commit:
+
+![Pestaña Changes de GitHub Desktop con los archivos cambiados y el selector para añadirlos al commit](/images/ghd_cambios.png)
+
+El panel de diferencias admite vista unificada o dividida, y puedes ocultar los cambios de espacios en blanco para concentrarte en lo importante:
+
+![Vista de diferencias de GitHub Desktop con el menú de ajustes de visualización abierto](/images/ghd_diff.png)
+
+**Commit y push**
+
+Escribes el resumen (y la descripción si quieres) y pulsas *Commit to* la rama actual:
+
+![Campo de mensaje de commit en GitHub Desktop con el resumen y la descripción](/images/ghd_commit.png)
+
+Después, el botón **Push origin** de la barra del repositorio sube todo a GitHub:
+
+![Barra de repositorio de GitHub Desktop con el botón Push origin resaltado](/images/ghd_push.png)
+
+**Crear la pull request**
+
+Si la rama todavía no tiene PR, Desktop te ofrece crearlo sin salir de la aplicación:
+
+![Vista de GitHub Desktop con el botón Preview Pull Request resaltado](/images/ghd_pr.png)
+
+> 💡 **Ideal para:** Quien empieza y vive en GitHub. El circuito completo (rama → commit → push → PR) se hace en tres clics, sin recordar un solo comando.
+
 ### 5.1.3. Sourcetree
 
 | Característica | Descripción |
@@ -174,6 +218,42 @@ Con la interfaz clara, el circuito básico de Git se recorre en siete pasos:
 | **Licencia** | Gratis |
 | **Puntos fuertes** | Completo, gratuito |
 | **Puntos débiles** | Interfaz anticuada |
+
+**La ventana principal**
+
+Sourcetree es el cliente gráfico **de Atlassian**, la misma casa de Bitbucket y Jira. Su ventana combina el grafo de commits con el panel de cambios:
+
+![Ventana principal de Sourcetree con el grafo de commits](/images/st_ventana.png)
+
+**El grafo de ramas**
+
+Su fuerte: los diagramas de ramas detallados, que te permiten seguir el progreso de todo el equipo de un vistazo:
+
+![Diagrama de ramas de Sourcetree mostrando el avance del equipo](/images/st_ramas.png)
+
+![Vista de progreso de Sourcetree con el grafo de commits](/images/st_progreso.png)
+
+**Revisar cambios y hacer commit**
+
+Diferencias lado a lado, cambios por archivo y un commit con vista previa de lo que vas a subir:
+
+![Vista de diferencias en Sourcetree](/images/st_diff.png)
+
+![Cambios de código visibles en Sourcetree](/images/st_cambios.png)
+
+![Creación de commits en Sourcetree](/images/st_commit.png)
+
+También tienes la vista de estado de Git de un solo vistazo:
+
+![Vista de estado de Git en Sourcetree](/images/st_status.png)
+
+**Sourcetree y Bitbucket**
+
+Como ambos son productos de Atlassian, la integración es directa: desde Sourcetree ves tus pull requests de Bitbucket sin cambiar de aplicación. Bitbucket es la alternativa de Atlassian a GitHub, con flujo de trabajo similar (rama, pull request, revisión, fusión):
+
+![Pull request resaltado en Bitbucket integrado con Sourcetree](/images/bitbucket_pr.png)
+
+> 💡 **Consejo:** Si en tu centro trabajáis con Bitbucket (o Jira), Sourcetree es la pareja natural. Para GitHub puro, encaja mejor GitHub Desktop o GitKraken.
 
 ### 5.1.4. VS Code + Git
 
@@ -367,11 +447,29 @@ flowchart TD
 - Buscar en historial
 - Visualizar ramas
 
+**El Commit Graph**
+
+Su pieza central: un grafo interactivo con el historial, los cambios sin confirmar y todo lo que está en vuelo en una sola vista, desde donde puedes crear ramas, fusionar, rebasear o hacer cherry-pick sin salir de VS Code:
+
+![Commit Graph de GitLens con el historial y los cambios del repositorio](/images/gitlens_commit_graph.png)
+
+**Historial visual**
+
+Una línea temporal de cómo ha evolucionado un archivo o el repositorio entero: cuándo llegaron los cambios, de qué tamaño fueron y quién los hizo:
+
+![Historial visual de un repositorio en GitLens](/images/gitlens_historial.png)
+
+> 📝 **Nota:** La parte básica (blame, hovers, CodeLens e historial) es **gratuita para siempre**. El Commit Graph es gratis en repositorios públicos; para repos privados necesita cuenta GitKraken o licencia Pro.
+
 ### 5.2.2. Git Graph
 
 | Característica | Descripción |
 |----------------|-------------|
 | **Función** | Visualizar historial como grafo |
+
+Así se ve en funcionamiento: cada rama es una línea, cada punto un commit, y con clic derecho sobre cualquiera de ellos lanzas las operaciones de Git directamente:
+
+![Demostración animada de la extensión Git Graph en VS Code](/images/gitgraph_demo.gif)
 
 ```mermaid
 graph TB
