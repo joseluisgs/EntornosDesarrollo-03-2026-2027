@@ -1,7 +1,6 @@
 *.pptx
 .DS_Store
 upload.sh
-*.pdf
 !chuletas/*.pdf
 !presentaciones/ud03-sistema-control-versiones-claro.pdf
 !presentaciones/ud03-sistema-control-versiones-oscuro.pdf
