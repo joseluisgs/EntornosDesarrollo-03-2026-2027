@@ -26,7 +26,7 @@ UD03. Sistema de Control de Versiones. 1DAW. Curso 2026-2027.
 
 ## Presentaciones
 
-- Presentación PDF ([tema claro](presentaciones/ud03-sistema-control-versiones-claro.pdf), [tema oscuro](presentaciones/ud03-sistema-control-versiones-oscuro.pdf))
+- Presentación PDF ([tema claro](presentaciones/UD03-claro.pdf), [tema oscuro](presentaciones/UD03-oscuro.pdf))
 
 ## Resultados de Aprendizaje y Criterios de Evaluación
 
